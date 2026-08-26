@@ -1,0 +1,47 @@
+name: Verbesserung vorschlagen
+description: Neue Funktion, Spielkarten-Verbesserung oder Repository-Optimierung vorschlagen
+title: "[Verbesserung] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Vorschläge sind willkommen. Bitte beschreibe den konkreten Nutzen für die Galerie.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Bereich
+      options:
+        - Galerie / Layout
+        - Vorschaubilder
+        - Karten-Zoom / Interaktion
+        - Inhalte / Spielinformationen
+        - Download- oder Homepage-Links
+        - Performance
+        - GitHub / Release / Pages
+        - Sonstiges
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Vorschlag
+      description: Was soll geändert oder ergänzt werden?
+    validations:
+      required: true
+
+  - type: textarea
+    id: benefit
+    attributes:
+      label: Nutzen
+      description: Welche Verbesserung entsteht dadurch für Nutzer der Galerie?
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Zusätzliche Informationen
+      description: Optional Beispiele, Quellen oder weitere Hinweise.
