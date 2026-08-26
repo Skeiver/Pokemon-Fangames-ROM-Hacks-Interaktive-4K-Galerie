@@ -1,4 +1,4 @@
-name: Publish gallery, Pages and v1.0 release
+name: Validate gallery and deploy GitHub Pages
 
 on:
   push:
@@ -6,152 +6,81 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 concurrency:
-  group: "publish-main"
+  group: "github-pages"
   cancel-in-progress: true
 
 jobs:
-  publish:
+  validate-and-deploy:
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Prepare and verify v1.0
-        id: prepare
+      - name: Validate published v1.0
         shell: bash
         run: |
           set -euo pipefail
 
           HTML="Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.html"
           PREVIEW="assets/Pokemon_Fangames_ROM-Hacks_Galerie_v1.0_preview.webp"
-          EXPECTED_HTML_SIZE="157154"
-          EXPECTED_HTML_SHA="8aebc7593933f37db0838c7ffb16a8da93b116848d71cb58326addea14145968"
-          EXPECTED_PREVIEW_SIZE="48558"
-          EXPECTED_PREVIEW_SHA="7b44a6c3f2a14f5530bd971e2be813a1c803c98a998110329d0eb909b3f36722"
-
-          echo "bootstrap=false" >> "$GITHUB_OUTPUT"
-
-          if [ ! -s index.html ] || [ ! -s "$HTML" ] || [ ! -s "$PREVIEW" ]; then
-            test "$(find .bootstrap/html -maxdepth 1 -type f -name 'part*.b64' | wc -l)" -eq 6
-            test -f .source/preview2.part01.b64
-            test -f .source/preview2.part02.b64
-            test -f .source/preview2.part03.b64
-            test "$(find .bootstrap/preview -maxdepth 1 -type f -name 'part*.b64' | wc -l)" -eq 3
-
-            cat .bootstrap/html/part*.b64 \
-              | base64 --decode \
-              | gzip --decompress \
-              > "$HTML"
-
-            mkdir -p assets
-            {
-              cat .source/preview2.part01.b64
-              cat .source/preview2.part02.b64
-              cat .source/preview2.part03.b64
-              cat .bootstrap/preview/part*.b64
-            } | base64 --decode > "$PREVIEW"
-
-            cp "$HTML" index.html
-            echo "bootstrap=true" >> "$GITHUB_OUTPUT"
-          fi
+          HTML_SHA="8aebc7593933f37db0838c7ffb16a8da93b116848d71cb58326addea14145968"
+          PREVIEW_SHA="7b44a6c3f2a14f5530bd971e2be813a1c803c98a998110329d0eb909b3f36722"
 
           test -s index.html
           test -s "$HTML"
           test -s "$PREVIEW"
-          test "$(wc -c < "$HTML")" -eq "$EXPECTED_HTML_SIZE"
-          test "$(wc -c < "$PREVIEW")" -eq "$EXPECTED_PREVIEW_SIZE"
-          test "$(sha256sum "$HTML" | cut -d' ' -f1)" = "$EXPECTED_HTML_SHA"
-          test "$(sha256sum index.html | cut -d' ' -f1)" = "$EXPECTED_HTML_SHA"
-          test "$(sha256sum "$PREVIEW" | cut -d' ' -f1)" = "$EXPECTED_PREVIEW_SHA"
+          test "$(wc -c < index.html)" -eq 157154
+          test "$(wc -c < "$HTML")" -eq 157154
+          test "$(wc -c < "$PREVIEW")" -eq 48558
+          test "$(sha256sum index.html | cut -d' ' -f1)" = "$HTML_SHA"
+          test "$(sha256sum "$HTML" | cut -d' ' -f1)" = "$HTML_SHA"
+          test "$(sha256sum "$PREVIEW" | cut -d' ' -f1)" = "$PREVIEW_SHA"
           grep -qi '<!doctype html>' index.html
           grep -q 'Pokémon' index.html
 
-          echo "v1.0 verified successfully."
+          echo "### ✅ Galerie v1.0 validiert" >> "$GITHUB_STEP_SUMMARY"
+          echo "- index.html: 157154 Bytes / SHA-256 korrekt" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Standalone-v1.0: SHA-256 korrekt" >> "$GITHUB_STEP_SUMMARY"
+          echo "- vollständige Vorschau: 48558 Bytes / SHA-256 korrekt" >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Commit final public files and remove bootstrap data
-        if: steps.prepare.outputs.bootstrap == 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          rm -rf .bootstrap .source
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-
-          if ! git diff --cached --quiet; then
-            git commit -m "Publish verified v1.0 gallery and full preview"
-            git push origin HEAD:main
-          fi
-
-      - name: Build v1.0 ZIP release asset
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "$RUNNER_TEMP/release"
-          cp Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.html "$RUNNER_TEMP/release/"
-          cp README.md "$RUNNER_TEMP/release/"
-          cp NOTICE.md "$RUNNER_TEMP/release/"
-          cd "$RUNNER_TEMP/release"
-          zip -9 Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.zip \
-            Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.html README.md NOTICE.md
-
-      - name: Create or repair GitHub Release v1.0
+      - name: Detect GitHub Pages activation
+        id: pages
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
 
-          cat > "$RUNNER_TEMP/release-notes.md" <<'EOF'
-          # Pokémon Fangames & ROM-Hacks – Interaktive 4K Galerie v1.0
-
-          Erste öffentliche Basisversion der interaktiven 4K-Galerie mit 12 Pokémon-Fangames und ROM-Hacks.
-
-          ## Enthalten
-          - interaktive Standalone-HTML-Datei
-          - ZIP-Paket mit HTML, README und NOTICE
-          - GitHub-Pages-Liveversion
-          - vollständige Repository-Vorschau
-
-          ROM-Hacks werden nur über Projekt-/Patch-Seiten verlinkt. Dieses Repository enthält keine vorgepatchten proprietären Nintendo-ROMs.
-          EOF
-
-          TARGET="$(git rev-parse HEAD)"
-          HTML="Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.html"
-          ZIP="$RUNNER_TEMP/release/Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.zip"
-
-          if gh release view v1.0 >/dev/null 2>&1; then
-            gh release upload v1.0 "$HTML" "$ZIP" --clobber
+          if gh api "repos/${GITHUB_REPOSITORY}/pages" >/tmp/pages.json 2>/dev/null; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "### ✅ GitHub Pages ist aktiviert" >> "$GITHUB_STEP_SUMMARY"
           else
-            gh release create v1.0 "$HTML" "$ZIP" \
-              --target "$TARGET" \
-              --title "Pokémon Fangames & ROM-Hacks – Interaktive 4K Galerie v1.0" \
-              --notes-file "$RUNNER_TEMP/release-notes.md"
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "### ⚠️ GitHub Pages ist noch nicht einmalig aktiviert" >> "$GITHUB_STEP_SUMMARY"
+            echo "Repository → Settings → Pages → Build and deployment → Source: GitHub Actions" >> "$GITHUB_STEP_SUMMARY"
+            echo "Nach der Aktivierung diesen Workflow erneut starten." >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Configure GitHub Pages
+        if: steps.pages.outputs.enabled == 'true'
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload GitHub Pages artifact
+        if: steps.pages.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
       - name: Deploy GitHub Pages
+        if: steps.pages.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
