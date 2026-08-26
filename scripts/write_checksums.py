@@ -15,6 +15,7 @@ def main() -> None:
     paths = [
         ROOT / "index.html",
         ROOT / f"Pokemon_Fangames_ROM-Hacks_Galerie_v{version}.html",
+        ROOT / "assets" / f"Pokemon_Fangames_ROM-Hacks_Galerie_v{version}_preview.webp",
         *sorted((ROOT / "assets" / "screenshots").glob("*/*")),
     ]
     lines = []

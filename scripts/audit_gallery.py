@@ -202,6 +202,24 @@ def main() -> int:
         expected = html_path.with_name(f"Pokemon_Fangames_ROM-Hacks_Galerie_v{version}.html")
         if html_path.name == "index.html" and expected.is_file() and html_path.read_bytes() != expected.read_bytes():
             failures.append(f"index.html differs from {expected.name}")
+        preview_name = f"Pokemon_Fangames_ROM-Hacks_Galerie_v{version}_preview.webp"
+        preview_path = html_path.parent / "assets" / preview_name
+        if not preview_path.is_file() or not preview_path.stat().st_size:
+            failures.append(f"Missing or empty current-version preview: assets/{preview_name}")
+        else:
+            try:
+                with Image.open(preview_path) as preview:
+                    preview.verify()
+                with Image.open(preview_path) as preview:
+                    if preview.size != (1202, 720):
+                        failures.append(
+                            f"Current-version preview must be 1202x720, found {preview.width}x{preview.height}"
+                        )
+            except Exception as exc:
+                failures.append(f"Invalid current-version preview: {exc}")
+        readme_path = html_path.parent / "README.md"
+        if not readme_path.is_file() or f"assets/{preview_name}" not in readme_path.read_text(encoding="utf-8"):
+            failures.append(f"README.md does not reference assets/{preview_name}")
 
     payload = {"cards": report, "failures": failures}
     if args.json:

@@ -17,6 +17,16 @@ Deutschsprachige, responsive Galerie mit zwölf Pokémon-Fanprojekten, drei echt
 
 Die veröffentlichte v1.0 bleibt als unveränderte Basisversion samt Tag und Release erhalten.
 
+## Vollständige Vorschau
+
+<p align="center">
+  <a href="https://skeiver.github.io/Pokemon-Fangames-ROM-Hacks-Interaktive-4K-Galerie/">
+    <img src="assets/Pokemon_Fangames_ROM-Hacks_Galerie_v1.1_preview.webp" alt="Vollständige Vorschau der Pokémon-Fangames- und ROM-Hacks-Galerie v1.1 mit zwölf Karten und 36 Gameplay-Screenshots" width="100%">
+  </a>
+</p>
+
+Die Vorschau wurde direkt aus der gerenderten v1.1-HTML im vollständigen 4K-Sechs-Spalten-Layout aufgenommen. Beide Kartenreihen und alle 36 lokal ausgelieferten Gameplay-Screenshots sind enthalten.
+
 ## Enthaltene Projekte
 
 | Rang | Projekt | Typ |
@@ -105,6 +115,7 @@ ROM-Hack-Schaltflächen führen zu Projekt- oder Patch-Seiten. Nutzer benötigen
 ├── CONTRIBUTING.md
 ├── assets/
 │   ├── Pokemon_Fangames_ROM-Hacks_Galerie_v1.0_preview.webp
+│   ├── Pokemon_Fangames_ROM-Hacks_Galerie_v1.1_preview.webp
 │   └── screenshots/<projekt>/{hero,detail-1,detail-2}.*
 ├── scripts/
 │   ├── audit_gallery.py

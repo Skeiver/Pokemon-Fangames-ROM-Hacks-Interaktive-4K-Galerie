@@ -19,6 +19,7 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: requirements-dev.txt
 
       - name: Install audit dependencies
         run: python -m pip install --disable-pip-version-check -r requirements-dev.txt
@@ -51,11 +52,12 @@ jobs:
           BASE="Pokemon_Fangames_ROM-Hacks_Galerie_v${VERSION}"
           mkdir -p package/assets dist
           cp "$BASE.html" package/
+          cp "assets/${BASE}_preview.webp" package/assets/
           cp -R assets/screenshots package/assets/screenshots
           cp README.md NOTICE.md SCREENSHOT_SOURCES.md SHA256SUMS.txt VERSION package/
           (cd package && zip -9 -r "../dist/$BASE.zip" .)
-          cp "$BASE.html" README.md NOTICE.md SCREENSHOT_SOURCES.md dist/
-          (cd dist && sha256sum "$BASE.html" "$BASE.zip" README.md NOTICE.md SCREENSHOT_SOURCES.md > SHA256SUMS.txt)
+          cp "$BASE.html" "assets/${BASE}_preview.webp" README.md NOTICE.md SCREENSHOT_SOURCES.md dist/
+          (cd dist && sha256sum "$BASE.html" "$BASE.zip" "${BASE}_preview.webp" README.md NOTICE.md SCREENSHOT_SOURCES.md > SHA256SUMS.txt)
 
       - name: Create GitHub release
         env:

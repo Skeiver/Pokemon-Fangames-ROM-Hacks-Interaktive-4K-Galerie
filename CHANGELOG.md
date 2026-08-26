@@ -12,6 +12,7 @@ Alle veröffentlichten Änderungen der **Pokémon Fangames & ROM-Hacks – Inter
 - Bildloader auf eine priorisierte Warteschlange mit maximal vier parallelen Ladevorgängen, Timeout und sichtbarem Fehlerzustand umgestellt.
 - Download- und Projektlinks geprüft; Reborn auf den offiziellen stabilen Redirect aktualisiert und Xenoverse als Source-Archiv gekennzeichnet.
 - Die Versionsanzeige von Pokémon Infinite Fusion auf den verifizierten Stand 6.7.2 konkretisiert.
+- Die unvollständige Repository-Vorschau durch eine direkt aus der gerenderten v1.1-HTML aufgenommene Gesamtansicht mit beiden Kartenreihen und allen 36 Gameplay-Screenshots ersetzt.
 
 ### Barrierefreiheit
 
