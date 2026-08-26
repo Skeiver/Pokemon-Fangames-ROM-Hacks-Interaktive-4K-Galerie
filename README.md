@@ -1,56 +1,35 @@
 # Pokémon Fangames & ROM-Hacks – Interaktive 4K Galerie
 
-**12 der besten Pokémon-Fanprojekte im direkten Vergleich – mit Gameplay-Vorschauen, Infos, Downloads und interaktiver Detailansicht.**
+Deutschsprachige, responsive Galerie mit zwölf Pokémon-Fanprojekten, drei echten Gameplay-Screenshots je Karte, kompakten Projektinformationen und geprüften Download-/Projektlinks.
 
-Eine moderne, deutschsprachige **4K-Galerie für Pokémon-Fangames und ROM-Hacks**. Jede Spielkarte enthält drei unterschiedliche Gameplay-Vorschauen, Versions-/Statusinformationen, Sprachangaben, kompakte Erklärungen und Links zu den jeweiligen Projekt-, Download- oder Patch-Seiten.
+> Dieses nicht offizielle Fanprojekt steht in keiner Verbindung zu Nintendo, Game Freak oder The Pokémon Company. Es enthält keine kommerziellen Nintendo-ROMs und keine vorgepatchten proprietären ROMs.
 
-> **Fanprojekt-Hinweis:** Dieses Repository steht in keiner Verbindung zu Nintendo, Game Freak oder The Pokémon Company. Pokémon und zugehörige Marken gehören ihren jeweiligen Rechteinhabern. Dieses Repository enthält keine kommerziellen Nintendo-ROMs und keine vorgepatchten proprietären Nintendo-ROMs.
-
----
-
-## Veröffentlichungsstatus
+## Aktueller Stand
 
 | Bereich | Status |
 |---|---|
-| Repository-Version | ✅ **v1.0 veröffentlicht** |
-| Standalone-HTML | ✅ **verfügbar** |
-| ZIP-Paket | ✅ **verfügbar** |
-| Vollständige Vorschau | ✅ **im Repository veröffentlicht** |
-| GitHub Pages | ⚠️ **einmalige Aktivierung in den Repository-Einstellungen erforderlich** |
+| Aktuelle Version | **v1.1** |
+| Live-Galerie | [GitHub Pages öffnen](https://skeiver.github.io/Pokemon-Fangames-ROM-Hacks-Interaktive-4K-Galerie/) |
+| Release | [v1.1 öffnen](https://github.com/Skeiver/Pokemon-Fangames-ROM-Hacks-Interaktive-4K-Galerie/releases/tag/v1.1) |
+| Versionierte HTML | `Pokemon_Fangames_ROM-Hacks_Galerie_v1.1.html` |
+| Offline-Paket | `Pokemon_Fangames_ROM-Hacks_Galerie_v1.1.zip` im Release |
+| Bildquellen | [SCREENSHOT_SOURCES.md](SCREENSHOT_SOURCES.md) |
 
-### Downloads
-
-- **[GitHub Release v1.0 öffnen](https://github.com/Skeiver/Pokemon-Fangames-ROM-Hacks-Interaktive-4K-Galerie/releases/tag/v1.0)**
-- **[Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.html herunterladen](https://github.com/Skeiver/Pokemon-Fangames-ROM-Hacks-Interaktive-4K-Galerie/releases/download/v1.0/Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.html)**
-- **[Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.zip herunterladen](https://github.com/Skeiver/Pokemon-Fangames-ROM-Hacks-Interaktive-4K-Galerie/releases/download/v1.0/Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.zip)**
-
-### Interaktive GitHub-Pages-Version
-
-Die Galerie ist für folgende Live-Adresse vorbereitet:
-
-**https://skeiver.github.io/Pokemon-Fangames-ROM-Hacks-Interaktive-4K-Galerie/**
-
-GitHub verlangt bei einem neuen Repository einmalig die Aktivierung von Pages. Dafür im Repository **Settings → Pages → Build and deployment → Source → GitHub Actions** auswählen. Danach kann der vorhandene Workflow die Galerie automatisch veröffentlichen.
-
-**[GitHub-Pages-Einstellungen dieses Repositories öffnen](https://github.com/Skeiver/Pokemon-Fangames-ROM-Hacks-Interaktive-4K-Galerie/settings/pages)**
-
----
+Die veröffentlichte v1.0 bleibt als unveränderte Basisversion samt Tag und Release erhalten.
 
 ## Vollständige Vorschau
 
 <p align="center">
-  <a href="https://github.com/Skeiver/Pokemon-Fangames-ROM-Hacks-Interaktive-4K-Galerie/releases/tag/v1.0">
-    <img src="https://raw.githubusercontent.com/Skeiver/Pokemon-Fangames-ROM-Hacks-Interaktive-4K-Galerie/main/assets/Pokemon_Fangames_ROM-Hacks_Galerie_v1.0_preview.webp" alt="Vollständige Vorschau der Pokémon Fangames & ROM-Hacks Galerie v1.0" width="100%">
+  <a href="https://skeiver.github.io/Pokemon-Fangames-ROM-Hacks-Interaktive-4K-Galerie/">
+    <img src="assets/Pokemon_Fangames_ROM-Hacks_Galerie_v1.1_preview.webp" alt="Vollständige Vorschau der Pokémon-Fangames- und ROM-Hacks-Galerie v1.1 mit zwölf Karten und 36 Gameplay-Screenshots" width="100%">
   </a>
 </p>
 
-*Die Vorschau zeigt die vollständige Galerie v1.0. Die interaktive Version unterstützt zusätzlich Karten-Zoom, Hover-Effekte, die animierte 3D-Münze sowie Download- und Homepage-Schaltflächen.*
+Die Vorschau wurde direkt aus der gerenderten v1.1-HTML im vollständigen 4K-Sechs-Spalten-Layout aufgenommen. Beide Kartenreihen und alle 36 lokal ausgelieferten Gameplay-Screenshots sind enthalten.
 
----
+## Enthaltene Projekte
 
-## Enthaltene Spiele
-
-| Rang | Spiel | Typ |
+| Rang | Projekt | Typ |
 |---:|---|---|
 | 1 | Pokémon Unbound | ROM-Hack |
 | 2 | Pokémon Reborn | Fangame |
@@ -65,57 +44,60 @@ GitHub verlangt bei einem neuen Repository einmalig die Aktivierung von Pages. D
 | 11 | Pokémon Emerald Seaglass | ROM-Hack |
 | 12 | Pokémon Desolation | Fangame |
 
----
-
 ## Funktionen
 
-- **12 einheitlich aufgebaute Spielkarten** in einer responsiven Galerie.
-- **Drei unterschiedliche Gameplay-Vorschaubilder pro Spielkarte** mit slot-spezifischen Fallbacks gegen Duplikate.
-- **Interaktive Detail-/Zoomansicht** per Klick auf eine Karte.
-- Schließen der Detailansicht per erneutem Klick, Hintergrund oder `Esc`.
-- **Download- und Homepage-Schaltflächen**, ohne versehentlich den Karten-Zoom auszulösen.
-- Angaben zu **Version, Status, Sprache und deutscher Verfügbarkeit**.
-- Abschnitte zu **„Was ist das?“, „Was macht man?“ und „Worum geht es?“**.
-- Zusätzliche **besondere Merkmale** in der Detailansicht.
-- **Animiertes 3D-Münz-/Pokéball-Logo** im Kopfbereich.
-- Für große Displays auf **4K / 16:9** ausgelegt und zugleich responsiv für kleinere Fenster.
-- Performanceoptimierte Effekte ohne schwere Blur- oder Drop-Shadow-Filter auf den großen Galerieelementen.
-
----
+- Zwölf gleich aufgebaute, responsive Karten im bewährten v1.0-Design.
+- 36 lokal ausgelieferte Gameplay-Screenshots ohne externe Bild-Hotlinks.
+- Priorisierte Bildlade-Warteschlange mit maximal vier parallelen Ladevorgängen, `IntersectionObserver` und sauberem Fehlerzustand.
+- Karten-Detailansicht per Maus oder Tastatur, inklusive Dialogsemantik, Fokusfalle, Fokus-Rückgabe und inaktivem Hintergrund.
+- Schließen per erneutem Kartenklick, Hintergrundklick oder `Esc`.
+- Download- und Homepage-Schaltflächen lösen den Karten-Zoom nicht aus.
+- Unveränderte 3D-Münzanimation der veröffentlichten v1.0.
+- Quellendokumentation für jedes Vorschaubild und automatischer SHA-256-/dHash-Audit.
 
 ## Bedienung
 
-| Aktion | Funktion |
+| Aktion | Ergebnis |
 |---|---|
-| Karte anklicken | Detail-/Zoomansicht öffnen |
+| Karte anklicken oder mit `Enter`/Leertaste aktivieren | Detailansicht öffnen |
 | Dieselbe Karte erneut anklicken | Detailansicht schließen |
-| Hintergrund anklicken | Detailansicht schließen |
-| `Esc` drücken | Detailansicht schließen |
-| **Download** | Projekt-, Download- oder Patch-Seite öffnen |
-| **Homepage** | Projekt- bzw. Informationsseite öffnen |
+| Außerhalb der Karte klicken | Detailansicht schließen |
+| `Esc` drücken | Detailansicht schließen und Fokus zurückgeben |
+| `Tab` / `Umschalt+Tab` | Fokus innerhalb der geöffneten Karte bewegen |
+| Download / Homepage | Externe Projekt-, Download- oder Patch-Seite öffnen |
 
----
+## Lokal ausführen
 
-## Download- und ROM-Hack-Hinweise
+Die Galerie benötigt keinen Build-Schritt. Wegen der relativen Bildpfade empfiehlt sich ein lokaler Webserver:
 
-Bei eigenständigen Fangames führen die Schaltflächen nach Möglichkeit zu den jeweiligen offiziellen oder etablierten Projekt-/Downloadseiten.
+```bash
+python -m http.server 8000
+```
 
-Bei **ROM-Hacks** verlinkt die Galerie auf Projekt- bzw. Patch-Seiten. Sie stellt **keine vorgepatchten proprietären Nintendo-ROMs** bereit. Für ROM-Hacks wird eine eigene kompatible Basis-ROM und der vom jeweiligen Projekt bereitgestellte Patch benötigt.
+Danach `http://localhost:8000/` öffnen.
 
-Ein browserbasierter Patch-Workflow kann beispielsweise mit **[Rom Patcher JS](https://www.marcrobledo.com/RomPatcher.js/)** durchgeführt werden.
+## Qualitätssicherung
 
----
+Abhängigkeiten für die Python-Audits:
 
-## Dateiintegrität von v1.0
+```bash
+python -m pip install -r requirements-dev.txt
+```
 
-| Datei | Größe | SHA-256 |
-|---|---:|---|
-| `Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.html` | 157154 Bytes | `8aebc7593933f37db0838c7ffb16a8da93b116848d71cb58326addea14145968` |
-| `assets/Pokemon_Fangames_ROM-Hacks_Galerie_v1.0_preview.webp` | 48558 Bytes | `7b44a6c3f2a14f5530bd971e2be813a1c803c98a998110329d0eb909b3f36722` |
+Prüfungen:
 
-Der GitHub-Actions-Workflow prüft diese Werte vor jedem Pages-Deployment automatisch.
+```bash
+python scripts/build_v1_1.py
+python scripts/audit_gallery.py --html index.html
+python scripts/check_javascript.py --html index.html
+python scripts/audit_links.py --html index.html
+```
 
----
+Der Galerie-Audit prüft unter anderem exakt 12 Karten, 36 lokale Bilddateien, Bilddekodierung, Alt-Texte, eindeutige IDs, sichere externe Links, SHA-256, dHash-Distanzen und das Fehlen von `images.openai.com`. Der Link-Audit unterscheidet echte Fehler von Seiten, die automatisierte Clients mit HTTP 401/403 blockieren; solche geschützten Ziele werden vor einem Release zusätzlich im Browser geprüft.
+
+## ROM-Hack-Hinweis
+
+ROM-Hack-Schaltflächen führen zu Projekt- oder Patch-Seiten. Nutzer benötigen eine eigene kompatible Basis-ROM und den Patch des jeweiligen Projekts. Dieses Repository verteilt weder Basis-ROMs noch vorgepatchte ROM-Dateien.
 
 ## Repository-Struktur
 
@@ -123,39 +105,33 @@ Der GitHub-Actions-Workflow prüft diese Werte vor jedem Pages-Deployment automa
 .
 ├── index.html
 ├── Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.html
+├── Pokemon_Fangames_ROM-Hacks_Galerie_v1.1.html
+├── VERSION
+├── SHA256SUMS.txt
+├── SCREENSHOT_SOURCES.md
 ├── README.md
 ├── NOTICE.md
 ├── CHANGELOG.md
-├── .nojekyll
+├── CONTRIBUTING.md
 ├── assets/
-│   └── Pokemon_Fangames_ROM-Hacks_Galerie_v1.0_preview.webp
-└── .github/
-    ├── ISSUE_TEMPLATE/
-    │   ├── bug_report.yml
-    │   └── feature_request.yml
-    └── workflows/
-        └── deploy-pages.yml
+│   ├── Pokemon_Fangames_ROM-Hacks_Galerie_v1.0_preview.webp
+│   ├── Pokemon_Fangames_ROM-Hacks_Galerie_v1.1_preview.webp
+│   └── screenshots/<projekt>/{hero,detail-1,detail-2}.*
+├── scripts/
+│   ├── audit_gallery.py
+│   ├── audit_links.py
+│   ├── build_v1_1.py
+│   └── check_javascript.py
+└── .github/workflows/
+    ├── deploy-pages.yml
+    └── release.yml
 ```
 
-- **`index.html`** – Einstiegspunkt für GitHub Pages.
-- **`Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.html`** – unveränderte veröffentlichte Standalone-Datei der Basisversion.
-- **`assets/...preview.webp`** – vollständige Repository-Vorschau.
-- **`.github/workflows/deploy-pages.yml`** – Integritätsprüfung und bedingtes GitHub-Pages-Deployment.
-- **`CHANGELOG.md`** – nachvollziehbare Versionshistorie.
-- **`NOTICE.md`** – rechtliche und projektbezogene Hinweise.
+`index.html` und die aktuelle versionierte HTML sind bytegleich. Der Build erzeugt beide reproduzierbar aus der unveränderten v1.0-Referenzdatei und den lokalen Assets.
 
----
+## Versionen
 
-## Technik
+- **v1.1:** reparierte lokale Bildauslieferung, Loader, Links, Barrierefreiheit, Tests, Pages- und Release-Automation.
+- **v1.0:** unveränderte veröffentlichte Basisversion.
 
-Die Galerie besteht aus **HTML, CSS und JavaScript** und benötigt kein Framework. Kartenansicht, Zoomfunktion, Vorschaulogik, Fallback-Mechanik und Animationen befinden sich direkt in der Standalone-Datei.
-
-Die v1.0 verwendet eine robuste Vorschaulogik mit **slot-spezifischen Kandidaten**. Hero, Detail 1 und Detail 2 einer Karte besitzen jeweils getrennte Bildzuordnungen und dürfen nicht gegenseitig auf dieselbe Primärquelle zurückfallen.
-
----
-
-## Version
-
-**v1.0** ist die aktuelle öffentliche Basisversion.
-
-Zukünftige Projektstände werden als **v1.1, v1.2, v1.3 …** weitergeführt.
+Details stehen im [Änderungsverlauf](CHANGELOG.md); rechtliche und Quellenhinweise in [NOTICE.md](NOTICE.md) und [SCREENSHOT_SOURCES.md](SCREENSHOT_SOURCES.md).

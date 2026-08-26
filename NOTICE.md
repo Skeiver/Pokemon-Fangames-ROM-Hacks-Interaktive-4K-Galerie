@@ -17,3 +17,5 @@ Das Repository enthält keine kommerziellen Nintendo-ROMs und keine vorgepatchte
 Die Galerie verweist auf externe Projekt-, Download-, Patch- und Informationsseiten. Verfügbarkeit und Inhalte externer Seiten können sich unabhängig von diesem Repository ändern.
 
 Gameplay-Screenshots dienen der Identifikation und Darstellung der jeweiligen Fanprojekte; Rechte verbleiben bei den jeweiligen Rechteinhabern bzw. Quellen.
+
+Die konkreten Fundstellen und Kontextseiten aller 36 in v1.1 lokal gespeicherten Gameplay-Screenshots sind in `SCREENSHOT_SOURCES.md` dokumentiert. Die Quelldokumentation stellt keine Übertragung oder abschließende rechtliche Bewertung von Bildrechten dar.
