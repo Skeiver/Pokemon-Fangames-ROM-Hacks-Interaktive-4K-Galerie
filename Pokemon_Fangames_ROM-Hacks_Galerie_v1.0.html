@@ -1,0 +1,4393 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Pokémon-Fangames – 4K Galerie</title>
+<style>
+:root {
+  color-scheme: dark;
+  --bg0:#05070d; --bg1:#09101b; --panel:#0c121d;
+  --text:#f7f9fc; --muted:#aeb8c8;
+}
+* { box-sizing:border-box; }
+html { background:var(--bg0); scroll-behavior:smooth; }
+body {
+  margin:0; min-height:100vh; color:var(--text);
+  font-family:"Segoe UI", Inter, Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(54,108,255,.20), transparent 24%),
+    radial-gradient(circle at 89% 12%, rgba(161,71,255,.16), transparent 25%),
+    radial-gradient(circle at 50% 95%, rgba(31,188,157,.10), transparent 28%),
+    linear-gradient(145deg,#05070d 0%,#09101b 48%,#071019 100%);
+  background-attachment:scroll;
+}
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+  background-image:
+    linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:linear-gradient(to bottom,#000 0%,rgba(0,0,0,.45) 72%,transparent 100%);
+}
+.page-head {
+  padding:34px 42px 16px;
+  display:flex; align-items:flex-end; justify-content:space-between; gap:28px;
+}
+.page-head h1 {
+  margin:0; font-size:clamp(34px,2.3vw,74px); line-height:1; letter-spacing:-1.5px;
+}
+.page-head p {
+  margin:12px 0 0; color:var(--muted); font-size:clamp(16px,1vw,27px); line-height:1.4;
+}
+.page-badge {
+  flex:0 0 auto; padding:16px 22px; border-radius:18px;
+  border:1px solid rgba(255,255,255,.12); background:rgba(11,17,28,.72);
+  box-shadow:0 14px 36px rgba(0,0,0,.28);
+  font-size:clamp(15px,.8vw,22px); color:#dce5f4; white-space:nowrap;
+}
+.gallery {
+  display:grid; grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:22px; padding:20px 32px 32px;
+  align-items:stretch;
+}
+.game-card {
+  position:relative; min-width:0; cursor:zoom-in;
+  filter:none;
+}
+.card-shell {
+  position:relative; height:100%; min-height:740px; overflow:hidden;
+  display:flex; flex-direction:column;
+  border:1px solid color-mix(in srgb,var(--accent) 55%,rgba(255,255,255,.12));
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 10% 0%,color-mix(in srgb,var(--accent) 10%,transparent),transparent 28%),
+    linear-gradient(180deg,rgba(14,20,31,.98),rgba(7,11,18,.99));
+  box-shadow:
+    0 24px 46px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.05);
+  transition:border-color .18s ease, box-shadow .18s ease;
+}
+.card-shell::before {
+  content:""; position:absolute; left:18px; right:18px; top:0; height:3px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:.9;
+}
+.game-card:hover .card-shell {
+  border-color:color-mix(in srgb,var(--accent) 78%,white 7%);
+  box-shadow:0 28px 56px rgba(0,0,0,.48),0 0 28px color-mix(in srgb,var(--accent) 15%,transparent);
+}
+.card-head {
+  min-height:104px; padding:18px 18px 14px; display:grid;
+  grid-template-columns:52px 1fr auto; align-items:center; gap:13px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.rank-badge {
+  width:50px;height:50px;border-radius:50%;display:grid;place-items:center;
+  font-size:23px;font-weight:900;color:#fff;
+  border:2px solid var(--accent); background:color-mix(in srgb,var(--accent) 20%,#0b1018);
+}
+.title-block h2 {
+  margin:0; font-size:clamp(20px,1.1vw,31px); line-height:1.08; letter-spacing:-.3px;
+}
+.meta-line {
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:7px;
+  font-size:clamp(11px,.58vw,16px);color:#b9c5d5;
+}
+.meta-line span {
+  padding:4px 7px;border-radius:7px;background:rgba(255,255,255,.045);
+}
+.zoom-hint {
+  font-size:12px;color:#96a5b9;display:flex;align-items:center;gap:6px;
+}
+.zoom-icon { font-size:21px;color:var(--accent); }
+.card-body {
+  flex:1; display:grid; grid-template-rows:305px 1fr; min-height:0;
+}
+.media-panel { padding:13px 13px 0; display:grid; grid-template-rows:196px 94px; gap:9px; min-height:0; }
+figure { margin:0; position:relative; overflow:hidden; background:#05070b; }
+.hero-shot, .thumb-row figure { border-radius:15px; border:1px solid rgba(255,255,255,.08); }
+figure img { width:100%;height:100%;object-fit:cover;display:block; }
+figure figcaption {
+  position:absolute;left:7px;bottom:7px;padding:4px 7px;border-radius:7px;
+  font-size:10px;font-weight:700;background:rgba(0,0,0,.68);color:#eef3fa;
+}
+.thumb-row { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+.info-panel { padding:12px 16px 14px; min-height:0; }
+.short {
+  margin:0 0 10px; font-size:clamp(14px,.72vw,20px); line-height:1.38;
+  color:#f3f6fa; font-weight:650;
+}
+.quick-facts { display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px; }
+.quick-facts>div {
+  min-width:0;padding:8px 9px;border-radius:10px;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.055);
+}
+.quick-facts small { display:block;font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:#8797ab; }
+.quick-facts strong { display:block;margin-top:3px;font-size:12px;line-height:1.25;overflow-wrap:anywhere; }
+.detail-sections { display:grid;gap:8px; }
+.detail-sections section {
+  padding:8px 9px;border-radius:10px;background:rgba(255,255,255,.025);
+}
+.detail-sections h3 {
+  margin:0 0 4px;color:var(--accent);font-size:12px;line-height:1.2;text-transform:uppercase;letter-spacing:.55px;
+}
+.detail-sections p { margin:0;color:#cbd4e1;font-size:11px;line-height:1.35; }
+.features { display:none; }
+.card-actions {
+  padding:12px 13px 14px;display:grid;grid-template-columns:1fr 1fr;gap:9px;
+  border-top:1px solid rgba(255,255,255,.075);
+}
+.btn {
+  min-width:0;min-height:54px;padding:8px 10px;display:flex;align-items:center;justify-content:center;gap:8px;
+  text-decoration:none;color:#fff;border-radius:12px;border:1px solid rgba(255,255,255,.12);
+  font-size:12px;font-weight:700;box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+.btn.download { background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 45%,#163025),#102019); }
+.btn.homepage { background:linear-gradient(135deg,color-mix(in srgb,var(--accent2) 30%,#16395f),#10243d); }
+.btn-icon { font-size:20px; }
+.btn span:last-child { min-width:0; }
+.btn b,.btn small { display:block; }
+.btn small { margin-top:2px;color:#c3cfdd;font-size:9px;font-weight:500; }
+.btn:hover { filter:none; }
+.focus-backdrop {
+  position:fixed;inset:0;z-index:9000;background:rgba(2,4,8,.82);
+  backdrop-filter:none;opacity:0;visibility:hidden;transition:opacity .14s ease, visibility .14s ease;
+}
+.focus-backdrop.active { opacity:1;visibility:visible; }
+body.focus-open { overflow:hidden; }
+.game-card.focused {
+  position:fixed;left:50%;top:50%;translate:-50% -50%;
+  width:min(94vw,2700px);height:min(90vh,1650px);z-index:9100;
+  cursor:zoom-out;filter:none;
+}
+.game-card.focused .card-shell {
+  min-height:0;height:100%;border-radius:28px;
+  box-shadow:0 50px 110px rgba(0,0,0,.72),0 0 48px color-mix(in srgb,var(--accent) 18%,transparent);
+}
+.game-card.focused .card-head {
+  min-height:126px;padding:22px 28px;grid-template-columns:62px 1fr auto;
+}
+.game-card.focused .rank-badge { width:58px;height:58px;font-size:27px; }
+.game-card.focused .title-block h2 { font-size:clamp(34px,2.1vw,55px); }
+.game-card.focused .meta-line { font-size:16px;gap:9px; }
+.game-card.focused .zoom-hint span:last-child::after { content:" · erneut klicken zum Schließen"; }
+.game-card.focused .card-body {
+  display:grid;grid-template-columns:minmax(0,1.18fr) minmax(520px,.82fr);grid-template-rows:1fr;gap:0;
+  overflow:hidden;
+}
+.game-card.focused .media-panel {
+  height:100%;padding:22px;grid-template-rows:minmax(0,1fr) 230px;gap:14px;
+}
+.game-card.focused .thumb-row { gap:14px; }
+.game-card.focused figure figcaption { font-size:15px;padding:6px 10px; }
+.game-card.focused .info-panel {
+  overflow:auto;padding:28px 30px 26px;border-left:1px solid rgba(255,255,255,.08);
+  background:rgba(4,7,12,.28);
+}
+.game-card.focused .short {
+  font-size:25px;line-height:1.4;margin-bottom:18px;
+}
+.game-card.focused .quick-facts { gap:12px;margin-bottom:18px; }
+.game-card.focused .quick-facts>div { padding:13px 15px; }
+.game-card.focused .quick-facts small { font-size:12px; }
+.game-card.focused .quick-facts strong { font-size:17px; }
+.game-card.focused .detail-sections { gap:13px; }
+.game-card.focused .detail-sections section { padding:14px 16px; }
+.game-card.focused .detail-sections h3 { font-size:17px;margin-bottom:7px; }
+.game-card.focused .detail-sections p { font-size:17px;line-height:1.5;color:#d7dee9; }
+.game-card.focused .features { display:block; }
+.game-card.focused .features ul {
+  margin:8px 0 0;padding-left:22px;display:grid;grid-template-columns:1fr 1fr;gap:7px 22px;
+  color:#d7dee9;font-size:16px;line-height:1.35;
+}
+.game-card.focused .card-actions { padding:14px 20px 18px;gap:14px; }
+.game-card.focused .btn { min-height:70px;font-size:17px;border-radius:15px; }
+.game-card.focused .btn-icon { font-size:26px; }
+.game-card.focused .btn small { font-size:12px; }
+.game-card.focused .zoom-hint { font-size:14px; }
+@media (min-width:1800px) {
+  .gallery { grid-template-columns:repeat(6,minmax(0,1fr)); }
+}
+@media (max-width:1799px) {
+  .gallery { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .card-shell { min-height:760px; }
+}
+@media (max-width:980px) {
+  .page-head { padding:24px 18px 10px;align-items:flex-start;flex-direction:column; }
+  .gallery { grid-template-columns:repeat(2,minmax(0,1fr));padding:14px 16px 24px;gap:14px; }
+  .zoom-hint span:last-child { display:none; }
+  .game-card.focused { width:96vw;height:94vh; }
+  .game-card.focused .card-body { grid-template-columns:1fr;grid-template-rows:48% 52%; }
+  .game-card.focused .info-panel { border-left:0;border-top:1px solid rgba(255,255,255,.08); }
+}
+@media (max-width:590px) {
+  .gallery { grid-template-columns:1fr; }
+  .game-card.focused .card-head { padding:15px 18px; }
+  .game-card.focused .title-block h2 { font-size:27px; }
+  .game-card.focused .media-panel { padding:12px;grid-template-rows:minmax(0,1fr) 120px; }
+  .game-card.focused .info-panel { padding:18px; }
+  .game-card.focused .short { font-size:19px; }
+  .game-card.focused .detail-sections p { font-size:15px; }
+}
+
+
+/* =========================================================
+   FINAL: Download- und Homepage-Buttons einheitlich
+   ========================================================= */
+
+.card-actions {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+}
+
+/* Der Button richtet seinen Textblock geometrisch exakt mittig aus. */
+.btn {
+  position: relative !important;
+  min-width: 0 !important;
+  min-height: 88px !important;
+  padding: 12px 48px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  font-stretch: normal !important;
+
+  text-align: center !important;
+  text-decoration: none !important;
+  white-space: normal !important;
+
+  border-radius: 14px !important;
+}
+
+/* Das Icon liegt links außerhalb des Textflusses.
+   Dadurch bleibt der Text exakt in der Mitte des Buttons. */
+.btn-css-icon {
+  position: absolute !important;
+  left: 16px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+
+  width: 28px !important;
+  height: 28px !important;
+  margin: 0 !important;
+  flex: none !important;
+}
+
+/* Textblock exakt mittig, ohne Abschneiden. */
+.btn-text {
+  width: 100% !important;
+  min-width: 0 !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+
+  text-align: center !important;
+  overflow: visible !important;
+  white-space: normal !important;
+}
+
+/* Hauptbeschriftung */
+.btn-title {
+  display: block !important;
+  width: 100% !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.2 !important;
+  font-weight: 800 !important;
+  letter-spacing: 0 !important;
+
+  text-align: center !important;
+
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+}
+
+/* Unterzeile:
+   - kein ...
+   - keine abgeschnittenen Wörter
+   - nur normaler Umbruch an Leerzeichen
+*/
+.btn-subtitle {
+  display: block !important;
+  width: 100% !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif !important;
+  font-size: 10.5px !important;
+  line-height: 1.3 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+
+  text-align: center !important;
+
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+}
+
+/* Sicherheit: Auch verschachtelte Elemente dürfen keine Ellipsis erzwingen. */
+.btn span,
+.btn b,
+.btn strong,
+.btn small {
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+}
+
+/* Download / Homepage visuell gleich aufgebaut */
+.btn.download,
+.btn.homepage {
+  min-height: 88px !important;
+}
+
+/* Fokus-/Zoomansicht: gleicher Aufbau, nur größer */
+.game-card.focused .btn {
+  min-height: 104px !important;
+  padding: 14px 64px !important;
+}
+
+.game-card.focused .btn-css-icon {
+  left: 20px !important;
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.game-card.focused .btn-title {
+  font-size: 19px !important;
+  line-height: 1.2 !important;
+}
+
+.game-card.focused .btn-subtitle {
+  font-size: 13px !important;
+  line-height: 1.32 !important;
+}
+
+/* Etwas schmalere Fenster:
+   mehr Höhe statt Abschneiden */
+@media (max-width: 1400px) {
+  .btn {
+    min-height: 96px !important;
+    padding-left: 44px !important;
+    padding-right: 44px !important;
+  }
+
+  .btn-title {
+    font-size: 13.5px !important;
+  }
+
+  .btn-subtitle {
+    font-size: 10px !important;
+  }
+}
+
+/* Mobile: Buttons untereinander, damit alle Texte vollständig bleiben */
+@media (max-width: 720px) {
+  .card-actions {
+    grid-template-columns: 1fr !important;
+  }
+
+  .btn {
+    min-height: 82px !important;
+    padding: 11px 52px !important;
+  }
+
+  .btn-css-icon {
+    left: 17px !important;
+  }
+
+  .btn-title {
+    font-size: 14px !important;
+  }
+
+  .btn-subtitle {
+    font-size: 11px !important;
+  }
+}
+
+
+/* =========================================================
+   Finaler Galerie-Titel
+   ========================================================= */
+.page-head {
+  position: relative !important;
+  padding: 34px 42px 28px !important;
+  display: block !important;
+  overflow: hidden;
+}
+
+.page-head::after {
+  content: "";
+  position: absolute;
+  left: 42px;
+  right: 42px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.12) 12%,
+    rgba(255,255,255,.05) 72%,
+    transparent
+  );
+}
+
+.hero-title-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.hero-title-box {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.hero-eyebrow {
+  margin: 0 0 9px;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: clamp(12px, .62vw, 18px);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: .18em;
+  color: #8fa5c3;
+  text-transform: uppercase;
+}
+
+.page-head h1 {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 .28em;
+
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  font-stretch: normal !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.035em !important;
+  line-height: .98 !important;
+
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #eef4ff 58%,
+    #b8c9e8 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+
+  text-shadow: 0 14px 38px rgba(0,0,0,.32);
+}
+
+.hero-line-main {
+  display: inline-block;
+  font-size: clamp(38px, 3.25vw, 92px);
+}
+
+.hero-line-sub {
+  display: inline-block;
+  font-size: clamp(32px, 2.75vw, 78px);
+  color: transparent;
+  background: linear-gradient(
+    180deg,
+    #ffe38b 0%,
+    #f4c95b 48%,
+    #d69f32 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 11px 30px rgba(0,0,0,.28);
+}
+
+/* Pokéball-inspiriertes Icon aus reinem CSS */
+@media (max-width: 980px) {
+  .page-head {
+    padding: 24px 18px 20px !important;
+  }
+
+  .page-head::after {
+    left: 18px;
+    right: 18px;
+  }
+
+  .hero-title-wrap {
+    gap: 18px;
+    align-items: flex-start;
+  }
+
+  .hero-line-main,
+  .hero-line-sub {
+    display: block;
+  }
+
+  .hero-line-sub {
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 590px) {
+  .hero-title-wrap {
+    gap: 13px;
+  }
+
+  .poke-icon {
+    width: 58px;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: .12em;
+  }
+
+  .hero-line-main {
+    font-size: 30px;
+  }
+
+  .hero-line-sub {
+    font-size: 26px;
+  }
+}
+
+
+
+/* =========================================================
+   FINAL: Einheitliche Kartenabschnitte
+   ========================================================= */
+
+/*
+  Alle Karten verwenden dieselben festen Rasterzeilen:
+  1. Kopfbereich
+  2. Bildbereich
+  3. Informationsbereich
+  4. Buttonbereich
+
+  Dadurch beginnt jeder Abschnitt bei allen 12 Karten exakt gleich.
+*/
+.game-card {
+  min-width: 0 !important;
+}
+
+.card-shell {
+  height: 100% !important;
+  min-height: 820px !important;
+
+  display: grid !important;
+  grid-template-rows:
+    166px
+    minmax(0, 1fr)
+    118px !important;
+
+  overflow: hidden !important;
+}
+
+/* -------------------------
+   1. KOPFBEREICH
+   ------------------------- */
+.card-head {
+  height: 166px !important;
+  min-height: 166px !important;
+  max-height: 166px !important;
+
+  padding: 18px 18px 16px !important;
+
+  display: grid !important;
+  grid-template-columns:
+    58px
+    minmax(0, 1fr)
+    34px !important;
+  grid-template-rows: 1fr !important;
+
+  align-items: stretch !important;
+  gap: 14px !important;
+}
+
+/* Rangkreis immer an derselben Position */
+.rank-badge {
+  width: 54px !important;
+  height: 54px !important;
+  min-width: 54px !important;
+  min-height: 54px !important;
+
+  align-self: center !important;
+  justify-self: center !important;
+
+  margin: 0 !important;
+}
+
+/* Titel + Metadaten erhalten feste interne Zeilen */
+.title-block {
+  min-width: 0 !important;
+  height: 100% !important;
+
+  display: grid !important;
+  grid-template-rows:
+    70px
+    68px !important;
+
+  align-content: center !important;
+  gap: 8px !important;
+}
+
+/* Jeder Titel hat exakt denselben verfügbaren Platz.
+   Ein- und zweizeilige Titel verschieben keine anderen Abschnitte mehr. */
+.title-block h2 {
+  height: 70px !important;
+  min-height: 70px !important;
+  max-height: 70px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif !important;
+  font-size: clamp(20px, 1.08vw, 30px) !important;
+  line-height: 1.08 !important;
+  font-weight: 850 !important;
+  letter-spacing: -.025em !important;
+
+  overflow: visible !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+}
+
+/*
+  Metadaten sind bei jeder Karte gleich aufgebaut:
+  Zeile 1: Typ | Version
+  Zeile 2: Status über volle Breite
+*/
+.meta-line {
+  height: 68px !important;
+  min-height: 68px !important;
+  max-height: 68px !important;
+
+  margin: 0 !important;
+
+  display: grid !important;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr) !important;
+  grid-template-rows:
+    30px
+    30px !important;
+
+  gap: 8px !important;
+  align-content: center !important;
+}
+
+.meta-line span {
+  min-width: 0 !important;
+  height: 30px !important;
+
+  margin: 0 !important;
+  padding: 5px 8px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif !important;
+  font-size: clamp(10px, .54vw, 15px) !important;
+  line-height: 1.05 !important;
+  font-weight: 500 !important;
+
+  text-align: center !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+}
+
+.meta-line span:nth-child(3) {
+  grid-column: 1 / -1 !important;
+}
+
+/* Zoom-Symbol immer mittig im Kopfbereich */
+.zoom-hint {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 100% !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.zoom-hint > span:not(.zoom-icon) {
+  display: none !important;
+}
+
+.zoom-icon {
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+/* -------------------------
+   2. KARTENINHALT
+   ------------------------- */
+.card-body {
+  min-height: 0 !important;
+  height: 100% !important;
+
+  display: grid !important;
+  grid-template-rows:
+    314px
+    minmax(0, 1fr) !important;
+}
+
+/* -------------------------
+   2a. BILDBEREICH
+   ------------------------- */
+.media-panel {
+  height: 314px !important;
+  min-height: 314px !important;
+  max-height: 314px !important;
+
+  padding: 14px 14px 0 !important;
+
+  display: grid !important;
+  grid-template-rows:
+    202px
+    98px !important;
+
+  gap: 10px !important;
+}
+
+.hero-shot {
+  height: 202px !important;
+  min-height: 202px !important;
+  max-height: 202px !important;
+}
+
+.thumb-row {
+  height: 98px !important;
+  min-height: 98px !important;
+  max-height: 98px !important;
+
+  display: grid !important;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr) !important;
+
+  gap: 10px !important;
+}
+
+.thumb-row figure {
+  height: 98px !important;
+  min-height: 98px !important;
+  max-height: 98px !important;
+}
+
+/* -------------------------
+   2b. INFORMATIONSBEREICH
+   ------------------------- */
+.info-panel {
+  min-height: 0 !important;
+  height: 100% !important;
+
+  padding: 14px 16px 16px !important;
+
+  display: grid !important;
+  grid-template-rows:
+    72px
+    64px
+    minmax(0, 1fr) !important;
+
+  gap: 10px !important;
+}
+
+/* Kurzbeschreibung: immer identischer Raum */
+.short {
+  height: 72px !important;
+  min-height: 72px !important;
+  max-height: 72px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: flex-start !important;
+
+  font-size: clamp(13px, .68vw, 19px) !important;
+  line-height: 1.38 !important;
+
+  overflow: hidden !important;
+}
+
+/* Sprache / Deutsch */
+.quick-facts {
+  height: 64px !important;
+  min-height: 64px !important;
+  max-height: 64px !important;
+
+  margin: 0 !important;
+
+  display: grid !important;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr) !important;
+
+  gap: 8px !important;
+}
+
+.quick-facts > div {
+  height: 64px !important;
+  min-height: 64px !important;
+
+  padding: 8px 9px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+/* In der normalen Übersicht sind immer exakt drei gleich hohe Informationsblöcke sichtbar. */
+.detail-sections {
+  min-height: 0 !important;
+  height: 100% !important;
+
+  display: grid !important;
+  grid-template-rows:
+    repeat(3, minmax(0, 1fr)) !important;
+
+  gap: 8px !important;
+}
+
+.detail-sections > section:not(.features) {
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 9px 10px !important;
+
+  overflow: hidden !important;
+}
+
+.detail-sections > section:not(.features) h3 {
+  margin: 0 0 4px !important;
+}
+
+.detail-sections > section:not(.features) p {
+  margin: 0 !important;
+}
+
+/* Merkmale nur im Zoom-Modus, damit die Übersicht überall identisch hoch bleibt. */
+.features {
+  display: none !important;
+}
+
+/* -------------------------
+   3. BUTTONBEREICH
+   ------------------------- */
+.card-actions {
+  height: 118px !important;
+  min-height: 118px !important;
+  max-height: 118px !important;
+
+  padding: 14px !important;
+
+  display: grid !important;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr) !important;
+
+  align-items: stretch !important;
+  gap: 10px !important;
+}
+
+.card-actions .btn {
+  height: 88px !important;
+  min-height: 88px !important;
+  max-height: 88px !important;
+}
+
+/* =========================================================
+   ZOOM-/FOKUSANSICHT
+   ========================================================= */
+
+/* Im Fokusmodus werden die festen Übersichtshöhen sinnvoll erweitert. */
+.game-card.focused .card-shell {
+  min-height: 0 !important;
+  height: 100% !important;
+
+  grid-template-rows:
+    138px
+    minmax(0, 1fr)
+    126px !important;
+}
+
+.game-card.focused .card-head {
+  height: 138px !important;
+  min-height: 138px !important;
+  max-height: 138px !important;
+
+  padding: 20px 26px !important;
+
+  grid-template-columns:
+    66px
+    minmax(0, 1fr)
+    42px !important;
+}
+
+.game-card.focused .rank-badge {
+  width: 60px !important;
+  height: 60px !important;
+  min-width: 60px !important;
+  min-height: 60px !important;
+}
+
+.game-card.focused .title-block {
+  grid-template-rows:
+    60px
+    46px !important;
+  gap: 8px !important;
+}
+
+.game-card.focused .title-block h2 {
+  height: 60px !important;
+  min-height: 60px !important;
+  max-height: 60px !important;
+}
+
+.game-card.focused .meta-line {
+  height: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr)) !important;
+  grid-template-rows: 38px !important;
+  gap: 10px !important;
+}
+
+.game-card.focused .meta-line span {
+  height: 38px !important;
+  font-size: 14px !important;
+}
+
+.game-card.focused .meta-line span:nth-child(3) {
+  grid-column: auto !important;
+}
+
+.game-card.focused .card-body {
+  grid-template-columns:
+    minmax(0, 1.12fr)
+    minmax(520px, .88fr) !important;
+  grid-template-rows: 1fr !important;
+}
+
+.game-card.focused .media-panel {
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  padding: 22px !important;
+
+  grid-template-rows:
+    minmax(0, 1fr)
+    220px !important;
+}
+
+.game-card.focused .hero-shot,
+.game-card.focused .thumb-row,
+.game-card.focused .thumb-row figure {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+.game-card.focused .info-panel {
+  height: 100% !important;
+  min-height: 0 !important;
+
+  padding: 28px 30px !important;
+
+  display: block !important;
+  overflow: auto !important;
+}
+
+.game-card.focused .short,
+.game-card.focused .quick-facts {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+.game-card.focused .quick-facts {
+  margin-bottom: 18px !important;
+}
+
+.game-card.focused .detail-sections {
+  height: auto !important;
+  display: grid !important;
+  grid-template-rows: none !important;
+  gap: 13px !important;
+}
+
+.game-card.focused .detail-sections > section,
+.game-card.focused .features {
+  display: block !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+.game-card.focused .card-actions {
+  height: 126px !important;
+  min-height: 126px !important;
+  max-height: 126px !important;
+
+  padding: 16px 20px !important;
+}
+
+.game-card.focused .card-actions .btn {
+  height: 94px !important;
+  min-height: 94px !important;
+  max-height: 94px !important;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 1799px) {
+  .card-shell {
+    min-height: 840px !important;
+  }
+
+  .title-block h2 {
+    font-size: 24px !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .card-shell {
+    min-height: 860px !important;
+  }
+
+  .game-card.focused .card-body {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 46% 54% !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .card-shell {
+    grid-template-rows:
+      166px
+      minmax(0, 1fr)
+      210px !important;
+  }
+
+  .card-actions {
+    height: 210px !important;
+    min-height: 210px !important;
+    max-height: 210px !important;
+
+    grid-template-columns: 1fr !important;
+    grid-template-rows: repeat(2, 88px) !important;
+  }
+
+  .card-actions .btn {
+    height: 88px !important;
+  }
+}
+
+
+/* =========================================================
+   PERFORMANCE v1.1
+   Flüssigere Darstellung ohne Verlust der Kernoptik
+   ========================================================= */
+
+/* Grundsätzlich keine kostspieligen Filter auf kompletten Karten */
+.game-card {
+  filter: none !important;
+  contain: layout style;
+  isolation: isolate;
+  transform: translate3d(0,0,0);
+  transition: transform .16s ease !important;
+}
+
+/* Einfacher, GPU-freundlicher Hintergrundakzent statt Blur-Filter */
+.game-card::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 8px;
+  border-radius: 28px;
+  background:
+    radial-gradient(
+      circle at 50% 18%,
+      color-mix(in srgb, var(--accent) 22%, transparent),
+      transparent 66%
+    );
+  opacity: .18;
+  transform: scale(.97);
+  transition: opacity .16s ease, transform .16s ease;
+  pointer-events: none;
+  filter: none !important;
+}
+
+.game-card::after {
+  content: "";
+  position: absolute;
+  z-index: -3;
+  left: 10%;
+  right: 10%;
+  bottom: -10px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.42);
+  opacity: .55;
+  transform: scaleX(.9);
+  transition: opacity .16s ease, transform .16s ease;
+  pointer-events: none;
+  filter: none !important;
+}
+
+/* Kartenschatten bewusst kleiner und billiger */
+.card-shell {
+  box-shadow:
+    0 14px 28px rgba(0,0,0,.34),
+    inset 0 1px 0 rgba(255,255,255,.045) !important;
+  transition:
+    border-color .16s ease,
+    box-shadow .16s ease !important;
+}
+
+/* Hover nur mit Transform + moderatem Shadow */
+@media (hover:hover) and (pointer:fine) {
+  .game-card:hover:not(.focused) {
+    z-index: 20;
+    transform: translate3d(0,-6px,0) scale(1.012) !important;
+  }
+
+  .game-card:hover:not(.focused)::before {
+    opacity: .40;
+    transform: scale(1.015);
+  }
+
+  .game-card:hover:not(.focused)::after {
+    opacity: .76;
+    transform: scaleX(1);
+  }
+
+  .game-card:hover:not(.focused) .card-shell {
+    border-color:
+      color-mix(in srgb, var(--accent) 74%, white 8%) !important;
+    box-shadow:
+      0 20px 38px rgba(0,0,0,.46),
+      0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent),
+      inset 0 1px 0 rgba(255,255,255,.07) !important;
+  }
+}
+
+/* Keine Filter-Neuberechnung für Gameplay-Bilder beim Hover */
+.media-panel img,
+.game-card:hover .media-panel img {
+  filter: none !important;
+}
+
+/* Fokus-Hintergrund: kein backdrop-filter, dadurch viel weniger GPU-Last */
+.focus-backdrop {
+  background: rgba(2,4,8,.91) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: opacity .14s ease, visibility .14s ease !important;
+}
+
+/* Große Fokuskarte ohne drop-shadow-Filter */
+.game-card.focused {
+  filter: none !important;
+  transform: translate3d(-50%,-50%,0) !important;
+  translate: none !important;
+}
+
+.game-card.focused .card-shell {
+  box-shadow:
+    0 30px 64px rgba(0,0,0,.68),
+    0 0 0 2px color-mix(in srgb,var(--accent) 24%,transparent),
+    inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+
+/* Fokus-Pseudoeffekte ohne Blur */
+.game-card.focused::before {
+  opacity: .34 !important;
+  transform: scale(1.01) !important;
+  filter: none !important;
+}
+
+.game-card.focused::after {
+  opacity: .72 !important;
+  filter: none !important;
+}
+
+/* Buttons: keine Filter/Blur-Effekte, nur Transform + Shadow */
+.btn {
+  filter: none !important;
+  transition:
+    transform .14s ease,
+    border-color .14s ease,
+    box-shadow .14s ease,
+    background-color .14s ease !important;
+}
+
+.btn::before {
+  display: none !important;
+  filter: none !important;
+}
+
+/* Icons ebenfalls ohne Drop-Shadow-Filter */
+.btn .btn-css-icon,
+.btn:hover .btn-css-icon {
+  filter: none !important;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .btn.download:hover {
+    transform: translate3d(0,-2px,0) scale(1.008) !important;
+    filter: none !important;
+    border-color:
+      color-mix(in srgb,var(--accent) 58%,white 20%) !important;
+    box-shadow:
+      0 10px 20px rgba(0,0,0,.30),
+      0 0 0 2px color-mix(in srgb,var(--accent) 20%,transparent),
+      inset 0 1px 0 rgba(255,255,255,.09) !important;
+  }
+
+  .btn.homepage:hover {
+    transform: translate3d(0,-2px,0) scale(1.008) !important;
+    filter: none !important;
+    border-color:
+      color-mix(in srgb,var(--accent2) 58%,white 20%) !important;
+    box-shadow:
+      0 10px 20px rgba(0,0,0,.30),
+      0 0 0 2px color-mix(in srgb,var(--accent2) 20%,transparent),
+      inset 0 1px 0 rgba(255,255,255,.09) !important;
+  }
+}
+
+/* Verhindert unnötige Malvorgänge außerhalb des sichtbaren Bereichs */
+.game-card:not(.focused) {
+  content-visibility: auto;
+  contain-intrinsic-size: 560px 820px;
+}
+
+/* Fokuskarte muss immer vollständig gezeichnet werden */
+.game-card.focused {
+  content-visibility: visible !important;
+  contain: none !important;
+}
+
+/* Scrollbare Detailspalte stabiler */
+.game-card.focused .info-panel {
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+/* Bilder behalten feste Geometrie und decodieren asynchron */
+figure img {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Bewegungen auf Wunsch des Systems komplett reduzieren */
+@media (prefers-reduced-motion: reduce) {
+  .game-card,
+  .game-card::before,
+  .game-card::after,
+  .card-shell,
+  .btn,
+  .focus-backdrop {
+    transition: none !important;
+  }
+
+  .game-card:hover:not(.focused),
+  .btn:hover {
+    transform: none !important;
+  }
+}
+
+
+.thumb-row figure {
+  background:
+    radial-gradient(circle at 50% 40%,
+      color-mix(in srgb,var(--accent) 10%,transparent),
+      transparent 55%),
+    #070b12 !important;
+}
+.thumb-row img:not([src]) {
+  visibility: hidden;
+}
+
+
+/* =========================================================
+   PERFORMANCE-EFFEKTE v1.2
+   Mehr visuelle Wirkung ohne teure Blur-/Filter-Effekte
+   ========================================================= */
+
+/* Nur häufig bewegte Elemente vorbereiten */
+.game-card,
+.card-shell,
+.btn,
+.card-shell::after,
+.btn::after {
+  backface-visibility: hidden;
+}
+
+/* ---------------------------------------------------------
+   KARTEN: leichte Tiefe + Lichtkante
+   --------------------------------------------------------- */
+
+.card-shell {
+  position: relative !important;
+}
+
+/* Sehr leichter statischer Innenrand */
+.card-shell {
+  box-shadow:
+    0 14px 28px rgba(0,0,0,.34),
+    inset 0 1px 0 rgba(255,255,255,.055),
+    inset 0 0 0 1px rgba(255,255,255,.018) !important;
+}
+
+/* Schmale Lichtreflexion, nur beim Hover sichtbar */
+.card-shell::after {
+  content: "";
+  position: absolute;
+  z-index: 6;
+  top: 0;
+  left: -38%;
+  width: 24%;
+  height: 100%;
+  pointer-events: none;
+
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255,255,255,.00) 22%,
+    rgba(255,255,255,.075) 50%,
+    rgba(255,255,255,.00) 78%,
+    transparent 100%
+  );
+
+  opacity: 0;
+  transform: translate3d(0,0,0) skewX(-11deg);
+  transition:
+    transform .34s ease,
+    opacity .16s ease;
+}
+
+/* Etwas kräftigere Akzentlinie */
+.card-shell::before {
+  transition:
+    opacity .16s ease,
+    transform .16s ease,
+    box-shadow .16s ease !important;
+}
+
+/* Rangkreis erhält einen dezenten Farbrand */
+.rank-badge {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 0 0 1px color-mix(in srgb,var(--accent) 16%,transparent);
+  transition:
+    transform .16s ease,
+    border-color .16s ease,
+    box-shadow .16s ease;
+}
+
+/* Metadatenfelder reagieren minimal */
+.meta-line span,
+.quick-facts > div,
+.detail-sections > section {
+  transition:
+    background-color .16s ease,
+    border-color .16s ease,
+    transform .16s ease;
+}
+
+/* Bildrahmen klarer, ohne Bildfilter */
+.hero-shot,
+.thumb-row figure {
+  transition:
+    border-color .16s ease,
+    box-shadow .16s ease,
+    transform .16s ease;
+}
+
+/* ---------------------------------------------------------
+   KARTEN-HOVER
+   --------------------------------------------------------- */
+@media (hover:hover) and (pointer:fine) {
+  .game-card:hover:not(.focused) {
+    transform: translate3d(0,-7px,0) scale(1.013) !important;
+  }
+
+  .game-card:hover:not(.focused) .card-shell {
+    border-color:
+      color-mix(in srgb,var(--accent) 76%,white 9%) !important;
+
+    box-shadow:
+      0 22px 40px rgba(0,0,0,.46),
+      0 0 0 2px color-mix(in srgb,var(--accent) 20%,transparent),
+      inset 0 1px 0 rgba(255,255,255,.075),
+      inset 0 0 0 1px color-mix(in srgb,var(--accent) 8%,transparent) !important;
+  }
+
+  /* Lichtstreifen läuft nur einmal beim Hover über die Karte */
+  .game-card:hover:not(.focused) .card-shell::after {
+    opacity: 1;
+    transform: translate3d(620%,0,0) skewX(-11deg);
+  }
+
+  .game-card:hover:not(.focused) .card-shell::before {
+    opacity: 1 !important;
+    transform: scaleX(1.01);
+    box-shadow:
+      0 2px 0 color-mix(in srgb,var(--accent) 28%,transparent);
+  }
+
+  .game-card:hover:not(.focused) .rank-badge {
+    transform: scale(1.045);
+    border-color:
+      color-mix(in srgb,var(--accent) 80%,white 10%) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.13),
+      0 0 0 2px color-mix(in srgb,var(--accent) 18%,transparent);
+  }
+
+  .game-card:hover:not(.focused) .meta-line span {
+    background-color:
+      color-mix(in srgb,var(--accent) 7%,rgba(255,255,255,.045)) !important;
+  }
+
+  .game-card:hover:not(.focused) .quick-facts > div,
+  .game-card:hover:not(.focused) .detail-sections > section {
+    border-color:
+      color-mix(in srgb,var(--accent) 12%,rgba(255,255,255,.055)) !important;
+  }
+
+  .game-card:hover:not(.focused) .hero-shot,
+  .game-card:hover:not(.focused) .thumb-row figure {
+    border-color:
+      color-mix(in srgb,var(--accent) 24%,rgba(255,255,255,.08)) !important;
+    box-shadow:
+      0 0 0 1px color-mix(in srgb,var(--accent) 8%,transparent);
+  }
+}
+
+/* ---------------------------------------------------------
+   DOWNLOAD- / HOMEPAGE-BUTTONS
+   --------------------------------------------------------- */
+
+.btn {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate;
+}
+
+/* Leichter Lichtstreifen im Button */
+.btn::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: -42%;
+  width: 26%;
+  height: 100%;
+  pointer-events: none;
+
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255,255,255,0) 25%,
+    rgba(255,255,255,.11) 50%,
+    rgba(255,255,255,0) 75%,
+    transparent 100%
+  );
+
+  opacity: 0;
+  transform: translate3d(0,0,0) skewX(-12deg);
+  transition:
+    transform .28s ease,
+    opacity .14s ease;
+}
+
+/* Text/Icon immer über dem Lichtstreifen */
+.btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-title,
+.btn-subtitle,
+.btn-css-icon {
+  transition:
+    color .14s ease,
+    transform .14s ease;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .btn:hover::after {
+    opacity: 1;
+    transform: translate3d(590%,0,0) skewX(-12deg);
+  }
+
+  .btn.download:hover {
+    transform: translate3d(0,-2px,0) scale(1.009) !important;
+    border-color:
+      color-mix(in srgb,var(--accent) 62%,white 18%) !important;
+
+    box-shadow:
+      0 11px 20px rgba(0,0,0,.31),
+      0 0 0 2px color-mix(in srgb,var(--accent) 19%,transparent),
+      inset 0 1px 0 rgba(255,255,255,.10) !important;
+  }
+
+  .btn.homepage:hover {
+    transform: translate3d(0,-2px,0) scale(1.009) !important;
+    border-color:
+      color-mix(in srgb,var(--accent2) 62%,white 18%) !important;
+
+    box-shadow:
+      0 11px 20px rgba(0,0,0,.31),
+      0 0 0 2px color-mix(in srgb,var(--accent2) 19%,transparent),
+      inset 0 1px 0 rgba(255,255,255,.10) !important;
+  }
+
+  .btn:hover .btn-title {
+    transform: translate3d(0,-1px,0);
+  }
+
+  .btn:hover .btn-subtitle {
+    color: #eef4fb !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   ZOOM / FOKUS
+   --------------------------------------------------------- */
+
+.focus-backdrop {
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(30,43,66,.23),
+      rgba(2,4,8,.93) 58%
+    ) !important;
+}
+
+/* Fokuskarte bekommt klare Akzentkante ohne Glow-Blur */
+.game-card.focused .card-shell {
+  border-color:
+    color-mix(in srgb,var(--accent) 68%,white 7%) !important;
+
+  box-shadow:
+    0 30px 64px rgba(0,0,0,.68),
+    0 0 0 3px color-mix(in srgb,var(--accent) 17%,transparent),
+    inset 0 1px 0 rgba(255,255,255,.07) !important;
+}
+
+/* ---------------------------------------------------------
+   ÜBERSCHRIFT
+   --------------------------------------------------------- */
+
+.poke-icon {
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease;
+}
+
+.hero-line-sub {
+  transition: letter-spacing .18s ease;
+}
+
+
+
+/* ---------------------------------------------------------
+   PERFORMANCE-SICHERHEIT
+   --------------------------------------------------------- */
+
+/* Keine teuren Filter/Blurs wieder einführen */
+.game-card,
+.card-shell,
+.card-shell::before,
+.card-shell::after,
+.btn,
+.btn::after,
+.focus-backdrop {
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Auf Touch-Geräten keine unnötigen Hover-Kompositionen */
+@media (hover:none), (pointer:coarse) {
+  .card-shell::after,
+  .btn::after {
+    display: none !important;
+  }
+}
+
+/* Systemwunsch: Bewegungen abschalten */
+@media (prefers-reduced-motion: reduce) {
+  .game-card,
+  .card-shell,
+  .card-shell::before,
+  .card-shell::after,
+  .rank-badge,
+  .btn,
+  .btn::after,
+  .btn-title,
+  .btn-subtitle,
+  .poke-icon,
+  .hero-line-sub {
+    transition: none !important;
+  }
+
+  .card-shell::after,
+  .btn::after {
+    display: none !important;
+  }
+}
+
+
+/* =========================================================
+   PREVIEW-LOADING v1.3
+   Alle Karten liefern schnell einen Gesamteindruck
+   ========================================================= */
+
+.hero-shot,
+.thumb-row figure {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb,var(--accent) 7%,#080c13),
+      #070a10
+    ) !important;
+}
+
+/* Ruhiger Platzhalter ohne Animation/Blur */
+.thumb-row figure::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,.025),
+      transparent 38%,
+      rgba(255,255,255,.018) 70%,
+      transparent
+    );
+}
+
+.hero-shot img,
+.thumb-row img {
+  position: relative;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity .16s ease;
+}
+
+/* Noch nicht geladene Detailbilder zeigen nur den ruhigen Kartenhintergrund */
+.thumb-row img:not([src]) {
+  opacity: 0 !important;
+  visibility: visible !important;
+}
+
+/* Nach erfolgreichem Laden sofort sichtbar */
+.thumb-row img.preview-loaded {
+  opacity: 1 !important;
+}
+
+/* Bei einem Ladefehler keine kaputten Bildsymbole anzeigen */
+.thumb-row img.preview-error,
+.hero-shot img.preview-error {
+  opacity: 0 !important;
+}
+
+/* Keine Filter, Blur- oder Daueranimationen */
+.hero-shot img,
+.thumb-row img,
+.thumb-row figure::before {
+  filter: none !important;
+  backdrop-filter: none !important;
+  animation: none !important;
+}
+
+
+/* =========================================================
+   ROBUST-PREVIEW-LOADING v1.4
+   Kontrolliertes Laden + Retry + Fallback
+   ========================================================= */
+
+.hero-shot,
+.thumb-row figure {
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb,var(--accent) 8%,#0a0e15),
+      #070a10
+    ) !important;
+}
+
+/* Vor dem Laden bleibt der Bereich sichtbar und sauber formatiert. */
+.game-card img[data-src]:not([src]) {
+  opacity: 0 !important;
+}
+
+/* Erfolgreich geladene Bilder. */
+.game-card img.preview-loaded {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Während eines Wiederholungsversuchs niemals dauerhaft ausblenden. */
+.game-card img.preview-retrying {
+  opacity: 0 !important;
+}
+
+/* Erst wenn sämtliche Quellen derselben Karte scheitern, bleibt nur
+   der neutrale Kartenhintergrund. Kein kaputtes Bildsymbol. */
+.game-card img.preview-unavailable {
+  opacity: 0 !important;
+}
+
+/* Nur eine sehr kurze Opacity-Überblendung; keine Filter/Blur-Effekte. */
+.hero-shot img,
+.thumb-row img {
+  transition: opacity .14s ease !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  animation: none !important;
+}
+
+
+/* =========================================================
+   POKEBALL-COIN v2.2
+   Links-rechts Münzwurf + deutlich plastischeres 3D-Icon
+   ========================================================= */
+
+.poke-icon {
+  position: relative;
+  flex: 0 0 auto;
+
+  width: clamp(72px, 4.1vw, 118px);
+  aspect-ratio: 1;
+
+  perspective: 1800px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+
+  /* Der äußere Container bleibt absolut fest. */
+  transform: none !important;
+
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.poke-coin {
+  position: absolute;
+  inset: 0;
+
+  transform-style: preserve-3d;
+  transform-origin: 50% 50% 0;
+
+  will-change: transform;
+
+  /*
+    Links -> rechts wie zuvor:
+    Y-Achse, keine Translation, keine Skalierung.
+    720° sorgen für einen nahtlosen Loop zurück zur Front.
+  */
+  animation: pokeCoinSideFlip 6.4s linear infinite;
+}
+
+/* ---------------------------------------------------------
+   Das Icon selbst bekommt echte optische Tiefe
+   --------------------------------------------------------- */
+
+.poke-face {
+  position: absolute;
+  inset: 0;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  /* dickerer metallischer Außenrand */
+  border: clamp(5px, .27vw, 8px) solid rgba(240,245,252,.98);
+
+  box-shadow:
+    0 15px 28px rgba(0,0,0,.34),
+    inset 0 3px 0 rgba(255,255,255,.42),
+    inset 0 -7px 12px rgba(0,0,0,.18),
+    inset 7px 0 10px rgba(255,255,255,.07),
+    inset -8px 0 12px rgba(0,0,0,.12);
+}
+
+/* Front und Rückseite liegen auf derselben Achse -> kein Verrutschen */
+.poke-front {
+  transform: rotateY(0deg);
+
+  background:
+    radial-gradient(
+      circle at 31% 21%,
+      rgba(255,255,255,.34) 0 10%,
+      transparent 11% 100%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 70%,
+      rgba(0,0,0,.08) 71% 100%
+    ),
+    linear-gradient(
+      180deg,
+      #ff6d70 0%,
+      #ef4e54 41%,
+      #161b23 41% 49%,
+      #f7f9fb 49% 77%,
+      #d9dee6 100%
+    );
+}
+
+/*
+  Fangame-Rückseite:
+  eigenständige Oberfläche statt bloßer Farbwechsel.
+  Dunkler Tech-/Fan-Game-Look mit radialem Kern, Segmenten und Emblem.
+*/
+.poke-back {
+  transform: rotateY(180deg);
+
+  background:
+    radial-gradient(
+      circle at 50% 43%,
+      rgba(78,236,224,.26) 0 13%,
+      rgba(78,236,224,.10) 14% 22%,
+      transparent 23% 100%
+    ),
+    conic-gradient(
+      from -24deg at 50% 50%,
+      rgba(119,92,235,.18) 0 12%,
+      transparent 12% 25%,
+      rgba(81,170,255,.13) 25% 37%,
+      transparent 37% 50%,
+      rgba(119,92,235,.16) 50% 62%,
+      transparent 62% 75%,
+      rgba(81,170,255,.12) 75% 87%,
+      transparent 87% 100%
+    ),
+    linear-gradient(
+      145deg,
+      #101829 0%,
+      #1d2540 44%,
+      #17142f 70%,
+      #0d1421 100%
+    );
+
+  border-color: #c8d4e4;
+
+  box-shadow:
+    0 15px 28px rgba(0,0,0,.34),
+    inset 0 3px 0 rgba(255,255,255,.24),
+    inset 0 -8px 14px rgba(0,0,0,.22),
+    inset 0 0 0 2px rgba(86,218,216,.06);
+}
+
+/* Rückseite ohne klassisches Pokéball-Band */
+.poke-back .poke-face-mid,
+.poke-back .poke-face-center,
+.poke-back .poke-face-shine {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------
+   Mehrstufiger Außenring = 3D-Bevel
+   --------------------------------------------------------- */
+
+.coin-bevel-ring,
+.coin-inner-ring,
+.coin-specular {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.coin-bevel-ring {
+  inset: 2.5%;
+
+  border: 2px solid rgba(255,255,255,.38);
+
+  box-shadow:
+    inset 0 4px 5px rgba(255,255,255,.24),
+    inset 0 -8px 10px rgba(0,0,0,.16),
+    0 0 0 1px rgba(0,0,0,.09);
+}
+
+.coin-inner-ring {
+  inset: 7%;
+
+  border: 1px solid rgba(255,255,255,.11);
+
+  box-shadow:
+    inset 0 5px 8px rgba(255,255,255,.10),
+    inset 0 -8px 12px rgba(0,0,0,.12);
+}
+
+/* statischer Glanzpunkt macht die Oberfläche gewölbter */
+.coin-specular {
+  left: 20%;
+  top: 11%;
+  width: 28%;
+  height: 14%;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.36),
+      rgba(255,255,255,.10)
+    );
+
+  transform: rotate(-18deg);
+}
+
+/* ---------------------------------------------------------
+   Vorderseiten-Details plastischer
+   --------------------------------------------------------- */
+
+.poke-face-mid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 46%;
+  height: 8%;
+
+  background:
+    linear-gradient(
+      180deg,
+      #252c36 0%,
+      #10151c 48%,
+      #242b34 100%
+    );
+
+  box-shadow:
+    0 2px 3px rgba(0,0,0,.30),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.poke-face-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 31%;
+  aspect-ratio: 1;
+
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 38% 30%,
+      #ffffff 0 17%,
+      #f1f4f7 18% 48%,
+      #d2d8e0 49% 72%,
+      #b7bec8 73% 100%
+    );
+
+  border: clamp(5px, .25vw, 8px) solid #141a22;
+
+  box-shadow:
+    0 4px 7px rgba(0,0,0,.34),
+    inset 0 3px 3px rgba(255,255,255,.78),
+    inset 0 -4px 6px rgba(0,0,0,.16),
+    0 0 0 2px rgba(255,255,255,.10);
+}
+
+/* alter Glanz wird durch coin-specular ersetzt */
+.poke-face-shine {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------
+   Rückseiten-Emblem ebenfalls plastischer
+   --------------------------------------------------------- */
+
+.fangame-emblem {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+
+  width: 56%;
+  aspect-ratio: 1;
+
+  transform: translate(-50%,-50%);
+}
+
+.fangame-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 38%;
+  aspect-ratio: 1;
+
+  transform: translate(-50%,-50%) rotate(45deg);
+  border-radius: 30%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #8af4e9 0%,
+      #4eb6ff 52%,
+      #7b68ee 100%
+    );
+
+  border: 2px solid rgba(227,251,255,.84);
+
+  box-shadow:
+    0 5px 8px rgba(0,0,0,.26),
+    inset 0 3px 3px rgba(255,255,255,.34),
+    inset 0 -5px 7px rgba(0,0,0,.15);
+}
+
+.fangame-wing {
+  position: absolute;
+  top: 36%;
+
+  width: 34%;
+  height: 28%;
+
+  background:
+    linear-gradient(
+      150deg,
+      #aa8cff 0%,
+      #735ee2 45%,
+      #4c58b9 100%
+    );
+
+  border: 2px solid rgba(230,224,255,.42);
+
+  box-shadow:
+    0 4px 6px rgba(0,0,0,.20),
+    inset 0 2px 2px rgba(255,255,255,.16);
+}
+
+.wing-left {
+  left: 1%;
+  clip-path:
+    polygon(100% 0,100% 100%,0 72%,18% 48%,0 24%);
+}
+
+.wing-right {
+  right: 1%;
+  clip-path:
+    polygon(0 0,0 100%,100% 72%,82% 48%,100% 24%);
+}
+
+.fangame-spark {
+  position: absolute;
+  left: 50%;
+  top: 3%;
+
+  width: 14%;
+  aspect-ratio: 1;
+
+  transform: translateX(-50%) rotate(45deg);
+
+  background:
+    linear-gradient(135deg,#fff0a1,#d4aa3c);
+
+  clip-path:
+    polygon(
+      50% 0,
+      63% 37%,
+      100% 50%,
+      63% 63%,
+      50% 100%,
+      37% 63%,
+      0 50%,
+      37% 37%
+    );
+
+  box-shadow: inset 0 2px 2px rgba(255,255,255,.20);
+}
+
+.fangame-wordmark {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+
+  transform: translateX(-50%);
+
+  padding: 3px 7px;
+  border-radius: 999px;
+
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: clamp(8px, .48vw, 13px);
+  font-weight: 900;
+  letter-spacing: .14em;
+
+  color: #e0ecff;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(19,30,50,.82),
+      rgba(8,14,25,.78)
+    );
+
+  border: 1px solid rgba(143,173,220,.28);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 2px 4px rgba(0,0,0,.16);
+}
+
+/* ---------------------------------------------------------
+   Sauberer Links-Rechts-Wurf
+   --------------------------------------------------------- */
+
+/*
+  Nur rotateY + minimale rotateZ-Neigung.
+  KEINE Translation und KEINE Scale.
+  Dadurch bleibt die Position stabil.
+*/
+@keyframes pokeCoinSideFlip {
+  0% {
+    transform:
+      rotateY(0deg)
+      rotateZ(0deg);
+  }
+
+  2.5% {
+    transform:
+      rotateY(32deg)
+      rotateZ(-0.25deg);
+  }
+
+  5% {
+    transform:
+      rotateY(76deg)
+      rotateZ(-0.55deg);
+  }
+
+  7.5% {
+    transform:
+      rotateY(128deg)
+      rotateZ(-0.8deg);
+  }
+
+  10% {
+    transform:
+      rotateY(184deg)
+      rotateZ(-0.95deg);
+  }
+
+  12.5% {
+    transform:
+      rotateY(242deg)
+      rotateZ(-0.85deg);
+  }
+
+  15% {
+    transform:
+      rotateY(301deg)
+      rotateZ(-0.55deg);
+  }
+
+  17.5% {
+    transform:
+      rotateY(361deg)
+      rotateZ(-0.15deg);
+  }
+
+  20% {
+    transform:
+      rotateY(421deg)
+      rotateZ(0.3deg);
+  }
+
+  22.5% {
+    transform:
+      rotateY(481deg)
+      rotateZ(0.65deg);
+  }
+
+  25% {
+    transform:
+      rotateY(540deg)
+      rotateZ(0.82deg);
+  }
+
+  27.5% {
+    transform:
+      rotateY(596deg)
+      rotateZ(0.72deg);
+  }
+
+  30% {
+    transform:
+      rotateY(646deg)
+      rotateZ(0.42deg);
+  }
+
+  32.5% {
+    transform:
+      rotateY(684deg)
+      rotateZ(0.1deg);
+  }
+
+  35% {
+    transform:
+      rotateY(706deg)
+      rotateZ(-0.15deg);
+  }
+
+  37.5% {
+    transform:
+      rotateY(717deg)
+      rotateZ(-0.08deg);
+  }
+
+  40% {
+    transform:
+      rotateY(720deg)
+      rotateZ(0deg);
+  }
+
+  /* Ruhephase exakt auf derselben Vorderseite */
+  100% {
+    transform:
+      rotateY(720deg)
+      rotateZ(0deg);
+  }
+}
+
+/* Keine zusätzliche Headerbewegung */
+@media (hover:hover) and (pointer:fine) {
+  .poke-icon,
+  .page-head:hover .poke-icon {
+    transform: none !important;
+  }
+}
+
+/* Reduzierte Bewegung = statisches, weiterhin 3D gestaltetes Icon */
+@media (prefers-reduced-motion: reduce) {
+  .poke-coin {
+    animation: none !important;
+    transform:
+      rotateY(0deg)
+      rotateZ(0deg) !important;
+    will-change: auto;
+  }
+}
+
+
+/* =========================================================
+   POKEBALL-SURFACE v2.3
+   Dünne Kanten + weicher Übergang statt dicker Ränder
+   ========================================================= */
+
+/* Die große Außenkante wird fast vollständig entfernt. */
+.poke-face {
+  border: 1px solid rgba(255,255,255,.18) !important;
+
+  box-shadow:
+    0 12px 24px rgba(0,0,0,.30),
+    inset 0 1px 0 rgba(255,255,255,.20),
+    inset 0 -5px 10px rgba(0,0,0,.12),
+    inset 4px 0 8px rgba(255,255,255,.035),
+    inset -5px 0 9px rgba(0,0,0,.07) !important;
+}
+
+/*
+  Der bisher harte Bevel-Ring wird zu einer sehr dünnen,
+  transparenten Übergangszone.
+*/
+.coin-bevel-ring {
+  inset: 1.8% !important;
+
+  border: 1px solid rgba(255,255,255,.13) !important;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 91%,
+      rgba(255,255,255,.035) 92% 95%,
+      rgba(0,0,0,.07) 96% 100%
+    ) !important;
+
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,.06),
+    inset 0 -3px 5px rgba(0,0,0,.08) !important;
+}
+
+/* Innerer Ring noch dezenter */
+.coin-inner-ring {
+  inset: 5.5% !important;
+
+  border: 1px solid rgba(255,255,255,.055) !important;
+
+  box-shadow:
+    inset 0 3px 5px rgba(255,255,255,.035),
+    inset 0 -4px 7px rgba(0,0,0,.055) !important;
+}
+
+/*
+  Der Rand geht jetzt weich in die Oberfläche über:
+  ein schmaler Verlauf entlang des Außenbereichs.
+*/
+.poke-front::after,
+.poke-back::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 84%,
+      rgba(255,255,255,.025) 86%,
+      rgba(255,255,255,.06) 90%,
+      rgba(0,0,0,.07) 96%,
+      rgba(0,0,0,.12) 100%
+    );
+
+  opacity: .92;
+}
+
+/* Vorderseite: sanfter Übergang zwischen Rot, Mittelband und Unterseite */
+.poke-front {
+  background:
+    radial-gradient(
+      circle at 31% 21%,
+      rgba(255,255,255,.28) 0 9%,
+      transparent 10% 100%
+    ),
+    radial-gradient(
+      circle at 50% 48%,
+      transparent 0 72%,
+      rgba(0,0,0,.05) 80%,
+      rgba(0,0,0,.10) 100%
+    ),
+    linear-gradient(
+      180deg,
+      #ff6b70 0%,
+      #f35a60 38%,
+      #e94f55 45%,
+      #20262f 46%,
+      #11161d 50%,
+      #20262f 54%,
+      #f7f9fb 55%,
+      #eef2f6 74%,
+      #d5dbe3 100%
+    ) !important;
+}
+
+/* Mittelband weniger wie ein dicker schwarzer Rand */
+.poke-face-mid {
+  height: 6% !important;
+  top: 47% !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      #2a313a 0%,
+      #141a21 48%,
+      #252c35 100%
+    ) !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    inset 0 -1px 0 rgba(0,0,0,.16) !important;
+}
+
+/* Mittelknopf ebenfalls ohne fetten Außenring */
+.poke-face-center {
+  border: 3px solid #171d25 !important;
+
+  background:
+    radial-gradient(
+      circle at 37% 28%,
+      #ffffff 0 16%,
+      #f5f7f9 17% 48%,
+      #dce2e8 49% 75%,
+      #c3cbd4 76% 100%
+    ) !important;
+
+  box-shadow:
+    0 3px 6px rgba(0,0,0,.26),
+    inset 0 2px 2px rgba(255,255,255,.68),
+    inset 0 -3px 5px rgba(0,0,0,.10),
+    0 0 0 1px rgba(255,255,255,.08) !important;
+}
+
+/* Rückseite: ebenfalls keine harte helle Außenkante */
+.poke-back {
+  border-color: rgba(190,205,224,.20) !important;
+
+  box-shadow:
+    0 12px 24px rgba(0,0,0,.30),
+    inset 0 1px 0 rgba(255,255,255,.11),
+    inset 0 -5px 10px rgba(0,0,0,.13),
+    inset 0 0 0 1px rgba(90,219,214,.035) !important;
+}
+
+/* Fangame-Kern und Flügel ebenfalls mit feineren Kanten */
+.fangame-core {
+  border: 1px solid rgba(227,251,255,.42) !important;
+
+  box-shadow:
+    0 3px 6px rgba(0,0,0,.20),
+    inset 0 2px 2px rgba(255,255,255,.22),
+    inset 0 -4px 6px rgba(0,0,0,.10) !important;
+}
+
+.fangame-wing {
+  border: 1px solid rgba(230,224,255,.20) !important;
+
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.15),
+    inset 0 1px 1px rgba(255,255,255,.10) !important;
+}
+
+/*
+  Kein zusätzlicher Rand-Hover.
+  Die Übergänge bleiben immer ruhig und sauber.
+*/
+@media (hover:hover) and (pointer:fine) {
+  .page-head:hover .poke-face,
+  .poke-icon:hover .poke-face {
+    border-color: rgba(255,255,255,.20) !important;
+  }
+}
+
+
+/* =========================================================
+   POKEBALL-COIN-BODY v2.5
+   Echter 3D-Münzkörper bei unveränderter Animation
+   ========================================================= */
+
+/*
+  WICHTIG:
+  @keyframes pokeCoinSideFlip aus v2.2 bleibt unverändert.
+  Die bessere Münzwirkung entsteht ausschließlich aus der Geometrie.
+*/
+
+.poke-icon {
+  --coin-size: clamp(72px, 4.1vw, 118px);
+  --coin-thickness: clamp(7px, .38vw, 11px);
+  --coin-radius: calc((var(--coin-size) / 2) - 3px);
+  --edge-segment-width: calc(var(--coin-size) * .105);
+
+  width: var(--coin-size) !important;
+
+  /*
+    Große Perspektive hält den geometrischen Mittelpunkt optisch stabil,
+    während die echte Dicke des Körpers sichtbar bleibt.
+  */
+  perspective: 2600px !important;
+  perspective-origin: 50% 50% !important;
+}
+
+.poke-coin {
+  /*
+    Keine neue Animation, kein zusätzlicher Transform.
+    Die Münze bleibt exakt auf ihrer bisherigen Drehachse.
+  */
+  transform-origin: 50% 50% 0 !important;
+}
+
+/* ---------------------------------------------------------
+   Geschlossene zylindrische Seitenwand
+   --------------------------------------------------------- */
+
+.coin-edge-cylinder {
+  position: absolute;
+  inset: 0;
+
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+/*
+  Jedes Segment ist ein winziger Abschnitt der Mantelfläche eines Zylinders.
+  32 Segmente ergeben eine fast runde, echte Seitenkante.
+*/
+.coin-edge-segment {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: var(--edge-segment-width);
+  height: var(--coin-thickness);
+
+  margin-left: calc(var(--edge-segment-width) / -2);
+  margin-top: calc(var(--coin-thickness) / -2);
+
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+
+  transform:
+    rotateZ(var(--edge-angle))
+    translateY(calc(var(--coin-radius) * -1))
+    rotateX(90deg);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.16) 0%,
+      var(--edge-color) 16%,
+      var(--edge-color) 72%,
+      rgba(36,42,50,.96) 100%
+    );
+
+  border-left: 1px solid rgba(255,255,255,.055);
+  border-right: 1px solid rgba(0,0,0,.10);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -1px 0 rgba(0,0,0,.13);
+
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+}
+
+/*
+  Der Rand bleibt dauerhaft Bestandteil des Körpers.
+  Es gibt KEINE separate Sichtbarkeitsanimation mehr.
+  Bei Frontansicht wird er von der Frontfläche verdeckt,
+  bei Zwischenwinkeln erscheint er automatisch durch die 3D-Geometrie.
+*/
+
+/* ---------------------------------------------------------
+   Vorder- und Rückseite bilden die beiden Deckflächen
+   --------------------------------------------------------- */
+
+.poke-face {
+  /*
+    2 px kleiner als der Zylinder:
+    So bleibt frontal nur eine sehr feine echte Metallkante sichtbar.
+  */
+  inset: 2px !important;
+
+  border: 0 !important;
+
+  box-shadow:
+    0 10px 20px rgba(0,0,0,.25),
+    inset 0 2px 2px rgba(255,255,255,.12),
+    inset 0 -5px 8px rgba(0,0,0,.10),
+    inset 4px 0 7px rgba(255,255,255,.025),
+    inset -5px 0 8px rgba(0,0,0,.045) !important;
+}
+
+/*
+  Die Deckflächen sitzen exakt auf den Enden des Zylinders.
+  Symmetrische ±Z-Tiefe = Körper bleibt um seinen Mittelpunkt zentriert.
+*/
+.poke-front {
+  transform:
+    rotateY(0deg)
+    translateZ(calc(var(--coin-thickness) / 2)) !important;
+}
+
+.poke-back {
+  transform:
+    rotateY(180deg)
+    translateZ(calc(var(--coin-thickness) / 2)) !important;
+}
+
+/* ---------------------------------------------------------
+   Integrierter Münzrand auf den Deckflächen
+   --------------------------------------------------------- */
+
+/*
+  Kein dicker Rahmen.
+  Stattdessen ein nur wenige Pixel breiter geprägter Rand,
+  der optisch direkt in die echte Seitenwand übergeht.
+*/
+.coin-bevel-ring {
+  inset: 1.2% !important;
+
+  border: 0 !important;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 91.5%,
+      rgba(255,255,255,.035) 92% 94%,
+      rgba(203,211,220,.12) 94.5% 96%,
+      rgba(56,63,72,.15) 97% 100%
+    ) !important;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.04),
+    inset 0 -2px 2px rgba(0,0,0,.05) !important;
+}
+
+.coin-inner-ring {
+  inset: 5.8% !important;
+
+  border: 0 !important;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 96%,
+      rgba(255,255,255,.026) 97%,
+      rgba(0,0,0,.035) 100%
+    ) !important;
+
+  box-shadow: none !important;
+}
+
+/* ---------------------------------------------------------
+   Vorderseite: stärker geprägtes Münzmaterial
+   --------------------------------------------------------- */
+
+.poke-front {
+  background:
+    radial-gradient(
+      ellipse at 30% 18%,
+      rgba(255,255,255,.34) 0 7%,
+      rgba(255,255,255,.13) 8% 15%,
+      transparent 16% 100%
+    ),
+    radial-gradient(
+      ellipse at 50% 44%,
+      transparent 0 55%,
+      rgba(0,0,0,.018) 66%,
+      rgba(0,0,0,.055) 81%,
+      rgba(0,0,0,.115) 100%
+    ),
+    linear-gradient(
+      180deg,
+      #ff7478 0%,
+      #f9676c 24%,
+      #ef555b 43%,
+      #2b3139 46.2%,
+      #10151b 49.5%,
+      #10151b 50.5%,
+      #293039 53.8%,
+      #fbfcfd 57%,
+      #edf1f5 77%,
+      #ced5dd 100%
+    ) !important;
+}
+
+/* Das schwarze Band ist eingelassen und nicht wie ein aufgesetzter Rand. */
+.poke-face-mid {
+  top: 47.4% !important;
+  height: 5.2% !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      #303741 0%,
+      #131920 43%,
+      #0c1117 58%,
+      #293039 100%
+    ) !important;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.035),
+    inset 0 -1px 1px rgba(0,0,0,.18) !important;
+}
+
+/* Mittelknopf als geprägtes, eingesetztes Element */
+.poke-face-center {
+  border: 2px solid #171d24 !important;
+
+  background:
+    radial-gradient(
+      circle at 34% 25%,
+      #ffffff 0 12%,
+      #f7f9fa 13% 34%,
+      #e6eaee 35% 60%,
+      #cbd2da 61% 81%,
+      #acb5bf 82% 100%
+    ) !important;
+
+  box-shadow:
+    0 3px 5px rgba(0,0,0,.22),
+    inset 0 2px 2px rgba(255,255,255,.72),
+    inset 0 -4px 5px rgba(0,0,0,.12),
+    0 0 0 1px rgba(255,255,255,.045) !important;
+}
+
+/* ---------------------------------------------------------
+   Rückseite: Fangame-Prägung als echte Deckfläche
+   --------------------------------------------------------- */
+
+.poke-back {
+  background:
+    radial-gradient(
+      ellipse at 30% 17%,
+      rgba(255,255,255,.13) 0 6%,
+      transparent 15%
+    ),
+    radial-gradient(
+      circle at 50% 44%,
+      rgba(72,233,222,.20) 0 14%,
+      rgba(72,233,222,.075) 15% 22%,
+      transparent 23%
+    ),
+    conic-gradient(
+      from -24deg at 50% 50%,
+      rgba(121,92,234,.14) 0 12%,
+      transparent 12% 25%,
+      rgba(82,172,255,.10) 25% 37%,
+      transparent 37% 50%,
+      rgba(121,92,234,.13) 50% 62%,
+      transparent 62% 75%,
+      rgba(82,172,255,.09) 75% 87%,
+      transparent 87% 100%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 67%,
+      rgba(0,0,0,.055) 80%,
+      rgba(0,0,0,.135) 100%
+    ),
+    linear-gradient(
+      145deg,
+      #121a2b 0%,
+      #202845 44%,
+      #191633 70%,
+      #0d1422 100%
+    ) !important;
+}
+
+/* Emblem wie eine Prägung, nicht wie aufgeklebte Grafik */
+.fangame-core {
+  border: 1px solid rgba(225,250,255,.28) !important;
+
+  box-shadow:
+    0 2px 3px rgba(0,0,0,.16),
+    inset 0 2px 2px rgba(255,255,255,.22),
+    inset 0 -3px 4px rgba(0,0,0,.10) !important;
+}
+
+.fangame-wing {
+  border: 1px solid rgba(226,220,255,.12) !important;
+
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.12),
+    inset 0 1px 1px rgba(255,255,255,.07),
+    inset 0 -2px 2px rgba(0,0,0,.06) !important;
+}
+
+/* ---------------------------------------------------------
+   Stabilität / Barrierefreiheit
+   --------------------------------------------------------- */
+
+/* Keine zusätzliche Bewegung auf Hover. */
+@media (hover:hover) and (pointer:fine) {
+  .page-head:hover .poke-face,
+  .poke-icon:hover .poke-face {
+    border-color: transparent !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /*
+    Auch ohne Bewegung bleibt der echte Metallrand als Teil
+    des 3D-Körpers vorhanden.
+  */
+  .coin-edge-cylinder {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   POKEBALL-RIM-REFINE v2.7
+   Sichtbarer echter Münzrand + sauberere Übergänge
+   Animation bleibt exakt v2.5
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   Münzgeometrie: klar erkennbare Dicke
+   --------------------------------------------------------- */
+
+.poke-icon {
+  /*
+    Rand wieder klar sichtbar:
+    nicht ultradünn wie v2.6, aber auch kein fetter Rahmen.
+  */
+  --coin-thickness: clamp(9px, .46vw, 13px) !important;
+  --coin-radius: calc((var(--coin-size) / 2) - 3px) !important;
+  --edge-segment-width: calc(var(--coin-size) * .108) !important;
+
+  perspective: 2600px !important;
+  perspective-origin: 50% 50% !important;
+}
+
+.coin-edge-cylinder {
+  position: absolute;
+  inset: 0;
+
+  transform-style: preserve-3d;
+  pointer-events: none;
+
+  /* Der Rand ist ein fester Bestandteil der Münze. */
+  animation: none !important;
+}
+
+/*
+  36 Mantelsegmente bilden den echten Zylinder.
+  Jedes Segment besitzt bereits fertig berechnete Metallfarben.
+*/
+.coin-edge-segment {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: var(--edge-segment-width) !important;
+  height: var(--coin-thickness) !important;
+
+  margin-left: calc(var(--edge-segment-width) / -2) !important;
+  margin-top: calc(var(--coin-thickness) / -2) !important;
+
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+
+  transform:
+    rotateZ(var(--edge-angle))
+    translateY(calc(var(--coin-radius) * -1))
+    rotateX(90deg)
+    scaleX(1.018) !important;
+
+  /*
+    Feine Riffelung + Metallverlauf.
+    Keine ungültigen calc()-Farbwerte wie in v2.6.
+  */
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255,255,255,.10) 0 1px,
+      rgba(0,0,0,.035) 1px 2px,
+      transparent 2px 4px
+    ),
+    linear-gradient(
+      180deg,
+      var(--edge-hi) 0%,
+      var(--edge-mid) 20%,
+      var(--edge-mid) 68%,
+      var(--edge-low) 100%
+    ) !important;
+
+  border: 0 !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.13),
+    inset 0 -1px 0 rgba(0,0,0,.17) !important;
+
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+
+  animation: none !important;
+}
+
+/* ---------------------------------------------------------
+   Dünne Übergangslippen – kein fetter Kreisrahmen
+   --------------------------------------------------------- */
+
+.coin-edge-lip {
+  position: absolute;
+  inset: 1.25px;
+
+  border-radius: 50%;
+  pointer-events: none;
+
+  /*
+    Nur der äußere Bereich ist sichtbar.
+    Das Zentrum bleibt vollständig transparent.
+  */
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 92.6%,
+      rgba(235,240,245,.14) 93% 94.6%,
+      rgba(113,123,134,.24) 95% 97%,
+      rgba(42,49,58,.28) 97.5% 100%
+    );
+
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  animation: none !important;
+}
+
+.coin-edge-lip-front {
+  transform:
+    rotateY(0deg)
+    translateZ(calc((var(--coin-thickness) / 2) - .5px));
+}
+
+.coin-edge-lip-back {
+  transform:
+    rotateY(180deg)
+    translateZ(calc((var(--coin-thickness) / 2) - .5px));
+}
+
+/* ---------------------------------------------------------
+   Deckflächen: Rand sichtbar lassen, aber weich anbinden
+   --------------------------------------------------------- */
+
+.poke-face {
+  /*
+    v2.5 ließ 2 px Rand frei.
+    Das bleibt erhalten, damit der echte Metallkörper nicht verschwindet.
+  */
+  inset: 2px !important;
+  border: 0 !important;
+
+  box-shadow:
+    0 10px 19px rgba(0,0,0,.24),
+    inset 0 2px 2px rgba(255,255,255,.11),
+    inset 0 -5px 8px rgba(0,0,0,.095),
+    inset 4px 0 7px rgba(255,255,255,.024),
+    inset -5px 0 8px rgba(0,0,0,.043) !important;
+}
+
+/*
+  Die Flächen sitzen exakt an Vorder-/Rückkante des Zylinders.
+  Symmetrische Geometrie = Mittelpunkt bleibt unverändert.
+*/
+.poke-front {
+  transform:
+    rotateY(0deg)
+    translateZ(calc(var(--coin-thickness) / 2)) !important;
+}
+
+.poke-back {
+  transform:
+    rotateY(180deg)
+    translateZ(calc(var(--coin-thickness) / 2)) !important;
+}
+
+/* ---------------------------------------------------------
+   Bevel der Deckflächen – passend zum echten Seitenrand
+   --------------------------------------------------------- */
+
+.coin-bevel-ring {
+  inset: 1.1% !important;
+  border: 0 !important;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 91.8%,
+      rgba(255,255,255,.025) 92% 93.8%,
+      rgba(200,209,218,.090) 94% 96%,
+      rgba(62,70,80,.125) 96.5% 98.5%,
+      rgba(0,0,0,.025) 99% 100%
+    ) !important;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.025),
+    inset 0 -2px 2px rgba(0,0,0,.04) !important;
+
+  animation: none !important;
+}
+
+.coin-inner-ring {
+  inset: 6% !important;
+  border: 0 !important;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 97%,
+      rgba(255,255,255,.021) 98%,
+      rgba(0,0,0,.029) 100%
+    ) !important;
+
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+/* ---------------------------------------------------------
+   Materialeffekte sauberer – ohne neue Animation
+   --------------------------------------------------------- */
+
+/* Glanz stärker ins Material integrieren */
+.coin-specular {
+  left: 21% !important;
+  top: 11.5% !important;
+  width: 26% !important;
+  height: 12% !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.27),
+      rgba(255,255,255,.085) 58%,
+      transparent 100%
+    ) !important;
+
+  opacity: .80;
+  animation: none !important;
+}
+
+/* Vorderfläche harmonischer, ohne das Design zu verändern */
+.poke-front {
+  background:
+    radial-gradient(
+      ellipse at 30% 18%,
+      rgba(255,255,255,.31) 0 7%,
+      rgba(255,255,255,.12) 8% 15%,
+      transparent 16% 100%
+    ),
+    radial-gradient(
+      ellipse at 50% 44%,
+      transparent 0 56%,
+      rgba(0,0,0,.016) 67%,
+      rgba(0,0,0,.050) 81%,
+      rgba(0,0,0,.105) 100%
+    ),
+    linear-gradient(
+      180deg,
+      #ff7478 0%,
+      #f9686d 25%,
+      #ef565c 43%,
+      #2b3139 46.2%,
+      #10151b 49.5%,
+      #10151b 50.5%,
+      #293039 53.8%,
+      #fbfcfd 57%,
+      #edf1f5 77%,
+      #ced5dd 100%
+    ) !important;
+}
+
+/* Eingelassenes Mittelband bleibt klar, aber nicht hart */
+.poke-face-mid {
+  top: 47.45% !important;
+  height: 5.1% !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      #303741 0%,
+      #161c23 40%,
+      #0f141a 60%,
+      #293039 100%
+    ) !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.030),
+    inset 0 -1px 0 rgba(0,0,0,.15) !important;
+}
+
+/* Knopf sauberer als geprägtes Bauteil */
+.poke-face-center {
+  border: 2px solid #171d24 !important;
+
+  background:
+    radial-gradient(
+      circle at 34% 25%,
+      #ffffff 0 12%,
+      #f7f9fa 13% 34%,
+      #e6eaee 35% 60%,
+      #cbd2da 61% 81%,
+      #adb6c0 82% 100%
+    ) !important;
+
+  box-shadow:
+    0 3px 5px rgba(0,0,0,.21),
+    inset 0 2px 2px rgba(255,255,255,.68),
+    inset 0 -4px 5px rgba(0,0,0,.11),
+    0 0 0 1px rgba(255,255,255,.04) !important;
+}
+
+/* Rückseite bekommt nur subtil sauberere Reliefwirkung */
+.fangame-core {
+  box-shadow:
+    0 2px 3px rgba(0,0,0,.15),
+    inset 0 2px 2px rgba(255,255,255,.20),
+    inset 0 -3px 4px rgba(0,0,0,.09) !important;
+}
+
+.fangame-wing {
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.11),
+    inset 0 1px 1px rgba(255,255,255,.06),
+    inset 0 -2px 2px rgba(0,0,0,.05) !important;
+}
+
+/* Keine zusätzliche Rand-, Effekt- oder Hoveranimation. */
+.coin-edge-cylinder,
+.coin-edge-segment,
+.coin-edge-lip,
+.coin-bevel-ring,
+.coin-inner-ring,
+.coin-specular {
+  animation: none !important;
+}
+
+
+/* =========================================================
+   POKEBALL-FX-POLISH v2.8
+   Nur statische Effektverfeinerung – Animation unverändert
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   Gesamte Materialwirkung ruhiger und hochwertiger
+   --------------------------------------------------------- */
+
+.poke-face {
+  box-shadow:
+    0 9px 18px rgba(0,0,0,.22),
+    inset 0 1px 1px rgba(255,255,255,.10),
+    inset 0 -4px 7px rgba(0,0,0,.085),
+    inset 3px 0 6px rgba(255,255,255,.020),
+    inset -4px 0 7px rgba(0,0,0,.038) !important;
+}
+
+/* Außenbevel: sauberer, weniger ringartig */
+.coin-bevel-ring {
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 92%,
+      rgba(255,255,255,.018) 92.4% 94%,
+      rgba(202,210,219,.073) 94.4% 96%,
+      rgba(62,69,78,.105) 96.4% 98.4%,
+      rgba(0,0,0,.020) 99% 100%
+    ) !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.020),
+    inset 0 -1px 1px rgba(0,0,0,.030) !important;
+}
+
+/* Innenprägung nur sehr fein */
+.coin-inner-ring {
+  opacity: .72 !important;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 97.4%,
+      rgba(255,255,255,.017) 98%,
+      rgba(0,0,0,.024) 100%
+    ) !important;
+}
+
+/* ---------------------------------------------------------
+   Münzrand harmonischer
+   --------------------------------------------------------- */
+
+.coin-edge-segment {
+  /*
+    Riffelung bleibt sichtbar, aber feiner und weniger kontrastreich.
+    Dadurch wirkt der Rand metallisch statt gestreift.
+  */
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255,255,255,.060) 0 1px,
+      rgba(0,0,0,.022) 1px 2px,
+      transparent 2px 4px
+    ),
+    linear-gradient(
+      180deg,
+      var(--edge-hi) 0%,
+      var(--edge-mid) 22%,
+      var(--edge-mid) 70%,
+      var(--edge-low) 100%
+    ) !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.095),
+    inset 0 -1px 0 rgba(0,0,0,.135) !important;
+}
+
+/* Übergangslippen etwas dezenter */
+.coin-edge-lip {
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 93%,
+      rgba(239,243,247,.095) 93.3% 94.7%,
+      rgba(118,128,140,.175) 95% 97%,
+      rgba(44,51,60,.21) 97.4% 100%
+    ) !important;
+}
+
+/* ---------------------------------------------------------
+   Vorderseite: weichere, sauberere Lichtführung
+   --------------------------------------------------------- */
+
+.poke-front {
+  background:
+    radial-gradient(
+      ellipse at 30% 18%,
+      rgba(255,255,255,.27) 0 6%,
+      rgba(255,255,255,.095) 7% 14%,
+      transparent 15% 100%
+    ),
+    radial-gradient(
+      ellipse at 52% 48%,
+      transparent 0 58%,
+      rgba(0,0,0,.012) 68%,
+      rgba(0,0,0,.041) 82%,
+      rgba(0,0,0,.092) 100%
+    ),
+    linear-gradient(
+      180deg,
+      #ff7478 0%,
+      #fa676c 26%,
+      #f1585e 42.5%,
+      #2c323a 46.1%,
+      #12171d 49.5%,
+      #12171d 50.5%,
+      #2a3038 53.9%,
+      #fbfcfd 57.2%,
+      #edf1f5 77%,
+      #ced5dd 100%
+    ) !important;
+}
+
+/* Hauptglanz kleiner und natürlicher */
+.coin-specular {
+  left: 22% !important;
+  top: 12% !important;
+  width: 23% !important;
+  height: 10% !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.22),
+      rgba(255,255,255,.070) 56%,
+      transparent 100%
+    ) !important;
+
+  opacity: .76 !important;
+}
+
+/* Mittelband weicher eingebettet */
+.poke-face-mid {
+  background:
+    linear-gradient(
+      180deg,
+      #2d343c 0%,
+      #171d24 40%,
+      #10151b 61%,
+      #2a3038 100%
+    ) !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.022),
+    inset 0 -1px 0 rgba(0,0,0,.12) !important;
+}
+
+/* Mittelknopf mit saubererem Keramik-/Metallrelief */
+.poke-face-center {
+  background:
+    radial-gradient(
+      circle at 34% 25%,
+      #ffffff 0 11%,
+      #f7f9fa 12% 33%,
+      #e8ebef 34% 59%,
+      #cfd5dc 60% 81%,
+      #b2bbc5 82% 100%
+    ) !important;
+
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.18),
+    inset 0 2px 2px rgba(255,255,255,.62),
+    inset 0 -3px 4px rgba(0,0,0,.095),
+    0 0 0 1px rgba(255,255,255,.030) !important;
+}
+
+/* ---------------------------------------------------------
+   Fangame-Rückseite: Effekte sauberer und weniger "aufgesetzt"
+   --------------------------------------------------------- */
+
+.poke-back {
+  background:
+    radial-gradient(
+      ellipse at 30% 18%,
+      rgba(255,255,255,.090) 0 6%,
+      transparent 14%
+    ),
+    radial-gradient(
+      circle at 50% 44%,
+      rgba(72,233,222,.150) 0 13%,
+      rgba(72,233,222,.055) 14% 22%,
+      transparent 23%
+    ),
+    conic-gradient(
+      from -24deg at 50% 50%,
+      rgba(121,92,234,.105) 0 12%,
+      transparent 12% 25%,
+      rgba(82,172,255,.072) 25% 37%,
+      transparent 37% 50%,
+      rgba(121,92,234,.095) 50% 62%,
+      transparent 62% 75%,
+      rgba(82,172,255,.065) 75% 87%,
+      transparent 87% 100%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 69%,
+      rgba(0,0,0,.040) 82%,
+      rgba(0,0,0,.105) 100%
+    ),
+    linear-gradient(
+      145deg,
+      #131b2c 0%,
+      #202844 45%,
+      #191632 70%,
+      #0e1523 100%
+    ) !important;
+}
+
+/* Emblem wirkt mehr geprägt, weniger wie aufgelegt */
+.fangame-core {
+  border-color: rgba(225,250,255,.20) !important;
+
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.13),
+    inset 0 1px 1px rgba(255,255,255,.15),
+    inset 0 -2px 3px rgba(0,0,0,.075) !important;
+}
+
+.fangame-wing {
+  border-color: rgba(226,220,255,.075) !important;
+
+  box-shadow:
+    0 1px 1px rgba(0,0,0,.085),
+    inset 0 1px 1px rgba(255,255,255,.045),
+    inset 0 -1px 2px rgba(0,0,0,.042) !important;
+}
+
+.fangame-spark {
+  opacity: .90;
+}
+
+/* ---------------------------------------------------------
+   WICHTIG: keinerlei neue Animation
+   --------------------------------------------------------- */
+
+.coin-edge-cylinder,
+.coin-edge-segment,
+.coin-edge-lip,
+.coin-bevel-ring,
+.coin-inner-ring,
+.coin-specular,
+.fangame-core,
+.fangame-wing,
+.fangame-spark {
+  animation: none !important;
+}
+</style>
+<style>
+/* PREVIEW-DEDUP v1.0 – niemals fremde Slot-Fallbacks */
+img.preview-unavailable {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+</style>
+</head>
+<body>
+<header class="page-head"><div class="hero-title-wrap"><div aria-hidden="true" class="poke-icon"><div class="poke-coin"><span aria-hidden="true" class="coin-edge-cylinder"><span class="coin-edge-segment" style="--edge-angle:0.000deg;--edge-hi:#e3d6dd;--edge-mid:#ad9da3;--edge-low:#83747d;"></span><span class="coin-edge-segment" style="--edge-angle:10.000deg;--edge-hi:#ddd2da;--edge-mid:#a799a0;--edge-low:#7d707a;"></span><span class="coin-edge-segment" style="--edge-angle:20.000deg;--edge-hi:#d6cdd6;--edge-mid:#a0949c;--edge-low:#766b76;"></span><span class="coin-edge-segment" style="--edge-angle:30.000deg;--edge-hi:#cdc7d1;--edge-mid:#978e97;--edge-low:#6d6571;"></span><span class="coin-edge-segment" style="--edge-angle:40.000deg;--edge-hi:#c3c0cc;--edge-mid:#8d8792;--edge-low:#635e6c;"></span><span class="coin-edge-segment" style="--edge-angle:50.000deg;--edge-hi:#b9b9c5;--edge-mid:#83808b;--edge-low:#595765;"></span><span class="coin-edge-segment" style="--edge-angle:60.000deg;--edge-hi:#aeb2bf;--edge-mid:#787985;--edge-low:#4e505f;"></span><span class="coin-edge-segment" style="--edge-angle:70.000deg;--edge-hi:#a3abb8;--edge-mid:#6d727e;--edge-low:#434958;"></span><span class="coin-edge-segment" style="--edge-angle:80.000deg;--edge-hi:#98a4b2;--edge-mid:#626b78;--edge-low:#384252;"></span><span class="coin-edge-segment" style="--edge-angle:90.000deg;--edge-hi:#8e9dab;--edge-mid:#586471;--edge-low:#2e3b4b;"></span><span class="coin-edge-segment" style="--edge-angle:100.000deg;--edge-hi:#8998a6;--edge-mid:#535f6c;--edge-low:#293646;"></span><span class="coin-edge-segment" style="--edge-angle:110.000deg;--edge-hi:#8493a0;--edge-mid:#4e5a66;--edge-low:#243140;"></span><span class="coin-edge-segment" style="--edge-angle:120.000deg;--edge-hi:#818f9c;--edge-mid:#4b5662;--edge-low:#212d3c;"></span><span class="coin-edge-segment" style="--edge-angle:130.000deg;--edge-hi:#7f8c98;--edge-mid:#49535e;--edge-low:#1f2a38;"></span><span class="coin-edge-segment" style="--edge-angle:140.000deg;--edge-hi:#7e8a96;--edge-mid:#48515c;--edge-low:#1e2836;"></span><span class="coin-edge-segment" style="--edge-angle:150.000deg;--edge-hi:#7f8a94;--edge-mid:#49515a;--edge-low:#1f2834;"></span><span class="coin-edge-segment" style="--edge-angle:160.000deg;--edge-hi:#818b94;--edge-mid:#4b525a;--edge-low:#212934;"></span><span class="coin-edge-segment" style="--edge-angle:170.000deg;--edge-hi:#848d95;--edge-mid:#4e545b;--edge-low:#242b35;"></span><span class="coin-edge-segment" style="--edge-angle:180.000deg;--edge-hi:#899097;--edge-mid:#53575d;--edge-low:#292e37;"></span><span class="coin-edge-segment" style="--edge-angle:190.000deg;--edge-hi:#8e979f;--edge-mid:#585e65;--edge-low:#2e353f;"></span><span class="coin-edge-segment" style="--edge-angle:200.000deg;--edge-hi:#959fa8;--edge-mid:#5f666e;--edge-low:#353d48;"></span><span class="coin-edge-segment" style="--edge-angle:210.000deg;--edge-hi:#9ca7b2;--edge-mid:#666e78;--edge-low:#3c4552;"></span><span class="coin-edge-segment" style="--edge-angle:220.000deg;--edge-hi:#a4b0bc;--edge-mid:#6e7782;--edge-low:#444e5c;"></span><span class="coin-edge-segment" style="--edge-angle:230.000deg;--edge-hi:#acb9c5;--edge-mid:#76808b;--edge-low:#4c5765;"></span><span class="coin-edge-segment" style="--edge-angle:240.000deg;--edge-hi:#b4c2cf;--edge-mid:#7e8995;--edge-low:#54606f;"></span><span class="coin-edge-segment" style="--edge-angle:250.000deg;--edge-hi:#bccad8;--edge-mid:#86919e;--edge-low:#5c6878;"></span><span class="coin-edge-segment" style="--edge-angle:260.000deg;--edge-hi:#c3d2e0;--edge-mid:#8d99a6;--edge-low:#637080;"></span><span class="coin-edge-segment" style="--edge-angle:270.000deg;--edge-hi:#cad9e7;--edge-mid:#94a0ad;--edge-low:#6a7787;"></span><span class="coin-edge-segment" style="--edge-angle:280.000deg;--edge-hi:#d3deec;--edge-mid:#9da5b2;--edge-low:#737c8c;"></span><span class="coin-edge-segment" style="--edge-angle:290.000deg;--edge-hi:#dbe2f0;--edge-mid:#a5a9b6;--edge-low:#7b8090;"></span><span class="coin-edge-segment" style="--edge-angle:300.000deg;--edge-hi:#e1e5f2;--edge-mid:#abacb8;--edge-low:#818392;"></span><span class="coin-edge-segment" style="--edge-angle:310.000deg;--edge-hi:#e6e6f3;--edge-mid:#b0adb9;--edge-low:#868493;"></span><span class="coin-edge-segment" style="--edge-angle:320.000deg;--edge-hi:#e9e6f2;--edge-mid:#b3adb8;--edge-low:#898492;"></span><span class="coin-edge-segment" style="--edge-angle:330.000deg;--edge-hi:#ebe4ef;--edge-mid:#b5abb5;--edge-low:#8b828f;"></span><span class="coin-edge-segment" style="--edge-angle:340.000deg;--edge-hi:#eae1ea;--edge-mid:#b4a8b0;--edge-low:#8a7f8a;"></span><span class="coin-edge-segment" style="--edge-angle:350.000deg;--edge-hi:#e8dce4;--edge-mid:#b2a3aa;--edge-low:#887a84;"></span></span><span aria-hidden="true" class="coin-edge-lip coin-edge-lip-front"></span><span aria-hidden="true" class="coin-edge-lip coin-edge-lip-back"></span><div class="poke-face poke-front"><span class="coin-bevel-ring"></span><span class="coin-inner-ring"></span><span class="coin-specular"></span><span class="poke-face-top"></span><span class="poke-face-mid"></span><span class="poke-face-center"></span><span class="poke-face-shine"></span></div><div class="poke-face poke-back"><span class="coin-bevel-ring"></span><span class="coin-inner-ring"></span><span class="coin-specular"></span><span class="poke-face-top"></span><span class="poke-face-mid"></span><span class="poke-face-center"></span><span class="poke-face-shine"></span><span aria-hidden="true" class="fangame-emblem"><span class="fangame-wing wing-left"></span><span class="fangame-wing wing-right"></span><span class="fangame-core"></span><span class="fangame-spark"></span></span><span class="fangame-wordmark">FAN</span></div></div></div><div class="hero-title-box"><div class="hero-eyebrow">FANMADE POKÉMON · BESTENLISTE</div><h1><span class="hero-line-main">Die besten Pokémon-Fangames</span><span class="hero-line-sub">&amp; ROM-Hacks</span></h1></div></div></header>
+<main class="gallery">
+<article aria-expanded="false" class="game-card theme-unbound" data-preview-sources="https://images.openai.com/static-rsc-4/8Al4I5CBWBuOrr4zNkp4RKu8TJYuVzN4824rc8vBfdpZx5JgTwCsRIWaYiTflPzVwXf7Htwr0VCkALr01PIC7C7jAn2d6E-XWz8sfKrlSFLYSWRWiVbQNJWU-kaIcILEwMSPUodBL_o-mCloD2aAz4X70mPa1cLE4lsgmTRvQ8-qqNvvhiuUg3ehwn58J6Jl?purpose=fullsize||https://images.openai.com/static-rsc-4/o8oEcxqbzslpl9oPtKsMAsBWTOR7gKonSbFu8PNrQdUES4UFIkfT46I4HhUy4muAtqsnytVJcT20lqSnnTYp4VLWDyBIwfC7Qsh5EQjAIm8I9NL0iXysSvPwG2uaGTipQZ6nIeBMxaJSg4rBrMCl3ZVSmACSojWdltWgzBSAng_i4-lpP2UWrRygQz_XM1K1?purpose=fullsize||https://static.unboundwiki.com/wp-content/assets/images/trainer-catalogue/52-pokemon-unbound-route-5-bug-catcher-james.jpg" data-rank="1" style="--accent:#f1b94e;--accent2:#59b8ff" tabindex="0">
+<div class="card-shell">
+<header class="card-head">
+<div class="rank-badge">1</div>
+<div class="title-block">
+<h2>Pokémon Unbound</h2>
+<div class="meta-line">
+<span>GBA-ROM-Hack</span><span>Version 2.1.1.1</span><span>Hauptspiel abgeschlossen</span>
+</div>
+</div>
+<div class="zoom-hint"><span class="zoom-icon">⌕</span><span>Zum Vergrößern klicken</span></div>
+</header>
+<div class="card-body">
+<section class="media-panel">
+<figure class="hero-shot">
+<img alt="Pokémon Unbound Gameplay – Hauptansicht" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/8Al4I5CBWBuOrr4zNkp4RKu8TJYuVzN4824rc8vBfdpZx5JgTwCsRIWaYiTflPzVwXf7Htwr0VCkALr01PIC7C7jAn2d6E-XWz8sfKrlSFLYSWRWiVbQNJWU-kaIcILEwMSPUodBL_o-mCloD2aAz4X70mPa1cLE4lsgmTRvQ8-qqNvvhiuUg3ehwn58J6Jl?purpose=fullsize" data-preview-role="hero" data-src="https://images.openai.com/static-rsc-4/8Al4I5CBWBuOrr4zNkp4RKu8TJYuVzN4824rc8vBfdpZx5JgTwCsRIWaYiTflPzVwXf7Htwr0VCkALr01PIC7C7jAn2d6E-XWz8sfKrlSFLYSWRWiVbQNJWU-kaIcILEwMSPUodBL_o-mCloD2aAz4X70mPa1cLE4lsgmTRvQ8-qqNvvhiuUg3ehwn58J6Jl?purpose=fullsize" decoding="async" fetchpriority="high" loading="eager"/>
+<figcaption>Echtes Gameplay · Hauptansicht</figcaption>
+</figure>
+<div class="thumb-row">
+<figure><img alt="Pokémon Unbound Gameplay – Ansicht 2" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/o8oEcxqbzslpl9oPtKsMAsBWTOR7gKonSbFu8PNrQdUES4UFIkfT46I4HhUy4muAtqsnytVJcT20lqSnnTYp4VLWDyBIwfC7Qsh5EQjAIm8I9NL0iXysSvPwG2uaGTipQZ6nIeBMxaJSg4rBrMCl3ZVSmACSojWdltWgzBSAng_i4-lpP2UWrRygQz_XM1K1?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/o8oEcxqbzslpl9oPtKsMAsBWTOR7gKonSbFu8PNrQdUES4UFIkfT46I4HhUy4muAtqsnytVJcT20lqSnnTYp4VLWDyBIwfC7Qsh5EQjAIm8I9NL0iXysSvPwG2uaGTipQZ6nIeBMxaJSg4rBrMCl3ZVSmACSojWdltWgzBSAng_i4-lpP2UWrRygQz_XM1K1?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Spielwelt / Kampf</figcaption></figure>
+<figure><img alt="Pokémon Unbound Gameplay – Ansicht 3" class="" data-preview-candidates="https://static.unboundwiki.com/wp-content/assets/images/trainer-catalogue/52-pokemon-unbound-route-5-bug-catcher-james.jpg" data-preview-role="detail" data-src="https://static.unboundwiki.com/wp-content/assets/images/trainer-catalogue/52-pokemon-unbound-route-5-bug-catcher-james.jpg" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Detail / Besonderheit</figcaption></figure>
+</div>
+</section>
+<section class="info-panel">
+<p class="short">Ein nahezu komplett neues GBA-Pokémon-Abenteuer in der Borrius-Region.</p>
+<div class="quick-facts">
+<div><small>Sprache</small><strong>Englisch</strong></div>
+<div><small>Deutsch</small><strong>Fanübersetzung in Arbeit</strong></div>
+</div>
+<div class="detail-sections">
+<section>
+<h3>Was ist das?</h3>
+<p>Pokémon Unbound ist ein sehr umfangreicher ROM-Hack auf Basis von Pokémon FireRed. Statt Kanto bereist du die komplett neue Borrius-Region mit eigenen Städten, Routen, Höhlen, Arenen und einer neuen Handlung.</p>
+</section>
+<section>
+<h3>Was macht man?</h3>
+<p>Du fängst und trainierst Pokémon, sammelst Orden, erledigst zahlreiche Nebenmissionen, erkundest große Gebiete und baust dein Team für immer anspruchsvollere Kämpfe auf.</p>
+</section>
+<section>
+<h3>Worum geht es?</h3>
+<p>Die Organisation The Shadows versucht, eine alte Macht für ihre Ziele einzusetzen. Während deiner Reise wirst du immer tiefer in diesen Konflikt und die Vergangenheit von Borrius hineingezogen.</p>
+</section>
+<section class="features">
+<h3>Besondere Merkmale</h3>
+<ul><li>Mehrere Schwierigkeitsgrade</li><li>Mega-Entwicklungen</li><li>Viele Nebenmissionen</li><li>Großes Endgame</li><li>Moderne Komfortfunktionen</li></ul>
+</section>
+</div>
+</section>
+</div>
+<footer class="card-actions">
+<a aria-label="Pokémon Unbound: Offizielle Patch-Seite öffnen" class="btn download" href="https://www.pokecommunity.com/threads/pok%C3%A9mon-unbound-completed.382178/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon download-icon"></span><span class="btn-text"><span class="btn-title">Download</span><span class="btn-subtitle">Offizielle Patch-Seite öffnen</span></span></a>
+<a aria-label="Pokémon Unbound: Offizielle Projektseite öffnen" class="btn homepage" href="https://www.pokecommunity.com/threads/pok%C3%A9mon-unbound-completed.382178/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon home-icon"></span><span class="btn-text"><span class="btn-title">Homepage</span><span class="btn-subtitle">Offizielle Projektseite öffnen</span></span></a>
+</footer>
+</div>
+</article>
+<article aria-expanded="false" class="game-card theme-reborn" data-preview-sources="https://images.openai.com/static-rsc-4/B-7PML-H1cMHBF1BII3rBpdzNTL6OHN26yNUZmTbUyUFOP_14gYkfRM1Wsmy4DMtK3DOeqwqr3Cw_f_cOaHyaj9ghIqTEKJVC05ume7iuZGLYxcDXrceK3QWWuhwaN2uXpMRcHzTR6HSR0r4c2lRIvsjZhrU3x_6NTNtHDBQSXkxfmswSsNvdd_rgHzQ8U3b?purpose=fullsize||https://images.openai.com/static-rsc-4/sfaOedwHaXJkvFw_7WYTxfdwJn8znDXyTAm-p6ZOOvC_akSRiyfE0cZ8WdoakFTeD8XlnM2VVkCb8ZQwob990RcPkghmt0FRO3rAwFG1BYpsYP0KTsOlwX5M7tDYVHPEIaGUzlHe9l2s8Kic-inifMTno24ePoyJm_c3tWCM51L3iQotXcV4YH8Rjfn3w33l?purpose=fullsize||https://pokuniverse.com/wp-content/uploads/2022/12/Against-Florinia.png" data-rank="2" style="--accent:#d862ff;--accent2:#ff4fa8" tabindex="0">
+<div class="card-shell">
+<header class="card-head">
+<div class="rank-badge">2</div>
+<div class="title-block">
+<h2>Pokémon Reborn</h2>
+<div class="meta-line">
+<span>PC-Fangame</span><span>Version 19.5</span><span>Abgeschlossen</span>
+</div>
+</div>
+<div class="zoom-hint"><span class="zoom-icon">⌕</span><span>Zum Vergrößern klicken</span></div>
+</header>
+<div class="card-body">
+<section class="media-panel">
+<figure class="hero-shot">
+<img alt="Pokémon Reborn Gameplay – Hauptansicht" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/B-7PML-H1cMHBF1BII3rBpdzNTL6OHN26yNUZmTbUyUFOP_14gYkfRM1Wsmy4DMtK3DOeqwqr3Cw_f_cOaHyaj9ghIqTEKJVC05ume7iuZGLYxcDXrceK3QWWuhwaN2uXpMRcHzTR6HSR0r4c2lRIvsjZhrU3x_6NTNtHDBQSXkxfmswSsNvdd_rgHzQ8U3b?purpose=fullsize" data-preview-role="hero" data-src="https://images.openai.com/static-rsc-4/B-7PML-H1cMHBF1BII3rBpdzNTL6OHN26yNUZmTbUyUFOP_14gYkfRM1Wsmy4DMtK3DOeqwqr3Cw_f_cOaHyaj9ghIqTEKJVC05ume7iuZGLYxcDXrceK3QWWuhwaN2uXpMRcHzTR6HSR0r4c2lRIvsjZhrU3x_6NTNtHDBQSXkxfmswSsNvdd_rgHzQ8U3b?purpose=fullsize" decoding="async" fetchpriority="high" loading="eager"/>
+<figcaption>Echtes Gameplay · Hauptansicht</figcaption>
+</figure>
+<div class="thumb-row">
+<figure><img alt="Pokémon Reborn Gameplay – Ansicht 2" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/sfaOedwHaXJkvFw_7WYTxfdwJn8znDXyTAm-p6ZOOvC_akSRiyfE0cZ8WdoakFTeD8XlnM2VVkCb8ZQwob990RcPkghmt0FRO3rAwFG1BYpsYP0KTsOlwX5M7tDYVHPEIaGUzlHe9l2s8Kic-inifMTno24ePoyJm_c3tWCM51L3iQotXcV4YH8Rjfn3w33l?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/sfaOedwHaXJkvFw_7WYTxfdwJn8znDXyTAm-p6ZOOvC_akSRiyfE0cZ8WdoakFTeD8XlnM2VVkCb8ZQwob990RcPkghmt0FRO3rAwFG1BYpsYP0KTsOlwX5M7tDYVHPEIaGUzlHe9l2s8Kic-inifMTno24ePoyJm_c3tWCM51L3iQotXcV4YH8Rjfn3w33l?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Spielwelt / Kampf</figcaption></figure>
+<figure><img alt="Pokémon Reborn Gameplay – Ansicht 3" class="" data-preview-candidates="https://pokuniverse.com/wp-content/uploads/2022/12/Against-Florinia.png" data-preview-role="detail" data-src="https://pokuniverse.com/wp-content/uploads/2022/12/Against-Florinia.png" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Detail / Besonderheit</figcaption></figure>
+</div>
+</section>
+<section class="info-panel">
+<p class="short">Ein düsteres, sehr großes Story-RPG mit 18 Arenen und taktischen Field Effects.</p>
+<div class="quick-facts">
+<div><small>Sprache</small><strong>Englisch</strong></div>
+<div><small>Deutsch</small><strong>Fanpatch verfügbar</strong></div>
+</div>
+<div class="detail-sections">
+<section>
+<h3>Was ist das?</h3>
+<p>Pokémon Reborn ist ein eigenständiges PC-Fangame mit einer deutlich ernsteren Atmosphäre als die offiziellen Hauptspiele. Reborn City und die umliegenden Gebiete bilden eine große, zusammenhängende Welt.</p>
+</section>
+<section>
+<h3>Was macht man?</h3>
+<p>Du stellst ein Team zusammen, meisterst 18 Arenen, erkundest Stadtbezirke und Wildgebiete und musst deine Strategien an die besonderen Kampffelder anpassen.</p>
+</section>
+<section>
+<h3>Worum geht es?</h3>
+<p>Team Meteor bedroht die Zukunft der Region. Die Geschichte dreht sich um die zerstörte Stadt, ihre Bewohner und eine Reihe miteinander verknüpfter Konflikte.</p>
+</section>
+<section class="features">
+<h3>Besondere Merkmale</h3>
+<ul><li>18 Arenen</li><li>Field-Effect-System</li><li>Hoher Schwierigkeitsgrad</li><li>Große Story</li><li>Umfangreiches Postgame</li></ul>
+</section>
+</div>
+</section>
+</div>
+<footer class="card-actions">
+<a aria-label="Pokémon Reborn: Windows-ZIP direkt herunterladen" class="btn download" href="https://www.rebornevo.com/downloads/rebornremote/Reborn_19.5/Reborn-19.5.0-windows.zip" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon download-icon"></span><span class="btn-text"><span class="btn-title">Download</span><span class="btn-subtitle">Windows-ZIP direkt herunterladen</span></span></a>
+<a aria-label="Pokémon Reborn: Offizielle Projektseite öffnen" class="btn homepage" href="https://www.rebornevo.com/pr/download/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon home-icon"></span><span class="btn-text"><span class="btn-title">Homepage</span><span class="btn-subtitle">Offizielle Projektseite öffnen</span></span></a>
+</footer>
+</div>
+</article>
+<article aria-expanded="false" class="game-card theme-fusion" data-preview-sources="https://images.openai.com/static-rsc-4/f2aQQdsy0JGkZfnDN5PbJQzI3wuBVjJMMzXbwVAhRnDVdVGPtb9vR6MLthzP19oLyXKvs6g0AAxhB-o6VguhO-DsP1b8bRWUgSHMpAcmJgz16jLm_MH7zilaqX3ruFy9foGnm_gYyfESuVNNCGjRyr6HjCcEygZc_39CD7P9V8uHsewmiqzLDN0BrsyifT3s?purpose=fullsize||https://images.openai.com/static-rsc-4/wWWBInsr7dOplTgWo_sdBB5AAq7510QicEeN1hqU_CJoKtIYxRZgZmredY_fx_DGa1isN-FB40REJZmTj-ygjJh5QxNnWywupkKgCWiRM5xJOEbyJE_n7nbMwg09dBtmwJfkHF8S-Zt-stlU2z5P-v6i0kMB4cFvaJvpH8wmFg_DZwlMxVcZv8VZ6lxxQUEg?purpose=fullsize||https://images.openai.com/static-rsc-4/vsFXnPR_AZQ6_fNdEwNcjknhcGQmxVhFO_jvjQ671YdPsHcxVLlRYEJo2pMREInixNXbzOzdyWE-6FrlTt2k5rjNkdfu1d9PqsSn4r9UtT0SKC339HRS9gkzeJ112CXB8YI4ruKuJDKeAzM6SPl8s7x45fFAMJFJzXKZUaSkhGYtGZKaIsADyZNzwJJ72rKf?purpose=fullsize" data-rank="3" style="--accent:#44e1e8;--accent2:#ff55c8" tabindex="0">
+<div class="card-shell">
+<header class="card-head">
+<div class="rank-badge">3</div>
+<div class="title-block">
+<h2>Pokémon Infinite Fusion</h2>
+<div class="meta-line">
+<span>PC-Fangame</span><span>Version Aktuell</span><span>Spielbar · aktiv gepflegt</span>
+</div>
+</div>
+<div class="zoom-hint"><span class="zoom-icon">⌕</span><span>Zum Vergrößern klicken</span></div>
+</header>
+<div class="card-body">
+<section class="media-panel">
+<figure class="hero-shot">
+<img alt="Pokémon Infinite Fusion Gameplay – Hauptansicht" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/f2aQQdsy0JGkZfnDN5PbJQzI3wuBVjJMMzXbwVAhRnDVdVGPtb9vR6MLthzP19oLyXKvs6g0AAxhB-o6VguhO-DsP1b8bRWUgSHMpAcmJgz16jLm_MH7zilaqX3ruFy9foGnm_gYyfESuVNNCGjRyr6HjCcEygZc_39CD7P9V8uHsewmiqzLDN0BrsyifT3s?purpose=fullsize" data-preview-role="hero" data-src="https://images.openai.com/static-rsc-4/f2aQQdsy0JGkZfnDN5PbJQzI3wuBVjJMMzXbwVAhRnDVdVGPtb9vR6MLthzP19oLyXKvs6g0AAxhB-o6VguhO-DsP1b8bRWUgSHMpAcmJgz16jLm_MH7zilaqX3ruFy9foGnm_gYyfESuVNNCGjRyr6HjCcEygZc_39CD7P9V8uHsewmiqzLDN0BrsyifT3s?purpose=fullsize" decoding="async" fetchpriority="high" loading="eager"/>
+<figcaption>Echtes Gameplay · Hauptansicht</figcaption>
+</figure>
+<div class="thumb-row">
+<figure><img alt="Pokémon Infinite Fusion Gameplay – Ansicht 2" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/wWWBInsr7dOplTgWo_sdBB5AAq7510QicEeN1hqU_CJoKtIYxRZgZmredY_fx_DGa1isN-FB40REJZmTj-ygjJh5QxNnWywupkKgCWiRM5xJOEbyJE_n7nbMwg09dBtmwJfkHF8S-Zt-stlU2z5P-v6i0kMB4cFvaJvpH8wmFg_DZwlMxVcZv8VZ6lxxQUEg?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/wWWBInsr7dOplTgWo_sdBB5AAq7510QicEeN1hqU_CJoKtIYxRZgZmredY_fx_DGa1isN-FB40REJZmTj-ygjJh5QxNnWywupkKgCWiRM5xJOEbyJE_n7nbMwg09dBtmwJfkHF8S-Zt-stlU2z5P-v6i0kMB4cFvaJvpH8wmFg_DZwlMxVcZv8VZ6lxxQUEg?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Spielwelt / Kampf</figcaption></figure>
+<figure><img alt="Pokémon Infinite Fusion Gameplay – Ansicht 3" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/vsFXnPR_AZQ6_fNdEwNcjknhcGQmxVhFO_jvjQ671YdPsHcxVLlRYEJo2pMREInixNXbzOzdyWE-6FrlTt2k5rjNkdfu1d9PqsSn4r9UtT0SKC339HRS9gkzeJ112CXB8YI4ruKuJDKeAzM6SPl8s7x45fFAMJFJzXKZUaSkhGYtGZKaIsADyZNzwJJ72rKf?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/vsFXnPR_AZQ6_fNdEwNcjknhcGQmxVhFO_jvjQ671YdPsHcxVLlRYEJo2pMREInixNXbzOzdyWE-6FrlTt2k5rjNkdfu1d9PqsSn4r9UtT0SKC339HRS9gkzeJ112CXB8YI4ruKuJDKeAzM6SPl8s7x45fFAMJFJzXKZUaSkhGYtGZKaIsADyZNzwJJ72rKf?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Detail / Besonderheit</figcaption></figure>
+</div>
+</section>
+<section class="info-panel">
+<p class="short">Das Fangame, in dem zwei Pokémon zu neuen Kombinationen fusioniert werden können.</p>
+<div class="quick-facts">
+<div><small>Sprache</small><strong>Englisch / Französisch</strong></div>
+<div><small>Deutsch</small><strong>nicht vollständig verfügbar</strong></div>
+</div>
+<div class="detail-sections">
+<section>
+<h3>Was ist das?</h3>
+<p>Infinite Fusion verbindet eine klassische Pokémon-Reise mit einem umfangreichen Fusionssystem. Zwei Pokémon können zu einer neuen Kreatur mit kombiniertem Aussehen, Typen, Werten und Fähigkeiten verschmolzen werden.</p>
+</section>
+<section>
+<h3>Was macht man?</h3>
+<p>Du fängst Pokémon, fusionierst sie zu neuen Teammitgliedern, besiegst Arenen und Trainer und experimentierst mit sehr vielen möglichen Kombinationen.</p>
+</section>
+<section>
+<h3>Worum geht es?</h3>
+<p>Die Reise orientiert sich an klassischem Pokémon, wird aber durch Team Rocket, neue Ereignisse, Nebenquests und das Fusionssystem deutlich erweitert.</p>
+</section>
+<section class="features">
+<h3>Besondere Merkmale</h3>
+<ul><li>Sehr viele Fusionen</li><li>Eigene Fusions-Sprites</li><li>Arenen &amp; Story</li><li>Team Rocket</li><li>Große Teamvielfalt</li></ul>
+</section>
+</div>
+</section>
+</div>
+<footer class="card-actions">
+<a aria-label="Pokémon Infinite Fusion: Spiel-ZIP direkt herunterladen" class="btn download" href="https://download.infinitefusion.net/InfiniteFusion.zip" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon download-icon"></span><span class="btn-text"><span class="btn-title">Download</span><span class="btn-subtitle">Spiel-ZIP direkt herunterladen</span></span></a>
+<a aria-label="Pokémon Infinite Fusion: Offizielle Projektseite öffnen" class="btn homepage" href="https://www.reddit.com/r/PokemonInfiniteFusion/comments/wydpah/game_download_and_other_important_links/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon home-icon"></span><span class="btn-text"><span class="btn-title">Homepage</span><span class="btn-subtitle">Offizielle Projektseite öffnen</span></span></a>
+</footer>
+</div>
+</article>
+<article aria-expanded="false" class="game-card theme-rejuvenation" data-preview-sources="https://images.openai.com/static-rsc-4/c269XRgv4nIREoYSUxLuu-xOpbQnzT5zfMtHbsIDuc0ayGFcH2d6sHRQnVOJSlKj3y7Fr-IcJjklu65PFn5I1vP7w8G-ASpngldmIvr90JucijkmCyDheGeFheDOd7mQDbEpCLfMTSvk3jpeY1M-xCM3gAtDMJ-Ssfanw-Lv8Yta1Bb4En6g7hpQuwnNWPFK?purpose=fullsize||https://images.openai.com/static-rsc-4/IiToV8y62N5rTXeAF91KvepVD7GmGPndHi_JfIeZHEiBxBDuA8a5D4tzW2wn6axBXMy8xYhY3qn3b1KLIJ9g8dmooH7WaDHe2crbjf--TJi7sZ-v1n1of2s_4jJUBg89HtrXeg8PapC-H0-ummYMn1PAf6EmnXVkUxIovNlvEeyJf23-2pjs9rtJUaQgO-7c?purpose=fullsize||https://images.openai.com/static-rsc-4/8njVIcrjjuSe6Zhf_8rvGPGxP0oRlcl-SV-9Q728IVzzk2c_htcmWlkzG431sythG9bfO-pVo_SWMqrc8UN_EmAcrG04qmtGBIypeKh7ufmXyO1ps-Pq_b8bMaR18OQKC0q3f6iU6OpKADpqSmbynrfUgwXovTC891oPKfiU3hdzbrFv9K1Jx8Y56QeSz4bU?purpose=fullsize" data-rank="4" style="--accent:#63dec5;--accent2:#d4ae60" tabindex="0">
+<div class="card-shell">
+<header class="card-head">
+<div class="rank-badge">4</div>
+<div class="title-block">
+<h2>Pokémon Rejuvenation</h2>
+<div class="meta-line">
+<span>PC-Fangame</span><span>Version V14</span><span>Noch in Entwicklung</span>
+</div>
+</div>
+<div class="zoom-hint"><span class="zoom-icon">⌕</span><span>Zum Vergrößern klicken</span></div>
+</header>
+<div class="card-body">
+<section class="media-panel">
+<figure class="hero-shot">
+<img alt="Pokémon Rejuvenation Gameplay – Hauptansicht" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/c269XRgv4nIREoYSUxLuu-xOpbQnzT5zfMtHbsIDuc0ayGFcH2d6sHRQnVOJSlKj3y7Fr-IcJjklu65PFn5I1vP7w8G-ASpngldmIvr90JucijkmCyDheGeFheDOd7mQDbEpCLfMTSvk3jpeY1M-xCM3gAtDMJ-Ssfanw-Lv8Yta1Bb4En6g7hpQuwnNWPFK?purpose=fullsize" data-preview-role="hero" data-src="https://images.openai.com/static-rsc-4/c269XRgv4nIREoYSUxLuu-xOpbQnzT5zfMtHbsIDuc0ayGFcH2d6sHRQnVOJSlKj3y7Fr-IcJjklu65PFn5I1vP7w8G-ASpngldmIvr90JucijkmCyDheGeFheDOd7mQDbEpCLfMTSvk3jpeY1M-xCM3gAtDMJ-Ssfanw-Lv8Yta1Bb4En6g7hpQuwnNWPFK?purpose=fullsize" decoding="async" fetchpriority="high" loading="eager"/>
+<figcaption>Echtes Gameplay · Hauptansicht</figcaption>
+</figure>
+<div class="thumb-row">
+<figure><img alt="Pokémon Rejuvenation Gameplay – Ansicht 2" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/IiToV8y62N5rTXeAF91KvepVD7GmGPndHi_JfIeZHEiBxBDuA8a5D4tzW2wn6axBXMy8xYhY3qn3b1KLIJ9g8dmooH7WaDHe2crbjf--TJi7sZ-v1n1of2s_4jJUBg89HtrXeg8PapC-H0-ummYMn1PAf6EmnXVkUxIovNlvEeyJf23-2pjs9rtJUaQgO-7c?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/IiToV8y62N5rTXeAF91KvepVD7GmGPndHi_JfIeZHEiBxBDuA8a5D4tzW2wn6axBXMy8xYhY3qn3b1KLIJ9g8dmooH7WaDHe2crbjf--TJi7sZ-v1n1of2s_4jJUBg89HtrXeg8PapC-H0-ummYMn1PAf6EmnXVkUxIovNlvEeyJf23-2pjs9rtJUaQgO-7c?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Spielwelt / Kampf</figcaption></figure>
+<figure><img alt="Pokémon Rejuvenation Gameplay – Ansicht 3" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/8njVIcrjjuSe6Zhf_8rvGPGxP0oRlcl-SV-9Q728IVzzk2c_htcmWlkzG431sythG9bfO-pVo_SWMqrc8UN_EmAcrG04qmtGBIypeKh7ufmXyO1ps-Pq_b8bMaR18OQKC0q3f6iU6OpKADpqSmbynrfUgwXovTC891oPKfiU3hdzbrFv9K1Jx8Y56QeSz4bU?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/8njVIcrjjuSe6Zhf_8rvGPGxP0oRlcl-SV-9Q728IVzzk2c_htcmWlkzG431sythG9bfO-pVo_SWMqrc8UN_EmAcrG04qmtGBIypeKh7ufmXyO1ps-Pq_b8bMaR18OQKC0q3f6iU6OpKADpqSmbynrfUgwXovTC891oPKfiU3hdzbrFv9K1Jx8Y56QeSz4bU?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Detail / Besonderheit</figcaption></figure>
+</div>
+</section>
+<section class="info-panel">
+<p class="short">Ein riesiges Story-Abenteuer in Aevium mit vielen Charakteren, Rätseln und Arenen.</p>
+<div class="quick-facts">
+<div><small>Sprache</small><strong>Englisch</strong></div>
+<div><small>Deutsch</small><strong>Community-Patch verfügbar</strong></div>
+</div>
+<div class="detail-sections">
+<section>
+<h3>Was ist das?</h3>
+<p>Rejuvenation ist ein eigenständiges, sehr umfangreiches PC-Fangame. Es kombiniert klassische Pokémon-Mechaniken mit einer großen, stark erzählten RPG-Handlung.</p>
+</section>
+<section>
+<h3>Was macht man?</h3>
+<p>Du fängst Pokémon, erkundest Städte, Inseln und Wildgebiete, löst Rätsel, erledigst Nebenquests und arbeitest dich durch die Arenen.</p>
+</section>
+<section>
+<h3>Worum geht es?</h3>
+<p>Nach deiner Ankunft in Aevium wirst du in den Konflikt mit Team Xen hineingezogen. Nach und nach deckst du Geheimnisse über die Region, ihre Vergangenheit und wichtige Charaktere auf.</p>
+</section>
+<section class="features">
+<h3>Besondere Merkmale</h3>
+<ul><li>Sehr lange Story</li><li>Viele Nebenquests</li><li>Field Effects</li><li>Bis zu 18 Orden</li><li>Große Aevium-Region</li></ul>
+</section>
+</div>
+</section>
+</div>
+<footer class="card-actions">
+<a aria-label="Pokémon Rejuvenation: Windows-Download öffnen" class="btn download" href="https://pkmnfan.games/rejuv-win-mfire" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon download-icon"></span><span class="btn-text"><span class="btn-title">Download</span><span class="btn-subtitle">Windows-Download öffnen</span></span></a>
+<a aria-label="Pokémon Rejuvenation: Offizielle Projektseite öffnen" class="btn homepage" href="https://www.rebornevo.com/rejuvdown/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon home-icon"></span><span class="btn-text"><span class="btn-title">Homepage</span><span class="btn-subtitle">Offizielle Projektseite öffnen</span></span></a>
+</footer>
+</div>
+</article>
+<article aria-expanded="false" class="game-card theme-insurgence" data-preview-sources="https://goood.games/_next/image?q=75&amp;url=https%3A%2F%2Fimages.igdb.com%2Figdb%2Fimage%2Fupload%2Ft_1080p%2Fsc9ezl.jpg&amp;w=3840||https://images.openai.com/static-rsc-4/ZXClyChc2JgYMEb2e_82752uWLD1V_CWNPkNw58ChICWT9d2ahWB1ENxIwcNlsqK0q6ymiRH11tgUt5jmuEaggDYGzzLgMmQBuaaQN0nJNjIBYXKwlBoahxlo_9zN0o3uFz12CGkI3GZxDMFe-pZy1MNYARNTNU9ObhG2FpsnUgw-wqKEvG7ufB13b9O5-1S?purpose=fullsize||https://pokuniverse.com/wp-content/uploads/2022/10/pokemon-insurgence-whirl-island.png" data-rank="5" style="--accent:#ef5353;--accent2:#709cff" tabindex="0">
+<div class="card-shell">
+<header class="card-head">
+<div class="rank-badge">5</div>
+<div class="title-block">
+<h2>Pokémon Insurgence</h2>
+<div class="meta-line">
+<span>PC-Fangame</span><span>Version 1.2.7</span><span>Abgeschlossen</span>
+</div>
+</div>
+<div class="zoom-hint"><span class="zoom-icon">⌕</span><span>Zum Vergrößern klicken</span></div>
+</header>
+<div class="card-body">
+<section class="media-panel">
+<figure class="hero-shot">
+<img alt="Pokémon Insurgence Gameplay – Hauptansicht" class="" data-preview-candidates="https://goood.games/_next/image?q=75&amp;url=https%3A%2F%2Fimages.igdb.com%2Figdb%2Fimage%2Fupload%2Ft_1080p%2Fsc9ezl.jpg&amp;w=3840" data-preview-role="hero" data-src="https://goood.games/_next/image?q=75&amp;url=https%3A%2F%2Fimages.igdb.com%2Figdb%2Fimage%2Fupload%2Ft_1080p%2Fsc9ezl.jpg&amp;w=3840" decoding="async" fetchpriority="high" loading="eager"/>
+<figcaption>Echtes Gameplay · Hauptansicht</figcaption>
+</figure>
+<div class="thumb-row">
+<figure><img alt="Pokémon Insurgence Gameplay – Ansicht 2" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/ZXClyChc2JgYMEb2e_82752uWLD1V_CWNPkNw58ChICWT9d2ahWB1ENxIwcNlsqK0q6ymiRH11tgUt5jmuEaggDYGzzLgMmQBuaaQN0nJNjIBYXKwlBoahxlo_9zN0o3uFz12CGkI3GZxDMFe-pZy1MNYARNTNU9ObhG2FpsnUgw-wqKEvG7ufB13b9O5-1S?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/ZXClyChc2JgYMEb2e_82752uWLD1V_CWNPkNw58ChICWT9d2ahWB1ENxIwcNlsqK0q6ymiRH11tgUt5jmuEaggDYGzzLgMmQBuaaQN0nJNjIBYXKwlBoahxlo_9zN0o3uFz12CGkI3GZxDMFe-pZy1MNYARNTNU9ObhG2FpsnUgw-wqKEvG7ufB13b9O5-1S?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Spielwelt / Kampf</figcaption></figure>
+<figure><img alt="Pokémon Insurgence Gameplay – Ansicht 3" class="" data-preview-candidates="https://pokuniverse.com/wp-content/uploads/2022/10/pokemon-insurgence-whirl-island.png||https://pokuniverse.com/wp-content/uploads/2022/10/pokemon-insurgence-staryu.png" data-preview-role="detail" data-src="https://pokuniverse.com/wp-content/uploads/2022/10/pokemon-insurgence-whirl-island.png" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Detail / Besonderheit</figcaption></figure>
+</div>
+</section>
+<section class="info-panel">
+<p class="short">Ein großes Fangame in Torren mit Delta-Pokémon, Kulten und neuen Mega-Entwicklungen.</p>
+<div class="quick-facts">
+<div><small>Sprache</small><strong>Englisch</strong></div>
+<div><small>Deutsch</small><strong>nicht verfügbar</strong></div>
+</div>
+<div class="detail-sections">
+<section>
+<h3>Was ist das?</h3>
+<p>Insurgence ist ein eigenständiges PC-Fangame mit einer neuen Region und vielen Mechaniken, die deutlich über das klassische Pokémon-Grundgerüst hinausgehen.</p>
+</section>
+<section>
+<h3>Was macht man?</h3>
+<p>Du reist durch Torren, absolvierst Arenen, stellst ein Team zusammen, entdeckst Delta-Pokémon und kannst auf Wunsch Randomizer-, Nuzlocke- und Schwierigkeitsoptionen verwenden.</p>
+</section>
+<section>
+<h3>Worum geht es?</h3>
+<p>Mehrere gefährliche Kulte kämpfen in Torren um Macht. Dein Charakter wird früh in diesen Konflikt hineingezogen und muss die Hintergründe der Gruppen aufdecken.</p>
+</section>
+<section class="features">
+<h3>Besondere Merkmale</h3>
+<ul><li>Delta-Pokémon</li><li>Neue Mega-Entwicklungen</li><li>Randomizer</li><li>Nuzlocke</li><li>Geheimbasen</li></ul>
+</section>
+</div>
+</section>
+</div>
+<footer class="card-actions">
+<a aria-label="Pokémon Insurgence: Windows-Installationsdatei herunterladen" class="btn download" href="https://p-insurgence.com/releases/1.2.7/setup.exe" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon download-icon"></span><span class="btn-text"><span class="btn-title">Download</span><span class="btn-subtitle">Windows-Installationsdatei herunterladen</span></span></a>
+<a aria-label="Pokémon Insurgence: Offizielle Projektseite öffnen" class="btn homepage" href="https://p-insurgence.com/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon home-icon"></span><span class="btn-text"><span class="btn-title">Homepage</span><span class="btn-subtitle">Offizielle Projektseite öffnen</span></span></a>
+</footer>
+</div>
+</article>
+<article aria-expanded="false" class="game-card theme-xenoverse" data-preview-sources="https://images.openai.com/static-rsc-4/8Zb3GV_SoOLI_ZCX8dwdH0ISoWSpdkAGhyJqfUaTo5xPkX6mMSqvtFNK7ZQQJQlpU4SxN2Rth75K9KPPRJaJWrbEQ6xE8di0GF5vsZklnra3q1xDqVUQjDvqd38Jo4Yc9tjPf5gfOim9UCcTnk4GUtLLX4ZGFvt6cTKXG6RufD_onWXlYv7lLwzvERGe3uhw?purpose=fullsize||https://images.launchbox-app.com//5b2027b8-43b4-4a87-acd7-160d05a7612e.png||https://images.launchbox-app.com//ebfd0b93-4d3f-4574-a818-9c26fb0b80cc.png" data-rank="6" style="--accent:#9b78ff;--accent2:#43dbff" tabindex="0">
+<div class="card-shell">
+<header class="card-head">
+<div class="rank-badge">6</div>
+<div class="title-block">
+<h2>Pokémon Xenoverse</h2>
+<div class="meta-line">
+<span>PC-Fangame</span><span>Version 1.4.0</span><span>Hauptspiel abgeschlossen</span>
+</div>
+</div>
+<div class="zoom-hint"><span class="zoom-icon">⌕</span><span>Zum Vergrößern klicken</span></div>
+</header>
+<div class="card-body">
+<section class="media-panel">
+<figure class="hero-shot">
+<img alt="Pokémon Xenoverse Gameplay – Hauptansicht" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/8Zb3GV_SoOLI_ZCX8dwdH0ISoWSpdkAGhyJqfUaTo5xPkX6mMSqvtFNK7ZQQJQlpU4SxN2Rth75K9KPPRJaJWrbEQ6xE8di0GF5vsZklnra3q1xDqVUQjDvqd38Jo4Yc9tjPf5gfOim9UCcTnk4GUtLLX4ZGFvt6cTKXG6RufD_onWXlYv7lLwzvERGe3uhw?purpose=fullsize" data-preview-role="hero" data-src="https://images.openai.com/static-rsc-4/8Zb3GV_SoOLI_ZCX8dwdH0ISoWSpdkAGhyJqfUaTo5xPkX6mMSqvtFNK7ZQQJQlpU4SxN2Rth75K9KPPRJaJWrbEQ6xE8di0GF5vsZklnra3q1xDqVUQjDvqd38Jo4Yc9tjPf5gfOim9UCcTnk4GUtLLX4ZGFvt6cTKXG6RufD_onWXlYv7lLwzvERGe3uhw?purpose=fullsize" decoding="async" fetchpriority="high" loading="eager"/>
+<figcaption>Echtes Gameplay · Hauptansicht</figcaption>
+</figure>
+<div class="thumb-row">
+<figure><img alt="Pokémon Xenoverse Gameplay – Ansicht 2" class="" data-preview-candidates="https://images.launchbox-app.com//5b2027b8-43b4-4a87-acd7-160d05a7612e.png||https://images.launchbox-app.com//2303b8fb-ca27-488a-9f27-dca38a5124ce.png" data-preview-role="detail" data-src="https://images.launchbox-app.com//5b2027b8-43b4-4a87-acd7-160d05a7612e.png" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Spielwelt / Kampf</figcaption></figure>
+<figure><img alt="Pokémon Xenoverse Gameplay – Ansicht 3" class="" data-preview-candidates="https://images.launchbox-app.com//ebfd0b93-4d3f-4574-a818-9c26fb0b80cc.png" data-preview-role="detail" data-src="https://images.launchbox-app.com//ebfd0b93-4d3f-4574-a818-9c26fb0b80cc.png" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Detail / Besonderheit</figcaption></figure>
+</div>
+</section>
+<section class="info-panel">
+<p class="short">Fast wie eine eigene neue Generation: Eldiw, X-Species und Dimensionsphänomene.</p>
+<div class="quick-facts">
+<div><small>Sprache</small><strong>Englisch / Italienisch</strong></div>
+<div><small>Deutsch</small><strong>nicht verfügbar</strong></div>
+</div>
+<div class="detail-sections">
+<section>
+<h3>Was ist das?</h3>
+<p>Pokémon Xenoverse ist ein eigenständiges Fangame mit einer komplett neuen Region, eigenen Pokémon und vielen neuen Designs. Präsentation und Kämpfe wirken deutlich moderner als bei klassischen GBA-Hacks.</p>
+</section>
+<section>
+<h3>Was macht man?</h3>
+<p>Du erkundest Eldiw, sammelst Orden, fängst bekannte und neue Pokémon und beschäftigst dich mit den besonderen X-Species.</p>
+</section>
+<section>
+<h3>Worum geht es?</h3>
+<p>Dein Charakter sucht nach seinem verschwundenen Vater. Dabei stößt du auf interdimensionale Ereignisse und das geheimnisvolle Xenoverse.</p>
+</section>
+<section class="features">
+<h3>Besondere Merkmale</h3>
+<ul><li>Eldiw-Region</li><li>X-Species</li><li>Eigene Pokémon</li><li>Neue Starter</li><li>Zusätzliche Story-Inhalte</li></ul>
+</section>
+</div>
+</section>
+</div>
+<footer class="card-actions">
+<a aria-label="Pokémon Xenoverse: GitLab-Projektarchiv herunterladen" class="btn download" href="https://gitlab.com/weedleteam/Xenoverse-Source/-/archive/main/Xenoverse-Source-main.zip" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon download-icon"></span><span class="btn-text"><span class="btn-title">Download</span><span class="btn-subtitle">GitLab-Projektarchiv herunterladen</span></span></a>
+<a aria-label="Pokémon Xenoverse: Offizielle Projektseite öffnen" class="btn homepage" href="https://eeveeexpo.com/xenoverse/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon home-icon"></span><span class="btn-text"><span class="btn-title">Homepage</span><span class="btn-subtitle">Offizielle Projektseite öffnen</span></span></a>
+</footer>
+</div>
+</article>
+<article aria-expanded="false" class="game-card theme-uranium" data-preview-sources="https://goood.games/_next/image?q=75&amp;url=https%3A%2F%2Fimages.igdb.com%2Figdb%2Fimage%2Fupload%2Ft_1080p%2Fsc7feh.jpg&amp;w=3840||https://images.openai.com/static-rsc-4/4LgRJ_igLPDLdh3EpdOcWVIIeFubk69erUhkHyIIKU0wskwCy3Ro6eK8lXQjrHmvO1XIkEPxQgMC2MLlwaw9gX4Uv6J0u2Km-IAgzipoCNBI2nJbTWkKAQplWylvzrRRkC6ldi70LJfKGdjsHgWbEip12r0XEzqkNsD3a7CdujBiHI9F6qu7rsEyl_XkoS6S?purpose=fullsize||https://images.nintendolife.com/ad1e131f74b09/large.jpg" data-rank="7" style="--accent:#91e94d;--accent2:#22d6b2" tabindex="0">
+<div class="card-shell">
+<header class="card-head">
+<div class="rank-badge">7</div>
+<div class="title-block">
+<h2>Pokémon Uranium</h2>
+<div class="meta-line">
+<span>PC-Fangame</span><span>Version 1.3.2c</span><span>Abgeschlossen</span>
+</div>
+</div>
+<div class="zoom-hint"><span class="zoom-icon">⌕</span><span>Zum Vergrößern klicken</span></div>
+</header>
+<div class="card-body">
+<section class="media-panel">
+<figure class="hero-shot">
+<img alt="Pokémon Uranium Gameplay – Hauptansicht" class="" data-preview-candidates="https://goood.games/_next/image?q=75&amp;url=https%3A%2F%2Fimages.igdb.com%2Figdb%2Fimage%2Fupload%2Ft_1080p%2Fsc7feh.jpg&amp;w=3840" data-preview-role="hero" data-src="https://goood.games/_next/image?q=75&amp;url=https%3A%2F%2Fimages.igdb.com%2Figdb%2Fimage%2Fupload%2Ft_1080p%2Fsc7feh.jpg&amp;w=3840" decoding="async" fetchpriority="low" loading="eager"/>
+<figcaption>Echtes Gameplay · Hauptansicht</figcaption>
+</figure>
+<div class="thumb-row">
+<figure><img alt="Pokémon Uranium Gameplay – Ansicht 2" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/4LgRJ_igLPDLdh3EpdOcWVIIeFubk69erUhkHyIIKU0wskwCy3Ro6eK8lXQjrHmvO1XIkEPxQgMC2MLlwaw9gX4Uv6J0u2Km-IAgzipoCNBI2nJbTWkKAQplWylvzrRRkC6ldi70LJfKGdjsHgWbEip12r0XEzqkNsD3a7CdujBiHI9F6qu7rsEyl_XkoS6S?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/4LgRJ_igLPDLdh3EpdOcWVIIeFubk69erUhkHyIIKU0wskwCy3Ro6eK8lXQjrHmvO1XIkEPxQgMC2MLlwaw9gX4Uv6J0u2Km-IAgzipoCNBI2nJbTWkKAQplWylvzrRRkC6ldi70LJfKGdjsHgWbEip12r0XEzqkNsD3a7CdujBiHI9F6qu7rsEyl_XkoS6S?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Spielwelt / Kampf</figcaption></figure>
+<figure><img alt="Pokémon Uranium Gameplay – Ansicht 3" class="" data-preview-candidates="https://images.nintendolife.com/ad1e131f74b09/large.jpg" data-preview-role="detail" data-src="https://images.nintendolife.com/ad1e131f74b09/large.jpg" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Detail / Besonderheit</figcaption></figure>
+</div>
+</section>
+<section class="info-panel">
+<p class="short">Eine neue Region mit eigenen Pokémon und dem einzigartigen Nuclear-Typ.</p>
+<div class="quick-facts">
+<div><small>Sprache</small><strong>Deutsch / Englisch / weitere</strong></div>
+<div><small>Deutsch</small><strong>verfügbar</strong></div>
+</div>
+<div class="detail-sections">
+<section>
+<h3>Was ist das?</h3>
+<p>Pokémon Uranium ist ein eigenständiges Fangame in der Tandor-Region. Es enthält zahlreiche eigens entworfene Pokémon und führt zusätzlich den Nuclear-Typ ein.</p>
+</section>
+<section>
+<h3>Was macht man?</h3>
+<p>Du sammelst Orden, erforschst Tandor, trainierst bekannte und neue Pokémon und begegnest radioaktiv veränderten Nuclear-Pokémon.</p>
+</section>
+<section>
+<h3>Worum geht es?</h3>
+<p>Ein schwerer Atomkraftwerksunfall bildet den Hintergrund der Handlung. Während deiner Reise untersuchst du dessen Folgen und versuchst zugleich herauszufinden, was mit deiner Mutter geschah.</p>
+</section>
+<section class="features">
+<h3>Besondere Merkmale</h3>
+<ul><li>Deutsch spielbar</li><li>Nuclear-Typ</li><li>Viele Fakemon</li><li>Tandor-Region</li><li>Eigene Story</li></ul>
+</section>
+</div>
+</section>
+</div>
+<footer class="card-actions">
+<a aria-label="Pokémon Uranium: ZIP-Datei bei MediaFire öffnen" class="btn download" href="https://www.mediafire.com/file/oab29qix8c3mk81/Polkamon_Uranium_132.zip/file" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon download-icon"></span><span class="btn-text"><span class="btn-title">Download</span><span class="btn-subtitle">ZIP-Datei bei MediaFire öffnen</span></span></a>
+<a aria-label="Pokémon Uranium: Offizielle Projektseite öffnen" class="btn homepage" href="https://www.reddit.com/r/pokemonuranium/comments/m9yvd6/download_links/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon home-icon"></span><span class="btn-text"><span class="btn-title">Homepage</span><span class="btn-subtitle">Offizielle Projektseite öffnen</span></span></a>
+</footer>
+</div>
+</article>
+<article aria-expanded="false" class="game-card theme-infinity" data-preview-sources="https://images.launchbox-app.com//056c4364-678f-4ae3-a2f6-810dd1070b49.png||https://images.openai.com/static-rsc-4/269C67gCD6Sov1TkU42MFZRzcob4f5FLSwvLwEQviBrdGtYo_WThFNb72CpCLjCNFZ61zcCuirb4QiZ4DWJg-_lN2rToHQfui6w6TJndsDWHbliTPWy_HXn93kNkwedwsJPE29Bhmsw5BSQWOmHt0VwSjx5C3lkRyCQx8zJYxAOnrZYKT2dS9P7P4rZZK2-_?purpose=fullsize||https://images.openai.com/static-rsc-4/SW3It9ABVdGhvwssUQM-K69X9D476IAPzEdKS__OgHFj0Mp60YLwnbUglLLKK4TjtfliYV8jeYi9vMjXOSz0MiYvEf0bwvZhQ3sqMg9qhnnLCo5865ATRK0QZHNoSycd0T7GZZO_xYIkF08M0neI3ibBL6xIkB_QgqwmeZDeVmw5ka6dNPFQegys6SgRuFmd?purpose=fullsize" data-rank="8" style="--accent:#59baff;--accent2:#ffc55b" tabindex="0">
+<div class="card-shell">
+<header class="card-head">
+<div class="rank-badge">8</div>
+<div class="title-block">
+<h2>Pokémon Infinity</h2>
+<div class="meta-line">
+<span>PC-Fangame</span><span>Version 3.3.4</span><span>Abgeschlossen</span>
+</div>
+</div>
+<div class="zoom-hint"><span class="zoom-icon">⌕</span><span>Zum Vergrößern klicken</span></div>
+</header>
+<div class="card-body">
+<section class="media-panel">
+<figure class="hero-shot">
+<img alt="Pokémon Infinity Gameplay – Hauptansicht" class="" data-preview-candidates="https://images.launchbox-app.com//056c4364-678f-4ae3-a2f6-810dd1070b49.png||https://images.launchbox-app.com//7892eb9b-ea76-4683-bc03-9ae2b5f4020a.png" data-preview-role="hero" data-src="https://images.launchbox-app.com//056c4364-678f-4ae3-a2f6-810dd1070b49.png" decoding="async" fetchpriority="low" loading="eager"/>
+<figcaption>Echtes Gameplay · Hauptansicht</figcaption>
+</figure>
+<div class="thumb-row">
+<figure><img alt="Pokémon Infinity Gameplay – Ansicht 2" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/269C67gCD6Sov1TkU42MFZRzcob4f5FLSwvLwEQviBrdGtYo_WThFNb72CpCLjCNFZ61zcCuirb4QiZ4DWJg-_lN2rToHQfui6w6TJndsDWHbliTPWy_HXn93kNkwedwsJPE29Bhmsw5BSQWOmHt0VwSjx5C3lkRyCQx8zJYxAOnrZYKT2dS9P7P4rZZK2-_?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/269C67gCD6Sov1TkU42MFZRzcob4f5FLSwvLwEQviBrdGtYo_WThFNb72CpCLjCNFZ61zcCuirb4QiZ4DWJg-_lN2rToHQfui6w6TJndsDWHbliTPWy_HXn93kNkwedwsJPE29Bhmsw5BSQWOmHt0VwSjx5C3lkRyCQx8zJYxAOnrZYKT2dS9P7P4rZZK2-_?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Spielwelt / Kampf</figcaption></figure>
+<figure><img alt="Pokémon Infinity Gameplay – Ansicht 3" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/SW3It9ABVdGhvwssUQM-K69X9D476IAPzEdKS__OgHFj0Mp60YLwnbUglLLKK4TjtfliYV8jeYi9vMjXOSz0MiYvEf0bwvZhQ3sqMg9qhnnLCo5865ATRK0QZHNoSycd0T7GZZO_xYIkF08M0neI3ibBL6xIkB_QgqwmeZDeVmw5ka6dNPFQegys6SgRuFmd?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/SW3It9ABVdGhvwssUQM-K69X9D476IAPzEdKS__OgHFj0Mp60YLwnbUglLLKK4TjtfliYV8jeYi9vMjXOSz0MiYvEf0bwvZhQ3sqMg9qhnnLCo5865ATRK0QZHNoSycd0T7GZZO_xYIkF08M0neI3ibBL6xIkB_QgqwmeZDeVmw5ka6dNPFQegys6SgRuFmd?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Detail / Besonderheit</figcaption></figure>
+</div>
+</section>
+<section class="info-panel">
+<p class="short">Ein erkundungsstarkes Fangame mit Geheimnissen, Regionalformen und eigener Region.</p>
+<div class="quick-facts">
+<div><small>Sprache</small><strong>Englisch</strong></div>
+<div><small>Deutsch</small><strong>nicht verfügbar</strong></div>
+</div>
+<div class="detail-sections">
+<section>
+<h3>Was ist das?</h3>
+<p>Pokémon Infinity spielt in der Egho-Region und kombiniert klassische Pokémon-Mechaniken mit stärkerer Erkundung, vielen Geheimnissen und eigenen Pokémon-Varianten.</p>
+</section>
+<section>
+<h3>Was macht man?</h3>
+<p>Du erkundest Egho, baust dein Team auf, löst Nebenaufgaben, suchst versteckte Orte und entdeckst zahlreiche Regionalformen und Fakemon.</p>
+</section>
+<section>
+<h3>Worum geht es?</h3>
+<p>Dein Charakter erwacht ohne vollständige Erinnerungen. Im Verlauf des Spiels versuchst du herauszufinden, wer du bist und was in deiner Vergangenheit passiert ist.</p>
+</section>
+<section class="features">
+<h3>Besondere Merkmale</h3>
+<ul><li>Egho-Region</li><li>Viele Regionalformen</li><li>Fakemon</li><li>Erkundungsfokus</li><li>Postgame</li></ul>
+</section>
+</div>
+</section>
+</div>
+<footer class="card-actions">
+<a aria-label="Pokémon Infinity: Version 3.3.4 bei MediaFire öffnen" class="btn download" href="https://www.mediafire.com/file/hp0wuz6vx1abyst/Infinity_3.3.4.zip/file" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon download-icon"></span><span class="btn-text"><span class="btn-title">Download</span><span class="btn-subtitle">Version 3.3.4 bei MediaFire öffnen</span></span></a>
+<a aria-label="Pokémon Infinity: Offizielle Projektseite öffnen" class="btn homepage" href="https://www.eeveeexpo.com/infinity/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon home-icon"></span><span class="btn-text"><span class="btn-title">Homepage</span><span class="btn-subtitle">Offizielle Projektseite öffnen</span></span></a>
+</footer>
+</div>
+</article>
+<article aria-expanded="false" class="game-card theme-gaia" data-preview-sources="https://images.openai.com/static-rsc-4/1dDEqeqxbQknsSe5tPpPondBkgoZx5pDmt9wnHNPWGufmndz61bCzEWf3Me24XGD9o9R3i0BDqv2iWhMqGqNMZiYXTP3pZ-0p0ADSl-d4M-pTu12M_3jJiY42GbtG6TVmWoOAxjQaurVOhPbF9EfVFF5-ka70tG68Ieq_xsxsyu5r-dEXJlwKhSq33PZFbw3?purpose=fullsize||https://images.openai.com/static-rsc-4/BQF7MHKPTY6gQyMHs6iPfquR559x6QIuDlyw2BlxYSUy9cmy0aEAnh4n58JpQkygqWeohvZwjWGyk1p09ySx9XTTguI6JNjKlo6AzQvGbDL_hCkVnieqSWf00BKUNLUV6tYn-_0lrHNMXjhOm_LvtgPbBA5KUD7ku1sWNKFRV_xvmDQKHYdNFwWHHQdPwRqJ?purpose=fullsize||https://images.openai.com/static-rsc-4/R9n1H0UyO920E12Kqd4AnO2r_LatZ3aeFivucx4LKINvS6xra_MvHSAYQQjqB12yKR6gNF8UOupVwH53-fUEb6MvCa1MvlVrW5__1wPCjkyA7bjGUI4ml6YjN79svPMmvvez4db1bHLrIIxjy-1eiPfgfVl_lGk1F3ElXYn7PqhUHnywtdLNCZo4lG2xFwrP?purpose=fullsize" data-rank="9" style="--accent:#bdcf72;--accent2:#d69b55" tabindex="0">
+<div class="card-shell">
+<header class="card-head">
+<div class="rank-badge">9</div>
+<div class="title-block">
+<h2>Pokémon Gaia</h2>
+<div class="meta-line">
+<span>GBA-ROM-Hack</span><span>Version 3.2</span><span>Hauptgeschichte abgeschlossen</span>
+</div>
+</div>
+<div class="zoom-hint"><span class="zoom-icon">⌕</span><span>Zum Vergrößern klicken</span></div>
+</header>
+<div class="card-body">
+<section class="media-panel">
+<figure class="hero-shot">
+<img alt="Pokémon Gaia Gameplay – Hauptansicht" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/1dDEqeqxbQknsSe5tPpPondBkgoZx5pDmt9wnHNPWGufmndz61bCzEWf3Me24XGD9o9R3i0BDqv2iWhMqGqNMZiYXTP3pZ-0p0ADSl-d4M-pTu12M_3jJiY42GbtG6TVmWoOAxjQaurVOhPbF9EfVFF5-ka70tG68Ieq_xsxsyu5r-dEXJlwKhSq33PZFbw3?purpose=fullsize" data-preview-role="hero" data-src="https://images.openai.com/static-rsc-4/1dDEqeqxbQknsSe5tPpPondBkgoZx5pDmt9wnHNPWGufmndz61bCzEWf3Me24XGD9o9R3i0BDqv2iWhMqGqNMZiYXTP3pZ-0p0ADSl-d4M-pTu12M_3jJiY42GbtG6TVmWoOAxjQaurVOhPbF9EfVFF5-ka70tG68Ieq_xsxsyu5r-dEXJlwKhSq33PZFbw3?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/>
+<figcaption>Echtes Gameplay · Hauptansicht</figcaption>
+</figure>
+<div class="thumb-row">
+<figure><img alt="Pokémon Gaia Gameplay – Ansicht 2" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/BQF7MHKPTY6gQyMHs6iPfquR559x6QIuDlyw2BlxYSUy9cmy0aEAnh4n58JpQkygqWeohvZwjWGyk1p09ySx9XTTguI6JNjKlo6AzQvGbDL_hCkVnieqSWf00BKUNLUV6tYn-_0lrHNMXjhOm_LvtgPbBA5KUD7ku1sWNKFRV_xvmDQKHYdNFwWHHQdPwRqJ?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/BQF7MHKPTY6gQyMHs6iPfquR559x6QIuDlyw2BlxYSUy9cmy0aEAnh4n58JpQkygqWeohvZwjWGyk1p09ySx9XTTguI6JNjKlo6AzQvGbDL_hCkVnieqSWf00BKUNLUV6tYn-_0lrHNMXjhOm_LvtgPbBA5KUD7ku1sWNKFRV_xvmDQKHYdNFwWHHQdPwRqJ?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Spielwelt / Kampf</figcaption></figure>
+<figure><img alt="Pokémon Gaia Gameplay – Ansicht 3" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/R9n1H0UyO920E12Kqd4AnO2r_LatZ3aeFivucx4LKINvS6xra_MvHSAYQQjqB12yKR6gNF8UOupVwH53-fUEb6MvCa1MvlVrW5__1wPCjkyA7bjGUI4ml6YjN79svPMmvvez4db1bHLrIIxjy-1eiPfgfVl_lGk1F3ElXYn7PqhUHnywtdLNCZo4lG2xFwrP?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/R9n1H0UyO920E12Kqd4AnO2r_LatZ3aeFivucx4LKINvS6xra_MvHSAYQQjqB12yKR6gNF8UOupVwH53-fUEb6MvCa1MvlVrW5__1wPCjkyA7bjGUI4ml6YjN79svPMmvvez4db1bHLrIIxjy-1eiPfgfVl_lGk1F3ElXYn7PqhUHnywtdLNCZo4lG2xFwrP?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Detail / Besonderheit</figcaption></figure>
+</div>
+</section>
+<section class="info-panel">
+<p class="short">Ein klassischer GBA-Rom-Hack mit neuer Region, Ruinen und archäologischen Geheimnissen.</p>
+<div class="quick-facts">
+<div><small>Sprache</small><strong>Englisch / Spanisch</strong></div>
+<div><small>Deutsch</small><strong>kein fertiger aktueller Release bestätigt</strong></div>
+</div>
+<div class="detail-sections">
+<section>
+<h3>Was ist das?</h3>
+<p>Pokémon Gaia ist ein FireRed-ROM-Hack, der sich bewusst stark wie ein offizielles klassisches Pokémon-Spiel anfühlt. Die Orbtus-Region wurde vollständig neu gestaltet.</p>
+</section>
+<section>
+<h3>Was macht man?</h3>
+<p>Du erhältst einen Starter, fängst Pokémon, besiegst Arenaleiter, erkundest Städte und Höhlen und untersuchst zahlreiche Ruinen.</p>
+</section>
+<section>
+<h3>Worum geht es?</h3>
+<p>In Orbtus häufen sich ungewöhnliche Erdbeben. Die Hinweise führen zu einer längst verschwundenen Zivilisation und ihren Hinterlassenschaften.</p>
+</section>
+<section class="features">
+<h3>Besondere Merkmale</h3>
+<ul><li>Klassisches GBA-Gefühl</li><li>Neue Region</li><li>Ruinen &amp; Tempel</li><li>Mega-Entwicklungen</li><li>Neue Story</li></ul>
+</section>
+</div>
+</section>
+</div>
+<footer class="card-actions">
+<a aria-label="Pokémon Gaia: Offizielle Patch-Seite öffnen" class="btn download" href="https://www.pokecommunity.com/threads/pok%C3%A9mon-gaia-version.326118/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon download-icon"></span><span class="btn-text"><span class="btn-title">Download</span><span class="btn-subtitle">Offizielle Patch-Seite öffnen</span></span></a>
+<a aria-label="Pokémon Gaia: Offizielle Projektseite öffnen" class="btn homepage" href="https://www.pokecommunity.com/threads/pok%C3%A9mon-gaia-version.326118/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon home-icon"></span><span class="btn-text"><span class="btn-title">Homepage</span><span class="btn-subtitle">Offizielle Projektseite öffnen</span></span></a>
+</footer>
+</div>
+</article>
+<article aria-expanded="false" class="game-card theme-odyssey" data-preview-sources="https://cdn.thegamesdb.net/images/medium/screenshot/130032-1.jpg||https://images.openai.com/static-rsc-4/f0BxcKDSfpLkmZPy5gvro-k4uEM4sbQT1uQK7LHUTMPvLHcWcEdg8cpTVBJDswdWw5zy6CuTQ7yOcsbGhZlurlT9rkbcTaiTSvGI6wbMPtzqM5YjjDC4Q238vW6V3qWXIUH4XvHIYIU9EZQ7m3rE6NlSi3BkAJvc8OCJkGV7oYLTyowfWCKVLP9E7wIp7HM9?purpose=fullsize||https://i.postimg.cc/BnHTNC3Q/images-1.jpg" data-rank="10" style="--accent:#d9a854;--accent2:#679cda" tabindex="0">
+<div class="card-shell">
+<header class="card-head">
+<div class="rank-badge">10</div>
+<div class="title-block">
+<h2>Pokémon Odyssey</h2>
+<div class="meta-line">
+<span>GBA-ROM-Hack</span><span>Version 4.1.1</span><span>Abgeschlossen</span>
+</div>
+</div>
+<div class="zoom-hint"><span class="zoom-icon">⌕</span><span>Zum Vergrößern klicken</span></div>
+</header>
+<div class="card-body">
+<section class="media-panel">
+<figure class="hero-shot">
+<img alt="Pokémon Odyssey Gameplay – Hauptansicht" class="" data-preview-candidates="https://cdn.thegamesdb.net/images/medium/screenshot/130032-1.jpg" data-preview-role="hero" data-src="https://cdn.thegamesdb.net/images/medium/screenshot/130032-1.jpg" decoding="async" fetchpriority="low" loading="eager"/>
+<figcaption>Echtes Gameplay · Hauptansicht</figcaption>
+</figure>
+<div class="thumb-row">
+<figure><img alt="Pokémon Odyssey Gameplay – Ansicht 2" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/f0BxcKDSfpLkmZPy5gvro-k4uEM4sbQT1uQK7LHUTMPvLHcWcEdg8cpTVBJDswdWw5zy6CuTQ7yOcsbGhZlurlT9rkbcTaiTSvGI6wbMPtzqM5YjjDC4Q238vW6V3qWXIUH4XvHIYIU9EZQ7m3rE6NlSi3BkAJvc8OCJkGV7oYLTyowfWCKVLP9E7wIp7HM9?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/f0BxcKDSfpLkmZPy5gvro-k4uEM4sbQT1uQK7LHUTMPvLHcWcEdg8cpTVBJDswdWw5zy6CuTQ7yOcsbGhZlurlT9rkbcTaiTSvGI6wbMPtzqM5YjjDC4Q238vW6V3qWXIUH4XvHIYIU9EZQ7m3rE6NlSi3BkAJvc8OCJkGV7oYLTyowfWCKVLP9E7wIp7HM9?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Spielwelt / Kampf</figcaption></figure>
+<figure><img alt="Pokémon Odyssey Gameplay – Ansicht 3" class="" data-preview-candidates="https://i.postimg.cc/BnHTNC3Q/images-1.jpg||https://i.postimg.cc/nzD9cFLV/images-2.jpg" data-preview-role="detail" data-src="https://i.postimg.cc/BnHTNC3Q/images-1.jpg" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Detail / Besonderheit</figcaption></figure>
+</div>
+</section>
+<section class="info-panel">
+<p class="short">Ein Dungeon-orientierter ROM-Hack rund um das riesige Yggdrasil-Labyrinth.</p>
+<div class="quick-facts">
+<div><small>Sprache</small><strong>Englisch / Italienisch</strong></div>
+<div><small>Deutsch</small><strong>nicht verfügbar</strong></div>
+</div>
+<div class="detail-sections">
+<section>
+<h3>Was ist das?</h3>
+<p>Pokémon Odyssey verbindet Pokémon mit Elementen klassischer Dungeon-RPGs. Statt einer normalen Arenareise steht die Erkundung eines riesigen Labyrinths im Mittelpunkt.</p>
+</section>
+<section>
+<h3>Was macht man?</h3>
+<p>Du dringst tiefer in Yggdrasil vor, sammelst Ressourcen, löst Nebenaufgaben und optimierst dein Team für viele taktische Doppelkämpfe.</p>
+</section>
+<section>
+<h3>Worum geht es?</h3>
+<p>Auf der Insel Talrega befindet sich der Eingang zu Yggdrasil. Deine Aufgabe ist es, das Labyrinth zu erforschen und seine Geheimnisse Stück für Stück aufzudecken.</p>
+</section>
+<section class="features">
+<h3>Besondere Merkmale</h3>
+<ul><li>Dungeon-Fokus</li><li>Viele Doppelkämpfe</li><li>Ressourcen &amp; Erkundung</li><li>Nebenquests</li><li>Ungewöhnlicher Spielaufbau</li></ul>
+</section>
+</div>
+</section>
+</div>
+<footer class="card-actions">
+<a aria-label="Pokémon Odyssey: Patch 4.1.1 bei MediaFire öffnen" class="btn download" href="https://www.mediafire.com/file/1lka2b8zwav7c6j/Pok%C3%A9mon_Odyssey_COMPLETE_v4.1_%28EXPANDED_BAG%29.zip/file" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon download-icon"></span><span class="btn-text"><span class="btn-title">Download</span><span class="btn-subtitle">Patch 4.1.1 bei MediaFire öffnen</span></span></a>
+<a aria-label="Pokémon Odyssey: Offizielle Projektseite öffnen" class="btn homepage" href="https://eeveeexpo.com/odyssey/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon home-icon"></span><span class="btn-text"><span class="btn-title">Homepage</span><span class="btn-subtitle">Offizielle Projektseite öffnen</span></span></a>
+</footer>
+</div>
+</article>
+<article aria-expanded="false" class="game-card theme-seaglass" data-preview-sources="https://images.openai.com/static-rsc-4/wuOYzekzWMur1m0XTa-lrD3YFiQwh2IyKUYzT2wfPHAKww-c28iRpmpXPJS4YwxpTysp2tqnXNn7FamfFTspO4Jvh4fZ-sVQfsPqZDKj31uq9wBTS7S2GK6gICLsRbG_uGliMJmvRc0pMUwx3u_B8bdmxL9HzLBHabW-FuqIvNPPedlMJ8KAqJvce1p8g4l0?purpose=fullsize||https://images.openai.com/static-rsc-4/YTymt1Tg2aoUFo13Saflqu9ftF5CI7jKK-5kmspIKa9n3KwsTuRmVZAnX6ekt0KEExcReHurb-nTra36GH4jDetMKEYbd5xgRxkmpu9zo_ALKIj84tCig-uKND54m7a9Zc9Mxbqu6wh3d7N6A9-eeZYsnjZjTdhVoauM6E4akQq3i1-geITMx599WIwKQgeH?purpose=fullsize||https://resizer.ladbiblegroup.com/ogimage/v3/assets/bltbc1876152fcd9f07/blt6292245df86eddea/68230cd2dff17b38695bd9c1/Emerald.png" data-rank="11" style="--accent:#b6efce;--accent2:#f0d498" tabindex="0">
+<div class="card-shell">
+<header class="card-head">
+<div class="rank-badge">11</div>
+<div class="title-block">
+<h2>Pokémon Emerald Seaglass</h2>
+<div class="meta-line">
+<span>GBA-ROM-Hack</span><span>Version 3.0</span><span>Abgeschlossen</span>
+</div>
+</div>
+<div class="zoom-hint"><span class="zoom-icon">⌕</span><span>Zum Vergrößern klicken</span></div>
+</header>
+<div class="card-body">
+<section class="media-panel">
+<figure class="hero-shot">
+<img alt="Pokémon Emerald Seaglass Gameplay – Hauptansicht" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/wuOYzekzWMur1m0XTa-lrD3YFiQwh2IyKUYzT2wfPHAKww-c28iRpmpXPJS4YwxpTysp2tqnXNn7FamfFTspO4Jvh4fZ-sVQfsPqZDKj31uq9wBTS7S2GK6gICLsRbG_uGliMJmvRc0pMUwx3u_B8bdmxL9HzLBHabW-FuqIvNPPedlMJ8KAqJvce1p8g4l0?purpose=fullsize" data-preview-role="hero" data-src="https://images.openai.com/static-rsc-4/wuOYzekzWMur1m0XTa-lrD3YFiQwh2IyKUYzT2wfPHAKww-c28iRpmpXPJS4YwxpTysp2tqnXNn7FamfFTspO4Jvh4fZ-sVQfsPqZDKj31uq9wBTS7S2GK6gICLsRbG_uGliMJmvRc0pMUwx3u_B8bdmxL9HzLBHabW-FuqIvNPPedlMJ8KAqJvce1p8g4l0?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/>
+<figcaption>Echtes Gameplay · Hauptansicht</figcaption>
+</figure>
+<div class="thumb-row">
+<figure><img alt="Pokémon Emerald Seaglass Gameplay – Ansicht 2" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/YTymt1Tg2aoUFo13Saflqu9ftF5CI7jKK-5kmspIKa9n3KwsTuRmVZAnX6ekt0KEExcReHurb-nTra36GH4jDetMKEYbd5xgRxkmpu9zo_ALKIj84tCig-uKND54m7a9Zc9Mxbqu6wh3d7N6A9-eeZYsnjZjTdhVoauM6E4akQq3i1-geITMx599WIwKQgeH?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/YTymt1Tg2aoUFo13Saflqu9ftF5CI7jKK-5kmspIKa9n3KwsTuRmVZAnX6ekt0KEExcReHurb-nTra36GH4jDetMKEYbd5xgRxkmpu9zo_ALKIj84tCig-uKND54m7a9Zc9Mxbqu6wh3d7N6A9-eeZYsnjZjTdhVoauM6E4akQq3i1-geITMx599WIwKQgeH?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Spielwelt / Kampf</figcaption></figure>
+<figure><img alt="Pokémon Emerald Seaglass Gameplay – Ansicht 3" class="" data-preview-candidates="https://resizer.ladbiblegroup.com/ogimage/v3/assets/bltbc1876152fcd9f07/blt6292245df86eddea/68230cd2dff17b38695bd9c1/Emerald.png" data-preview-role="detail" data-src="https://resizer.ladbiblegroup.com/ogimage/v3/assets/bltbc1876152fcd9f07/blt6292245df86eddea/68230cd2dff17b38695bd9c1/Emerald.png" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Detail / Besonderheit</figcaption></figure>
+</div>
+</section>
+<section class="info-panel">
+<p class="short">Pokémon Smaragd mit wunderschönem Game-Boy-Color-inspiriertem Retro-Look.</p>
+<div class="quick-facts">
+<div><small>Sprache</small><strong>Englisch</strong></div>
+<div><small>Deutsch</small><strong>nicht verfügbar</strong></div>
+</div>
+<div class="detail-sections">
+<section>
+<h3>Was ist das?</h3>
+<p>Emerald Seaglass ist eine Neuinterpretation von Pokémon Smaragd. Hoenn und die Grundgeschichte bleiben erhalten, Grafik und viele Komfortfunktionen wurden jedoch stark überarbeitet.</p>
+</section>
+<section>
+<h3>Was macht man?</h3>
+<p>Du bereist Hoenn, besiegst acht Arenen, kämpfst gegen Team Aqua und Team Magma und entdeckst bekannte Gebiete in einem komplett neuen Retro-Stil.</p>
+</section>
+<section>
+<h3>Worum geht es?</h3>
+<p>Die Handlung folgt grundsätzlich Pokémon Smaragd. Der besondere Reiz liegt vor allem in der neuen Präsentation, den angepassten Begegnungen und zusätzlichen Komfortfunktionen.</p>
+</section>
+<section class="features">
+<h3>Besondere Merkmale</h3>
+<ul><li>GBC-inspirierte Grafik</li><li>Hoenn</li><li>Moderne Komfortfunktionen</li><li>Neue Begegnungen</li><li>Retro-Präsentation</li></ul>
+</section>
+</div>
+</section>
+</div>
+<footer class="card-actions">
+<a aria-label="Pokémon Emerald Seaglass: Offizielle Download-Seite öffnen" class="btn download" href="https://ko-fi.com/s/4a1535f351" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon download-icon"></span><span class="btn-text"><span class="btn-title">Download</span><span class="btn-subtitle">Offizielle Download-Seite öffnen</span></span></a>
+<a aria-label="Pokémon Emerald Seaglass: Offizielle Projektseite öffnen" class="btn homepage" href="https://ko-fi.com/nemo622" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon home-icon"></span><span class="btn-text"><span class="btn-title">Homepage</span><span class="btn-subtitle">Offizielle Projektseite öffnen</span></span></a>
+</footer>
+</div>
+</article>
+<article aria-expanded="false" class="game-card theme-desolation" data-preview-sources="https://images.openai.com/static-rsc-4/LS6u2tZjDUxN7XnnRvuIptu11MVrN8gd-cMrgE1y6u2x3kk43cpBOKMpcikVlncbNLMy5ePlXOrQEIHRs51BVxnNlTk-neijOozvOHEc1h6gM2d_fUbhJmqN3e2ixkQxslKwp-tzJhrcDVZ1M3X5WzEfsMa-fYsfS8LVLYC3lOjTahmnJSkytJEfR0YvVWJr?purpose=fullsize||https://images.openai.com/static-rsc-4/8md-CyMm-cfoqulxauz_F2FlRMXNObH50u8S0_5Th7-yBKprdBs8hAftwMY9d4DJqQhsl1ZBThgQeoKqz63Iu2TpUwyM3kED78aHJq7jfVvN681CiQQlOzPkQlfbLgmgUfkDAkh_lhsOe-ksNZDc7NcmN4rVOUVUjO3LtNuHSYSqdns5YRf2lPGc8n2MU9dS?purpose=fullsize||https://www.rebornevo.com/uploads/monthly_2025_06/image.png.3036ba7d83fe3024dbeb361bf02c0cad.png" data-rank="12" style="--accent:#de6871;--accent2:#8792aa" tabindex="0">
+<div class="card-shell">
+<header class="card-head">
+<div class="rank-badge">12</div>
+<div class="title-block">
+<h2>Pokémon Desolation</h2>
+<div class="meta-line">
+<span>PC-Fangame</span><span>Version Episode 6</span><span>Noch in Entwicklung</span>
+</div>
+</div>
+<div class="zoom-hint"><span class="zoom-icon">⌕</span><span>Zum Vergrößern klicken</span></div>
+</header>
+<div class="card-body">
+<section class="media-panel">
+<figure class="hero-shot">
+<img alt="Pokémon Desolation Gameplay – Hauptansicht" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/LS6u2tZjDUxN7XnnRvuIptu11MVrN8gd-cMrgE1y6u2x3kk43cpBOKMpcikVlncbNLMy5ePlXOrQEIHRs51BVxnNlTk-neijOozvOHEc1h6gM2d_fUbhJmqN3e2ixkQxslKwp-tzJhrcDVZ1M3X5WzEfsMa-fYsfS8LVLYC3lOjTahmnJSkytJEfR0YvVWJr?purpose=fullsize" data-preview-role="hero" data-src="https://images.openai.com/static-rsc-4/LS6u2tZjDUxN7XnnRvuIptu11MVrN8gd-cMrgE1y6u2x3kk43cpBOKMpcikVlncbNLMy5ePlXOrQEIHRs51BVxnNlTk-neijOozvOHEc1h6gM2d_fUbhJmqN3e2ixkQxslKwp-tzJhrcDVZ1M3X5WzEfsMa-fYsfS8LVLYC3lOjTahmnJSkytJEfR0YvVWJr?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/>
+<figcaption>Echtes Gameplay · Hauptansicht</figcaption>
+</figure>
+<div class="thumb-row">
+<figure><img alt="Pokémon Desolation Gameplay – Ansicht 2" class="" data-preview-candidates="https://images.openai.com/static-rsc-4/8md-CyMm-cfoqulxauz_F2FlRMXNObH50u8S0_5Th7-yBKprdBs8hAftwMY9d4DJqQhsl1ZBThgQeoKqz63Iu2TpUwyM3kED78aHJq7jfVvN681CiQQlOzPkQlfbLgmgUfkDAkh_lhsOe-ksNZDc7NcmN4rVOUVUjO3LtNuHSYSqdns5YRf2lPGc8n2MU9dS?purpose=fullsize" data-preview-role="detail" data-src="https://images.openai.com/static-rsc-4/8md-CyMm-cfoqulxauz_F2FlRMXNObH50u8S0_5Th7-yBKprdBs8hAftwMY9d4DJqQhsl1ZBThgQeoKqz63Iu2TpUwyM3kED78aHJq7jfVvN681CiQQlOzPkQlfbLgmgUfkDAkh_lhsOe-ksNZDc7NcmN4rVOUVUjO3LtNuHSYSqdns5YRf2lPGc8n2MU9dS?purpose=fullsize" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Spielwelt / Kampf</figcaption></figure>
+<figure><img alt="Pokémon Desolation Gameplay – Ansicht 3" class="" data-preview-candidates="https://www.rebornevo.com/uploads/monthly_2025_06/image.png.3036ba7d83fe3024dbeb361bf02c0cad.png" data-preview-role="detail" data-src="https://www.rebornevo.com/uploads/monthly_2025_06/image.png.3036ba7d83fe3024dbeb361bf02c0cad.png" decoding="async" fetchpriority="low" loading="eager"/><figcaption>Detail / Besonderheit</figcaption></figure>
+</div>
+</section>
+<section class="info-panel">
+<p class="short">Ein düsteres Story-Fangame mit Entscheidungen, Nebenquests und Beziehungen.</p>
+<div class="quick-facts">
+<div><small>Sprache</small><strong>Englisch</strong></div>
+<div><small>Deutsch</small><strong>nicht verfügbar</strong></div>
+</div>
+<div class="detail-sections">
+<section>
+<h3>Was ist das?</h3>
+<p>Pokémon Desolation ist ein eigenständiges PC-Fangame mit starkem RPG-Fokus. Neben klassischen Pokémon-Kämpfen spielen Entscheidungen, Charakterbeziehungen und Nebenquests eine größere Rolle.</p>
+</section>
+<section>
+<h3>Was macht man?</h3>
+<p>Du erkundest die Region, stellst dein Team zusammen, absolvierst Arenen, löst Quests und triffst Entscheidungen, die bestimmte Ereignisse beeinflussen können.</p>
+</section>
+<section>
+<h3>Worum geht es?</h3>
+<p>Nach einer Schiffskatastrophe strandest du in einer gefährlichen Region. Von dort entwickelt sich eine größere Geschichte voller Konflikte und Geheimnisse.</p>
+</section>
+<section class="features">
+<h3>Besondere Merkmale</h3>
+<ul><li>Entscheidungen</li><li>Charakterbeziehungen</li><li>Field Effects</li><li>Nebenquests</li><li>Ausbaubares Anwesen</li></ul>
+</section>
+</div>
+</section>
+</div>
+<footer class="card-actions">
+<a aria-label="Pokémon Desolation: Offizielle Download-Seite öffnen" class="btn download" href="https://www.rebornevo.com/deso/desodownloads/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon download-icon"></span><span class="btn-text"><span class="btn-title">Download</span><span class="btn-subtitle">Offizielle Download-Seite öffnen</span></span></a>
+<a aria-label="Pokémon Desolation: Offizielle Projektseite öffnen" class="btn homepage" href="https://www.rebornevo.com/deso/desodownloads/" rel="noopener noreferrer" target="_blank"><span aria-hidden="true" class="btn-css-icon home-icon"></span><span class="btn-text"><span class="btn-title">Homepage</span><span class="btn-subtitle">Offizielle Projektseite öffnen</span></span></a>
+</footer>
+</div>
+</article>
+</main>
+<div aria-hidden="true" class="focus-backdrop" id="focusBackdrop"></div>
+<script>
+(() => {
+  const cards = [...document.querySelectorAll('.game-card')];
+  const backdrop = document.getElementById('focusBackdrop');
+  let focused = null;
+
+  function openCard(card) {
+    if (focused && focused !== card) closeCard();
+    focused = card;
+    card.classList.add('focused');
+    card.setAttribute('aria-expanded','true');
+    document.body.classList.add('focus-open');
+    backdrop.classList.add('active');
+    backdrop.setAttribute('aria-hidden','false');
+  }
+
+  function closeCard() {
+    if (!focused) return;
+    focused.classList.remove('focused');
+    focused.setAttribute('aria-expanded','false');
+    focused = null;
+    document.body.classList.remove('focus-open');
+    backdrop.classList.remove('active');
+    backdrop.setAttribute('aria-hidden','true');
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('click', e => {
+      if (e.target.closest('a, button')) return;
+      if (focused === card) closeCard();
+      else openCard(card);
+    });
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (e.target.closest('a, button')) return;
+        e.preventDefault();
+        if (focused === card) closeCard();
+        else openCard(card);
+      }
+    });
+    card.querySelectorAll('a').forEach(a => a.addEventListener('click', e => e.stopPropagation()));
+  });
+
+  backdrop.addEventListener('click', closeCard);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeCard();
+  });
+})();
+</script>
+<script>
+/* ROBUST-PREVIEW-LOADER v1.0 – slot-spezifische, visuell geprüfte Screenshots */
+(() => {
+  const cards = [...document.querySelectorAll('.game-card')];
+  if (!cards.length) return;
+
+  const MAX_CONCURRENT = 4;
+  const RETRY_DELAYS = [650, 1600];
+
+  const queue = [];
+  let active = 0;
+
+  function normalizedUrl(value) {
+    try {
+      const url = new URL(value, document.baseURI);
+
+      // Retry-Parameter für die logische Duplikatprüfung ignorieren.
+      url.searchParams.delete('preview_retry');
+      return url.href;
+    } catch {
+      return String(value || '').trim();
+    }
+  }
+
+  function getSlotCandidates(img) {
+    const primary = (img.dataset.src || '').trim();
+    const declared = (img.dataset.previewCandidates || '')
+      .split('||')
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    const result = [];
+    const seen = new Set();
+
+    [primary, ...declared].forEach(src => {
+      if (!src) return;
+      const key = normalizedUrl(src);
+      if (!key || seen.has(key)) return;
+      seen.add(key);
+      result.push(src);
+    });
+
+    return result;
+  }
+
+  function getUsedSources(card, exceptImg = null) {
+    const used = new Set();
+
+    card.querySelectorAll('img[data-preview-role]').forEach(img => {
+      if (img === exceptImg) return;
+
+      const assigned = img.dataset.assignedSrc || '';
+      const loaded = img.dataset.loadedSrc || '';
+
+      if (assigned) used.add(normalizedUrl(assigned));
+      if (loaded) used.add(normalizedUrl(loaded));
+    });
+
+    return used;
+  }
+
+  function isSourceFreeForCard(card, img, src) {
+    const key = normalizedUrl(src);
+    if (!key) return false;
+    return !getUsedSources(card, img).has(key);
+  }
+
+  function reserveSource(img, src) {
+    img.dataset.assignedSrc = src;
+  }
+
+  function releaseReservation(img) {
+    delete img.dataset.assignedSrc;
+  }
+
+  function setUnavailable(img) {
+    releaseReservation(img);
+    delete img.dataset.loadedSrc;
+
+    img.removeAttribute('src');
+    img.classList.remove('preview-loaded', 'preview-retrying');
+    img.classList.add('preview-unavailable');
+    img.setAttribute('aria-hidden', 'true');
+  }
+
+  function loadAttempt(card, img, candidates, candidateIndex = 0, retryIndex = 0) {
+    if (candidateIndex >= candidates.length) {
+      setUnavailable(img);
+      return Promise.resolve(false);
+    }
+
+    const src = candidates[candidateIndex];
+
+    // Auch slot-spezifische Backups dürfen niemals einen bereits
+    // von Hero/Detail genutzten Screenshot derselben Karte übernehmen.
+    if (!isSourceFreeForCard(card, img, src)) {
+      return loadAttempt(card, img, candidates, candidateIndex + 1, 0);
+    }
+
+    reserveSource(img, src);
+
+    return new Promise(resolve => {
+      let settled = false;
+
+      const cleanup = () => {
+        img.onload = null;
+        img.onerror = null;
+      };
+
+      const succeed = () => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+
+        img.dataset.loadedSrc = src;
+        releaseReservation(img);
+
+        img.classList.remove('preview-retrying', 'preview-unavailable');
+        img.classList.add('preview-loaded');
+        img.removeAttribute('aria-hidden');
+
+        resolve(true);
+      };
+
+      const fail = () => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+
+        if (retryIndex < RETRY_DELAYS.length) {
+          img.classList.add('preview-retrying');
+
+          const delay = RETRY_DELAYS[retryIndex];
+          setTimeout(() => {
+            // Während des Retries weiterhin prüfen, ob derselbe logische
+            // Screenshot inzwischen von einem anderen Slot belegt wurde.
+            if (!isSourceFreeForCard(card, img, src)) {
+              releaseReservation(img);
+              loadAttempt(card, img, candidates, candidateIndex + 1, 0)
+                .then(resolve);
+              return;
+            }
+
+            reserveSource(img, src);
+            loadAttempt(card, img, candidates, candidateIndex, retryIndex + 1)
+              .then(resolve);
+          }, delay);
+        } else {
+          releaseReservation(img);
+
+          // Ausschließlich der nächste Kandidat DIESES Slots.
+          // Niemals Quellen aus Hero/anderen Detail-Slots übernehmen.
+          loadAttempt(card, img, candidates, candidateIndex + 1, 0)
+            .then(resolve);
+        }
+      };
+
+      img.onload = succeed;
+      img.onerror = fail;
+
+      const requestSrc = retryIndex > 0
+        ? src + (src.includes('?') ? '&' : '?') + 'preview_retry=' + retryIndex
+        : src;
+
+      img.src = requestSrc;
+
+      if (img.complete && img.naturalWidth > 0) {
+        queueMicrotask(succeed);
+      }
+    });
+  }
+
+  async function runJob(job) {
+    const { card, img } = job;
+    const candidates = getSlotCandidates(img);
+
+    if (!candidates.length) {
+      setUnavailable(img);
+      return;
+    }
+
+    await loadAttempt(card, img, candidates);
+  }
+
+  function pump() {
+    while (active < MAX_CONCURRENT && queue.length) {
+      const job = queue.shift();
+      active++;
+
+      runJob(job).finally(() => {
+        active--;
+        pump();
+      });
+    }
+  }
+
+  // Zustand vollständig zurücksetzen.
+  cards.forEach(card => {
+    card.querySelectorAll('img[data-preview-role]').forEach(img => {
+      img.removeAttribute('src');
+      delete img.dataset.assignedSrc;
+      delete img.dataset.loadedSrc;
+
+      img.classList.remove(
+        'preview-loaded',
+        'preview-retrying',
+        'preview-unavailable'
+      );
+    });
+  });
+
+  // Hero-Screenshots zuerst, danach beide Details.
+  const heroes = [];
+  const details = [];
+
+  cards.forEach(card => {
+    card.querySelectorAll('img[data-preview-role]').forEach(img => {
+      const job = { card, img };
+
+      if (img.dataset.previewRole === 'hero') heroes.push(job);
+      else details.push(job);
+    });
+  });
+
+  queue.push(...heroes, ...details);
+  pump();
+})();
+</script></body>
+</html>
