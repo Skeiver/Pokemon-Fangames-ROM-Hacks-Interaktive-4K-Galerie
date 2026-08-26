@@ -1,0 +1,71 @@
+name: Publish versioned release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install audit dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-dev.txt
+
+      - name: Validate tag and immutable v1.0
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="$(tr -d '\r\n' < VERSION)"
+          test "$GITHUB_REF_NAME" = "v$VERSION"
+          echo "8aebc7593933f37db0838c7ffb16a8da93b116848d71cb58326addea14145968  Pokemon_Fangames_ROM-Hacks_Galerie_v1.0.html" | sha256sum --check --strict
+          echo "7b44a6c3f2a14f5530bd971e2be813a1c803c98a998110329d0eb909b3f36722  assets/Pokemon_Fangames_ROM-Hacks_Galerie_v1.0_preview.webp" | sha256sum --check --strict
+
+      - name: Rebuild and audit release
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/build_v1_1.py
+          python scripts/write_checksums.py
+          git diff --exit-code -- index.html Pokemon_Fangames_ROM-Hacks_Galerie_v1.1.html SHA256SUMS.txt
+          python scripts/audit_gallery.py --html index.html
+          python scripts/check_javascript.py --html index.html
+          python scripts/audit_links.py --html index.html
+
+      - name: Build release assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="$(tr -d '\r\n' < VERSION)"
+          BASE="Pokemon_Fangames_ROM-Hacks_Galerie_v${VERSION}"
+          mkdir -p package/assets dist
+          cp "$BASE.html" package/
+          cp -R assets/screenshots package/assets/screenshots
+          cp README.md NOTICE.md SCREENSHOT_SOURCES.md SHA256SUMS.txt VERSION package/
+          (cd package && zip -9 -r "../dist/$BASE.zip" .)
+          cp "$BASE.html" README.md NOTICE.md SCREENSHOT_SOURCES.md dist/
+          (cd dist && sha256sum "$BASE.html" "$BASE.zip" README.md NOTICE.md SCREENSHOT_SOURCES.md > SHA256SUMS.txt)
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="$(tr -d '\r\n' < VERSION)"
+          gh release create "$GITHUB_REF_NAME" dist/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "Pokémon Fangames & ROM-Hacks Galerie v${VERSION}" \
+            --generate-notes \
+            --verify-tag
