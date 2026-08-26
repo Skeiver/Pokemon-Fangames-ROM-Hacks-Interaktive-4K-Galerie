@@ -1,0 +1,60 @@
+name: Fehler melden
+description: Fehler in Galerie, Vorschaubildern, Links oder Darstellung melden
+title: "[Fehler] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke für die Fehlermeldung. Bitte beschreibe das Problem möglichst genau.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Betroffener Bereich
+      options:
+        - Galerie / Layout
+        - Vorschaubilder
+        - Karten-Zoom / Interaktion
+        - Download-Link
+        - Homepage-Link
+        - GitHub Pages
+        - Release / Download
+        - Sonstiges
+    validations:
+      required: true
+
+  - type: input
+    id: game
+    attributes:
+      label: Betroffenes Spiel
+      description: Falls der Fehler nur eine bestimmte Karte betrifft.
+      placeholder: z. B. Pokémon Unbound
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Fehlerbeschreibung
+      description: Was funktioniert nicht oder wird falsch dargestellt?
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Erwartetes Verhalten
+      description: Was sollte stattdessen passieren?
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser und Version
+      placeholder: z. B. Brave 1.xx / Chrome 142
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Zusätzliche Informationen
+      description: Optional weitere Details, Fehlermeldungen oder Links.
